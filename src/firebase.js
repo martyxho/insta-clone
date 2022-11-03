@@ -20,6 +20,7 @@ import {
   doc,
   serverTimestamp,
   getDocs,
+  getDoc,
 } from 'firebase/firestore';
 import { 
   getStorage, 
@@ -42,10 +43,20 @@ function getProfilePicUrl() {
   return getAuth().currentUser.photoURL || './assets/images/profile_placeholder.png';
 }
 
-// Returns the signed-in user's display name.
-function getUserName() {
-  return getAuth().currentUser.displayName;
+// Returns the user's display name.
+async function getUserName(uid) {
+  const docRef = doc(db, 'users', uid);
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()) {
+    return docSnap.data().name;
+  }
 }
+
+function getUserID() {
+  return getAuth().currentUser.uid;
+}
+
+
 
 function getEmail() {
   return getAuth().currentUser.email;
@@ -62,12 +73,29 @@ function signOutUser() {
   signOut(getAuth());
 }
 
+async function handleSignUp(name) {
+  await signIn();
+  saveUser(name);
+}
+
+function uploadUserPic() {
+ 
+}
+
+
+async function saveUser(name) {
+  const postRef = await setDoc(doc(db, 'users', getAuth().currentUser.uid), {
+    name: name,
+    email: getEmail(),
+  });
+}
+
 function initFirebaseAuth() {
   // Listen to auth state changes.
   onAuthStateChanged(getAuth(), authStateObserver);
 }
 
-function authStateObserver(user) {
+async function authStateObserver(user) {
   // html element shortcuts
   const loginBtns = document.getElementById('login-btns');
   const userInfo = document.getElementById('user-info');
@@ -77,7 +105,7 @@ function authStateObserver(user) {
   if (user) {
     // get user name and pic
     const profilePicUrl = getProfilePicUrl();
-    const userName = getUserName();
+    const userName = await getUserName(getUserID());
 
     // set user name and pic
     userPicElement.style.backgroundImage =
@@ -106,7 +134,7 @@ async function uploadPost(file, text) {
   try {
     // add doc to firestore 
     const postRef = await addDoc(collection(db, 'posts'), {
-      name: getUserName(),
+      uid: getUserID(),
       email: getEmail(),
       text: text,
       profilePicUrl: getProfilePicUrl(),
@@ -147,4 +175,4 @@ const storage = getStorage(app);
 initFirebaseAuth();
 getPosts();
 
-export { signIn, signOutUser, uploadPost, getPosts };
+export { signIn, signOutUser, uploadPost, getPosts, handleSignUp, getUserName };

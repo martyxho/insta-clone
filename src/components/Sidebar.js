@@ -1,10 +1,10 @@
 import { signIn, signOutUser } from "../firebase";
 
-function Sidebar ({ openUpload }) {
+function Sidebar ({ openUpload, openSignUp }) {
   return (
     <div className="home-sidebar">
       <div id="login-btns">
-        <button>Sign Up</button>
+        <button onClick={openSignUp}>Sign Up</button>
         <button onClick={signIn}>Login</button>
       </div>
       <div id="user-info" hidden>

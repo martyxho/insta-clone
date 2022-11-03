@@ -1,4 +1,15 @@
-function Card ({ userPicUrl, username, imageUrl, caption }) {
+import React, { useState, useEffect } from "react";
+import { getUserName } from "../firebase";
+
+function Card ({ userPicUrl, uid, imageUrl, caption }) {
+  const [username, setUsername] = useState('');
+  useEffect(() => {
+    async function setName() {
+      const username = await getUserName(uid);
+      setUsername(username);
+    }
+    setName()
+  }, [uid]);
 
   return (
     <div className="card">

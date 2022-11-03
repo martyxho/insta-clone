@@ -69,7 +69,7 @@ nav {
   border-radius: 20px;
 }
 
-.upload_container {
+.upload_container, #sign-up-form {
   width: 400px;
   border-radius: 20px;
   border: 1px solid gray;
@@ -82,6 +82,11 @@ nav {
   gap: 16px;
   background-color: white;
   padding: 16px;
+}
+
+#sign-up-form form {
+  display: flex;
+  flex-direction: column;
 }
 
 .upload_header {

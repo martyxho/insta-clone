@@ -14,7 +14,7 @@ function Card ({ userPicUrl, uid, imageUrl, caption }) {
   return (
     <div className="card">
       <div className="card-header">
-        <img src={userPicUrl} className='user-pic' alt="user-pic" />
+        <img src={userPicUrl} className='user-pic' alt="user-pic" referrerPolicy="no-referrer"/>
         <div className="user-name">
           {username}
         </div>

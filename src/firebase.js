@@ -87,6 +87,7 @@ async function saveUser(name) {
   const postRef = await setDoc(doc(db, 'users', getAuth().currentUser.uid), {
     name: name,
     email: getEmail(),
+    profilePicUrl: getProfilePicUrl(),
   });
 }
 
@@ -106,10 +107,8 @@ async function authStateObserver(user) {
     // get user name and pic
     const profilePicUrl = getProfilePicUrl();
     const userName = await getUserName(getUserID());
-
     // set user name and pic
-    userPicElement.style.backgroundImage =
-      'url(' + addSizeToGoogleProfilePic(profilePicUrl) + ')';
+    userPicElement.src = profilePicUrl;
     userNameElement.textContent = userName;
 
     //hide login buttons

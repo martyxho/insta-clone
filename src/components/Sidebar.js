@@ -9,7 +9,7 @@ function Sidebar ({ openUpload, openSignUp }) {
       </div>
       <div id="user-info" hidden>
         <div id="user-container">
-          <div id="user-pic" ></div>
+          <img id="user-pic" alt='user-pic' referrerPolicy="no-referrer"/>
           <div id="user-name"></div>
         </div>
         <button onClick={openUpload}>New Post</button>

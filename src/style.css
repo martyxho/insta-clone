@@ -61,11 +61,8 @@ nav {
 
 #user-pic {
   position: relative;
-  background-image: url('/src/assets/images/profile_placeholder.png');
-  background-repeat: no-repeat;
   width: 40px;
   height: 40px;
-  background-size: 40px;
   border-radius: 20px;
 }
 
@@ -104,9 +101,13 @@ nav {
 }
 
 .card-header {
+  display: flex;
   height: 50px;
 }
 
+.user-pic {
+  height: 50px;
+}
 .main-img {
   height: 450px;
 }

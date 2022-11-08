@@ -56,7 +56,9 @@ function getUserID() {
   return getAuth().currentUser.uid;
 }
 
-
+function getUser() {
+  return getAuth().currentUser;
+}
 
 function getEmail() {
   return getAuth().currentUser.email;
@@ -132,12 +134,14 @@ function addSizeToGoogleProfilePic(url) {
 async function uploadPost(file, text) {
   try {
     // add doc to firestore 
+    const uid = getUserID()
     const postRef = await addDoc(collection(db, 'posts'), {
-      uid: getUserID(),
+      uid: uid,
       email: getEmail(),
       text: text,
       profilePicUrl: getProfilePicUrl(),
-      timestamp: serverTimestamp()
+      timestamp: serverTimestamp(),
+      likes: [uid],
     });
 
     // Upload the image to Cloud Storage.
@@ -151,12 +155,24 @@ async function uploadPost(file, text) {
     // Update firestore doc with the image's URL.
     await updateDoc(postRef,{
       imageUrl: publicImageUrl,
-      storageUri: fileSnapshot.metadata.fullPath
+      storageUri: fileSnapshot.metadata.fullPath,
+      postID: postRef.id,
     });
   } catch(error) {
     console.error('Error uploading to Firebase', error);
   }
 } 
+
+async function updateLikes(postID, likes) {
+  try {
+    const docRef = doc(db, 'posts', postID);
+    await updateDoc(docRef, {
+      likes: likes
+    });
+  } catch(error) {
+    console.error('Error uploading to Firebase', error);
+  }
+}
 
 async function getPosts() {
   const postsRef = collection(db, 'posts');
@@ -174,4 +190,4 @@ const storage = getStorage(app);
 initFirebaseAuth();
 getPosts();
 
-export { signIn, signOutUser, uploadPost, getPosts, handleSignUp, getUserName };
+export { signIn, signOutUser, uploadPost, getPosts, handleSignUp, getUser, getUserName, updateLikes };

@@ -100,6 +100,15 @@ nav {
   margin-bottom: 4em;
 }
 
+.card-btns {
+  display: flex;
+}
+
+.card-btn {
+  height: 25px;
+  cursor: pointer;
+}
+
 .card-header {
   display: flex;
   height: 50px;

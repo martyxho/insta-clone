@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import uniqid from 'uniqid';
 import { getPosts } from "./firebase";
 import Nav from "./components/Nav";
 import Card from "./components/Card";
@@ -18,7 +19,7 @@ function App() {
       setPosts(x);
     }
     setData();
-  });
+  },[upload]);
 
   function openUploadForm () {
     setUpload(true);
@@ -49,7 +50,7 @@ function App() {
         <div className="home-inner">
           <div className="home-feed">
             { posts &&
-              posts.map(e => <Card userPicUrl={e.profilePicUrl} uid={e.uid} imageUrl={e.imageUrl} caption={e.text}/> )
+              posts.map(e => <Card postID={e.postID} userPicUrl={e.profilePicUrl} uid={e.uid} imageUrl={e.imageUrl} caption={e.text} likes={e.likes}/> )
             }
           </div>
           <Sidebar openUpload={openUploadForm} openSignUp={openSignUpForm} />

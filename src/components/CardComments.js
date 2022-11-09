@@ -22,9 +22,10 @@ function CardComments({ postID, refresh }) {
   async function handleSend() {
     const user = getUser();
     if (user && value) {
-      await addComment(postID, value);
-      await setData();
+      const text = value;
       setValue('');
+      await addComment(postID, text);
+      await setData();
       refresh();
     }
   }

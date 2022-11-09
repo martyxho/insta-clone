@@ -174,13 +174,44 @@ async function updateLikes(postID, likes) {
   }
 }
 
+async function addComment(postID, text) {
+  try {
+    const colRef = collection(db, 'posts', postID, 'comments');
+    await addDoc(colRef, {
+      text: text,
+      uid: getUserID(),
+      profilePicUrl: getProfilePicUrl(),
+      timestamp: serverTimestamp(),
+    });
+  } catch(error) {
+    console.error('Error uploading to Firebase', error);
+  }
+}
+
+async function getComments(postID) {
+  try {
+    const cmtsRef = collection(db, 'posts', postID, 'comments');
+    const q = query(cmtsRef, orderBy('timestamp', 'desc'), limit(2));
+    const querySnapshot = await getDocs(q);
+    const arr = [];
+    querySnapshot.forEach(e => arr.push(e.data()));
+    return arr;
+  } catch(error) {
+    console.error('Error acessing data from Firebase', error);
+  }
+}
+
 async function getPosts() {
-  const postsRef = collection(db, 'posts');
-  const q = query(postsRef, orderBy('timestamp', 'desc'));
-  const querySnapshot = await getDocs(q);
-  const arr = [];
-  querySnapshot.forEach(e => arr.push(e.data()));
-  return arr;
+  try {
+    const postsRef = collection(db, 'posts');
+    const q = query(postsRef, orderBy('timestamp', 'desc'));
+    const querySnapshot = await getDocs(q);
+    const arr = [];
+    querySnapshot.forEach(e => arr.push(e.data()));
+    return arr;
+  } catch(error) {
+    console.error('Error acessing data from Firebase', error);
+  }
 }
 
 // Initialize Firebase
@@ -190,4 +221,4 @@ const storage = getStorage(app);
 initFirebaseAuth();
 getPosts();
 
-export { signIn, signOutUser, uploadPost, getPosts, handleSignUp, getUser, getUserName, updateLikes };
+export { signIn, signOutUser, uploadPost, getPosts, handleSignUp, getUser, getUserName, updateLikes, addComment, getComments };

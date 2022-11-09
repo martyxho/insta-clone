@@ -9,6 +9,7 @@ import SignUpForm from "./components/SignUpForm";
 
 function App() {
 
+  const [refresh, setRefresh] = useState(false);
   const [signUp, setSignUp] = useState(false);
   const [upload, setUpload] = useState(false);
   const [posts, setPosts] = useState(false);
@@ -19,7 +20,16 @@ function App() {
       setPosts(x);
     }
     setData();
-  },[upload]);
+    console.log('refresh');
+  }, [refresh]);
+
+  function toggleRefresh() {
+    if (refresh) {
+      setRefresh(false);
+    } else {
+      setRefresh(true);
+    }
+  }
 
   function openUploadForm () {
     setUpload(true);
@@ -41,7 +51,7 @@ function App() {
     <div className="App">
       <Nav />
       {upload &&
-        <PostForm close={closeUploadForm}/>
+        <PostForm close={closeUploadForm} refresh={toggleRefresh}/>
       }
       {signUp &&
         <SignUpForm />
@@ -50,7 +60,7 @@ function App() {
         <div className="home-inner">
           <div className="home-feed">
             { posts &&
-              posts.map(e => <Card postID={e.postID} userPicUrl={e.profilePicUrl} uid={e.uid} imageUrl={e.imageUrl} caption={e.text} likes={e.likes}/> )
+              posts.map(e => <Card postID={e.postID} userPicUrl={e.profilePicUrl} uid={e.uid} imageUrl={e.imageUrl} caption={e.text} likes={e.likes} refresh={toggleRefresh}/> )
             }
           </div>
           <Sidebar openUpload={openUploadForm} openSignUp={openSignUpForm} />

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { getUser, getUserName, updateLikes } from "../firebase";
+import CardComments from "./CardComments";
 import heart from '../assets/heart-outline.svg';
 
-function Card ({ postID, userPicUrl, uid, imageUrl, caption, likes }) {
+function Card ({ postID, userPicUrl, uid, imageUrl, caption, likes, refresh }) {
   const [username, setUsername] = useState('');
   useEffect(() => {
     async function setName() {
@@ -12,16 +13,17 @@ function Card ({ postID, userPicUrl, uid, imageUrl, caption, likes }) {
     setName()
   }, [uid]);
 
-  function handleLike() {
+  async function handleLike() {
     const user = getUser();
     if (user) {
       if (likes.includes(user.uid)) {
         const newLikes = likes.filter(e => e !== user.uid);
-        updateLikes(postID, newLikes);
+        await updateLikes(postID, newLikes);
       } else {
         const newLikes = [...likes, user.uid];
-        updateLikes(postID, newLikes);
+        await updateLikes(postID, newLikes);
       }
+      refresh();
     }
   }
 
@@ -46,9 +48,7 @@ function Card ({ postID, userPicUrl, uid, imageUrl, caption, likes }) {
         <div className="card-likes">
           {likes.length} likes
         </div>
-        <div className="card-commments">
-          comments
-        </div>
+        <CardComments postID={postID} refresh={refresh}/>
       </div>
     </div>
   )

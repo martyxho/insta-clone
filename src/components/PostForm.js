@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { uploadPost } from "../firebase";
 
-function PostForm ({ close }) {
+function PostForm ({ close, refresh }) {
   const [text, setText] = useState('');
 
   function handleTextChange(e) {
@@ -13,9 +13,10 @@ function PostForm ({ close }) {
     const fileInput = document.getElementById('pic-input');
     const file = fileInput.files[0];
     if (file) {
-      uploadPost(file, text);
+      await uploadPost(file, text);
       close();
     }
+    refresh();
   }
 
   return (

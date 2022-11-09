@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getUser, addComment, getComments } from "../firebase";
+import CommentSmall from "./CommentSmall";
 
 function CardComments({ postID, refresh }) {
   const [value, setValue] = useState('');
@@ -22,8 +23,8 @@ function CardComments({ postID, refresh }) {
     const user = getUser();
     if (user && value) {
       await addComment(postID, value);
-      setValue('');
       await setData();
+      setValue('');
       refresh();
     }
   }
@@ -33,7 +34,7 @@ function CardComments({ postID, refresh }) {
       <p>View All Comments</p>
       <div className="cmts">
         {comments && 
-          comments.map(e => <p>{e.text}</p>)
+          comments.map(e => <CommentSmall uid={e.uid} text={e.text} />)
         }
       </div>
       <form>

@@ -5,6 +5,7 @@ import heart from '../assets/heart-outline.svg';
 
 function Card ({ postID, userPicUrl, uid, imageUrl, caption, likes, refresh }) {
   const [username, setUsername] = useState('');
+  const [likesCount, setLikesCount] = useState(likes.length);
   useEffect(() => {
     async function setName() {
       const username = await getUserName(uid);
@@ -17,9 +18,11 @@ function Card ({ postID, userPicUrl, uid, imageUrl, caption, likes, refresh }) {
     const user = getUser();
     if (user) {
       if (likes.includes(user.uid)) {
+        setLikesCount(likes.length - 1);
         const newLikes = likes.filter(e => e !== user.uid);
         await updateLikes(postID, newLikes);
       } else {
+        setLikesCount(likes.length + 1);
         const newLikes = [...likes, user.uid];
         await updateLikes(postID, newLikes);
       }
@@ -46,7 +49,7 @@ function Card ({ postID, userPicUrl, uid, imageUrl, caption, likes, refresh }) {
           <button>btn</button>
         </div>
         <div className="card-likes">
-          {likes.length} likes
+          {likesCount} likes
         </div>
         <CardComments postID={postID} refresh={refresh}/>
       </div>

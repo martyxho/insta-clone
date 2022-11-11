@@ -13,7 +13,7 @@ function RouteSwitch ({ posts, refresh}) {
         {posts && 
           posts.map(e => {
             const path = `/post/${e.postID}`;
-            return <Route path={path} element= {<Post e={e}/>}/>
+            return <Route path={path} element= {<Post post={e}/>}/>
           })
         }
       </Routes>

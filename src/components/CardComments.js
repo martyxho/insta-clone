@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { getUser, addComment, getComments } from "../firebase";
+import { getComments } from "../firebase";
 import CommentSmall from "./CommentSmall";
+import CommentForm from "./CommentForm";
 
 function CardComments({ postID, refresh }) {
-  const [value, setValue] = useState('');
   const [comments, setComments] = useState('');
 
   useEffect(() => {
@@ -15,21 +15,6 @@ function CardComments({ postID, refresh }) {
     setComments(x);
   }
 
-  function handleChange(e) {
-    setValue(e.target.value);
-  }
-
-  async function handleSend() {
-    const user = getUser();
-    if (user && value) {
-      const text = value;
-      setValue('');
-      await addComment(postID, text);
-      await setData();
-      refresh();
-    }
-  }
-
   return (
     <div className="cmts-container">
       <p>View All Comments</p>
@@ -38,10 +23,7 @@ function CardComments({ postID, refresh }) {
           comments.map(e => <CommentSmall uid={e.uid} text={e.text} />)
         }
       </div>
-      <form>
-        <input type='text' placeholder="Add a comment..." value={value} onChange={handleChange}/>
-      </form>
-      <button onClick={handleSend}>Send</button>
+      <CommentForm postID={postID} refresh={refresh} setData={setData}/>
     </div>
   )
 }

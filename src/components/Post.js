@@ -1,11 +1,11 @@
-function Post({e}) {
+import PostSidebar from "./PostSidebar";
+
+function Post({post}) {
   return (
     <div className="post-main">
       <div className="post-container">
-        <img src={e.imageUrl} alt="post-img" className="post-img"/>
-        <div className="post-sidebar">
-
-        </div>
+        <img src={post.imageUrl} alt="post-img" className="post-img"/>
+        <PostSidebar post={post}/>
       </div>
     </div>
   )

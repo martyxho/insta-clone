@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import uniqid from 'uniqid';
 import Card from "./components/Card";
 import Sidebar from "./components/Sidebar";
 import PostForm from "./components/PostForm";
@@ -38,7 +37,7 @@ function Home({ posts, refresh }) {
         <div className="home-inner">
           <div className="home-feed">
             { posts &&
-              posts.map(e => <Card postID={e.postID} userPicUrl={e.profilePicUrl} uid={e.uid} imageUrl={e.imageUrl} caption={e.text} likes={e.likes} refresh={refresh}/> )
+              posts.map(e => <Card post={e} refresh={refresh}/> )
             }
           </div>
           <Sidebar openUpload={openUploadForm} openSignUp={openSignUpForm} />

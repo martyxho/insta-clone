@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { getUser, getUserName, updateLikes } from "../firebase";
+import { getUserName } from "../firebase";
 import CardComments from "./CardComments";
-import heart from '../assets/heart-outline.svg';
+import PostButtons from './PostButtons';
 
-function Card ({ postID, userPicUrl, uid, imageUrl, caption, likes, refresh }) {
+function Card ({ post, refresh }) {
+  const { postID, uid, imageUrl, profilePicUrl, likes, text } = post;
   const [username, setUsername] = useState('');
-  const [likesCount, setLikesCount] = useState(likes.length);
-  const path = `/post/${postID}`;
 
   useEffect(() => {
     async function setName() {
@@ -17,26 +15,10 @@ function Card ({ postID, userPicUrl, uid, imageUrl, caption, likes, refresh }) {
     setName()
   }, [uid]);
 
-  async function handleLike() {
-    const user = getUser();
-    if (user) {
-      if (likes.includes(user.uid)) {
-        setLikesCount(likes.length - 1);
-        const newLikes = likes.filter(e => e !== user.uid);
-        await updateLikes(postID, newLikes);
-      } else {
-        setLikesCount(likes.length + 1);
-        const newLikes = [...likes, user.uid];
-        await updateLikes(postID, newLikes);
-      }
-      refresh();
-    }
-  }
-
   return (
     <div className="card">
       <div className="card-header">
-        <img src={userPicUrl} className='user-pic' alt="user-pic" referrerPolicy="no-referrer"/>
+        <img src={profilePicUrl} className='user-pic' alt="user-pic" referrerPolicy="no-referrer"/>
         <div className="user-name">
           {username}
         </div>
@@ -44,17 +26,10 @@ function Card ({ postID, userPicUrl, uid, imageUrl, caption, likes, refresh }) {
       <img src={imageUrl} className="main-img" alt="pic"/>
       <div className="card-footer">
         <div className="caption">
-          {caption}
+          {text}
         </div>
-        <div className="card-btns">
-          <img className='card-btn' alt='heart' src={heart} onClick={handleLike} />
-          <Link to={path}>View Post</Link>
-          <button>btn</button>
-        </div>
-        <div className="card-likes">
-          {likesCount} likes
-        </div>
-        <CardComments postID={postID} refresh={refresh}/>
+        <PostButtons postID={postID} likes={likes} refresh={refresh} />
+        <CardComments postID={postID} refresh={refresh} />
       </div>
     </div>
   )

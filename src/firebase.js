@@ -188,10 +188,10 @@ async function addComment(postID, text) {
   }
 }
 
-async function getComments(postID) {
+async function getComments(postID, lim = 2) {
   try {
     const cmtsRef = collection(db, 'posts', postID, 'comments');
-    const q = query(cmtsRef, orderBy('timestamp', 'desc'), limit(2));
+    const q = query(cmtsRef, orderBy('timestamp', 'desc'), limit(lim));
     const querySnapshot = await getDocs(q);
     const arr = [];
     querySnapshot.forEach(e => arr.push(e.data()));
@@ -204,7 +204,7 @@ async function getComments(postID) {
 async function getPosts() {
   try {
     const postsRef = collection(db, 'posts');
-    const q = query(postsRef, orderBy('timestamp', 'desc'));
+    const q = query(postsRef, orderBy('timestamp', 'desc'), limit(15));
     const querySnapshot = await getDocs(q);
     const arr = [];
     querySnapshot.forEach(e => arr.push(e.data()));

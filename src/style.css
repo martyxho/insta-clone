@@ -152,11 +152,13 @@ nav {
   box-shadow: 0px 0px 100px 5px rgb(221, 219, 219);
   border-radius: 20px;
   display: flex;
+  overflow: hidden;
 }
 
 .post-img {
   width: 35em;
   height: 39.5em;
+  object-fit: cover;
 }
 
 .post-sidebar {

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { getUser, getUserName, updateLikes } from "../firebase";
 import CardComments from "./CardComments";
 import heart from '../assets/heart-outline.svg';
@@ -6,6 +7,8 @@ import heart from '../assets/heart-outline.svg';
 function Card ({ postID, userPicUrl, uid, imageUrl, caption, likes, refresh }) {
   const [username, setUsername] = useState('');
   const [likesCount, setLikesCount] = useState(likes.length);
+  const path = `/post/${postID}`;
+
   useEffect(() => {
     async function setName() {
       const username = await getUserName(uid);
@@ -45,7 +48,7 @@ function Card ({ postID, userPicUrl, uid, imageUrl, caption, likes, refresh }) {
         </div>
         <div className="card-btns">
           <img className='card-btn' alt='heart' src={heart} onClick={handleLike} />
-          <button>btn</button>
+          <Link to={path}>View Post</Link>
           <button>btn</button>
         </div>
         <div className="card-likes">

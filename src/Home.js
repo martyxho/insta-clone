@@ -1,34 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import uniqid from 'uniqid';
-import { getPosts } from "./firebase";
 import Card from "./components/Card";
 import Sidebar from "./components/Sidebar";
 import PostForm from "./components/PostForm";
 import SignUpForm from "./components/SignUpForm";
 
-function Home() {
+function Home({ posts, refresh }) {
 
-  const [refresh, setRefresh] = useState(false);
   const [signUp, setSignUp] = useState(false);
   const [upload, setUpload] = useState(false);
-  const [posts, setPosts] = useState(false);
-
-  useEffect(() => {
-    async function setData() {
-      const x = await getPosts();
-      setPosts(x);
-    }
-    setData();
-    console.log('refresh');
-  }, [refresh]);
-
-  function toggleRefresh() {
-    if (refresh) {
-      setRefresh(false);
-    } else {
-      setRefresh(true);
-    }
-  }
 
   function openUploadForm () {
     setUpload(true);
@@ -49,7 +29,7 @@ function Home() {
   return (
     <div className="home">
       {upload &&
-        <PostForm close={closeUploadForm} refresh={toggleRefresh}/>
+        <PostForm close={closeUploadForm} refresh={refresh}/>
       }
       {signUp &&
         <SignUpForm />
@@ -58,7 +38,7 @@ function Home() {
         <div className="home-inner">
           <div className="home-feed">
             { posts &&
-              posts.map(e => <Card postID={e.postID} userPicUrl={e.profilePicUrl} uid={e.uid} imageUrl={e.imageUrl} caption={e.text} likes={e.likes} refresh={toggleRefresh}/> )
+              posts.map(e => <Card postID={e.postID} userPicUrl={e.profilePicUrl} uid={e.uid} imageUrl={e.imageUrl} caption={e.text} likes={e.likes} refresh={refresh}/> )
             }
           </div>
           <Sidebar openUpload={openUploadForm} openSignUp={openSignUpForm} />

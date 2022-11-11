@@ -140,6 +140,28 @@ nav {
   height: 450px;
 }
 
+.post-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 55px;
+  height: calc(100vh - 55px);
+}
+
+.post-container {
+  box-shadow: 0px 0px 100px 5px rgb(221, 219, 219);
+  border-radius: 20px;
+  display: flex;
+}
+
+.post-img {
+  width: 35em;
+  height: 39.5em;
+}
+
+.post-sidebar {
+  border: 1px solid black;
+}
 
 
 

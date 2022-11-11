@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Nav () {
   return (
     <nav>
@@ -8,7 +10,7 @@ function Nav () {
 
       </div>
       <div id="nav-btns">
-
+        <Link to='test'>test</Link>
       </div>
     </nav>
   )

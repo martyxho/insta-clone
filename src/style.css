@@ -180,6 +180,10 @@ nav {
   justify-content: space-between;
 }
 
+.post-cmt-username {
+  font-weight: bold;
+}
+
 .post-cmt div {
   display: flex;
   gap: 5px;

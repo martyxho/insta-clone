@@ -124,6 +124,10 @@ async function authStateObserver(user) {
   }
 }
 
+async function callAuthStateObserver() {
+  await authStateObserver(getAuth());
+}
+
 function addSizeToGoogleProfilePic(url) {
   if (url.indexOf('googleusercontent.com') !== -1 && url.indexOf('?') === -1) {
     return url + '?sz=150';
@@ -221,4 +225,4 @@ const storage = getStorage(app);
 initFirebaseAuth();
 getPosts();
 
-export { signIn, signOutUser, uploadPost, getPosts, handleSignUp, getUser, getUserName, updateLikes, addComment, getComments };
+export { signIn, signOutUser, uploadPost, getPosts, handleSignUp, getUser, getUserName, updateLikes, addComment, getComments, callAuthStateObserver };

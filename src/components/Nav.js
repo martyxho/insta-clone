@@ -4,13 +4,12 @@ function Nav () {
   return (
     <nav>
       <div id="logo">
-        Instagram
+        <Link to='/'>Instagram</Link>
       </div>
       <div id="search">
 
       </div>
       <div id="nav-btns">
-        <Link to='test'>test</Link>
       </div>
     </nav>
   )

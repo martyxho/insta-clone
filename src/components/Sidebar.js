@@ -1,6 +1,15 @@
-import { signIn, signOutUser } from "../firebase";
+import React, {useEffect} from "react";
+import { signIn, signOutUser, callAuthStateObserver } from "../firebase";
 
 function Sidebar ({ openUpload, openSignUp }) {
+
+  useEffect(() => {
+    async function refreshUser() {
+      await callAuthStateObserver();
+    }
+    refreshUser();
+  }, []);
+
   return (
     <div className="home-sidebar">
       <div id="login-btns">

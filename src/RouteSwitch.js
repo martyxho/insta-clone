@@ -9,7 +9,6 @@ function RouteSwitch ({ posts, refresh}) {
       <Nav />
       <Routes>
         <Route path="/" element={<Home posts={posts} refresh={refresh} />} />
-        <Route path="/test" element={<Post />}/>
         {posts && 
           posts.map(e => {
             const path = `/post/${e.postID}`;

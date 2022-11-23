@@ -5,6 +5,10 @@
   font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 nav {
   position: fixed;
   top: 0;
@@ -163,7 +167,27 @@ nav {
 
 .post-sidebar {
   border: 1px solid black;
+  width: 400px;
 }
 
+.post-comments {
+  height: 315px;
+  overflow: scroll;
+}
+
+.post-cmt {
+  display: flex;
+  justify-content: space-between;
+}
+
+.post-cmt div {
+  display: flex;
+  gap: 5px;
+}
+
+.post-cmt-user-pic {
+  height: 30px;
+  border-radius: 50%;
+}
 
 

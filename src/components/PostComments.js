@@ -1,10 +1,10 @@
-import CommentSmall from "./CommentSmall";
+import PostComment from "./PostComment";
 
 function PostComments ({ comments }) {
   return (
     <div className="post-comments">
       {comments &&
-        comments.map(e => <CommentSmall uid={e.uid} text={e.text} />)
+        comments.map(e => <PostComment cmt={e} />)
       }
     </div>
   )

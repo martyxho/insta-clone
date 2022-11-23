@@ -8,7 +8,8 @@ function CommentForm({postID, refresh, setData}) {
     setValue(e.target.value);
   }
 
-  async function handleSend() {
+  async function handleSend(e) {
+    e.preventDefault();
     const user = getUser();
     if (user && value) {
       const text = value;
@@ -21,10 +22,10 @@ function CommentForm({postID, refresh, setData}) {
 
   return (
     <div className="comment-form">
-      <form>
+      <form onSubmit={handleSend}>
         <input type='text' placeholder="Add a comment..." value={value} onChange={handleChange}/>
+        <button type="submit">Send</button>
       </form>
-      <button onClick={handleSend}>Send</button>
     </div>
   )
 }

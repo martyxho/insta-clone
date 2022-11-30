@@ -19,7 +19,7 @@ function Card ({ post, refresh }) {
   return (
     <div className="card">
       <div className="card-header">
-        <Link>
+        <Link to={'/profile/' + uid} >
           <img src={profilePicUrl} className='user-pic' alt="user-pic" referrerPolicy="no-referrer"/>
           <div className="user-name">
             {username}

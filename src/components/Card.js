@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { getUserName } from "../firebase";
+import { Link } from "react-router-dom";
+import { getUserProfile } from "../firebase";
 import CardComments from "./CardComments";
 import PostButtons from './PostButtons';
 
@@ -9,8 +10,8 @@ function Card ({ post, refresh }) {
 
   useEffect(() => {
     async function setName() {
-      const username = await getUserName(uid);
-      setUsername(username);
+      const user = await getUserProfile(uid);
+      setUsername(user.name);
     }
     setName()
   }, [uid]);
@@ -18,10 +19,12 @@ function Card ({ post, refresh }) {
   return (
     <div className="card">
       <div className="card-header">
-        <img src={profilePicUrl} className='user-pic' alt="user-pic" referrerPolicy="no-referrer"/>
-        <div className="user-name">
-          {username}
-        </div>
+        <Link>
+          <img src={profilePicUrl} className='user-pic' alt="user-pic" referrerPolicy="no-referrer"/>
+          <div className="user-name">
+            {username}
+          </div>
+        </Link>
       </div>
       <img src={imageUrl} className="main-img" alt="pic"/>
       <div className="card-footer">

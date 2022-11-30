@@ -1,6 +1,11 @@
 import PostSidebar from "./PostSidebar";
+import { useParams } from "react-router-dom";
 
-function Post({post, refresh}) {
+function Post({posts, refresh}) {
+
+  const { postID } = useParams();
+  const [post] = posts.filter(e => e.postID === postID);
+  
   return (
     <div className="post-main">
       <div className="post-container">

@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Nav from "./components/Nav";
 import Post from "./components/Post";
 import Home from "./Home";
+import Profile from "./components/Profile";
 
 function RouteSwitch ({ posts, refresh}) {
   return (
@@ -9,12 +10,8 @@ function RouteSwitch ({ posts, refresh}) {
       <Nav />
       <Routes>
         <Route path="/" element={<Home posts={posts} refresh={refresh} />} />
-        {posts && 
-          posts.map(e => {
-            const path = `/post/${e.postID}`;
-            return <Route path={path} element= {<Post post={e} refresh={refresh} />}/>
-          })
-        }
+        <Route path="/post/:postID" element={<Post posts={posts} refresh={refresh} />} />
+        <Route path="/profile/:userID" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   );

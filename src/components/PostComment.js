@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getUserName } from "../firebase";
+import { getUserProfile } from "../firebase";
 
 function PostComment ({ cmt }) {
   const [username, setUsername] = useState('');
@@ -7,8 +7,8 @@ function PostComment ({ cmt }) {
 
   useEffect(() => {
     async function setName() {
-      const username = await getUserName(cmt.uid);
-      setUsername(username);
+      const user = await getUserProfile(cmt.uid);
+      setUsername(user.name);
     }
     setName();
     calcTime();
@@ -19,7 +19,9 @@ function PostComment ({ cmt }) {
     const current = new Date();
     const elapsed = current - time;
     const seconds = elapsed / 1000;
-    if (seconds < 60) {
+    if (seconds < 1) {
+      setTime({format: 's', time: 1});
+    } else if (seconds < 60) {
       setTime({format: 's', time: seconds});
     } else if (seconds < 3600) {
       setTime({format: 'm', time: seconds / 60});

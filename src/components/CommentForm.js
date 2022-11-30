@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { getUser, addComment } from "../firebase";
+import { getCurrentUser, addComment } from "../firebase";
 
 function CommentForm({postID, refresh, setData}) {
   const [value, setValue] = useState('');
@@ -10,7 +10,7 @@ function CommentForm({postID, refresh, setData}) {
 
   async function handleSend(e) {
     e.preventDefault();
-    const user = getUser();
+    const user = getCurrentUser();
     if (user && value) {
       const text = value;
       setValue('');

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getUserName, getComments } from "../firebase";
+import { getUserProfile, getComments } from "../firebase";
 import PostComments from "./PostComments";
 import PostButtons from "./PostButtons";
 import CommentForm from "./CommentForm";
@@ -11,8 +11,8 @@ function PostSidebar({post, refresh }) {
 
   useEffect(() => {
     async function setName() {
-      const username = await getUserName(uid);
-      setUsername(username);
+      const user = await getUserProfile(uid);
+      setUsername(user.name);
     }
     setName()
   }, [uid]);

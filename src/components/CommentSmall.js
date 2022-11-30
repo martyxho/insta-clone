@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { getUserName } from "../firebase";
+import { getUserProfile } from "../firebase";
 
 function CommentSmall({ uid, text }) {
   const [username, setUsername] = useState('');
   useEffect(() => {
     async function setName() {
-      const username = await getUserName(uid);
-      setUsername(username);
+      const user = await getUserProfile(uid);
+      setUsername(user.name);
     }
     setName()
   }, [uid]);

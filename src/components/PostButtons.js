@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { getUser, updateLikes } from "../firebase";
+import { getCurrentUser, updateLikes } from "../firebase";
 import heart from '../assets/heart-outline.svg';
 
 function PostButtons ({ postID, likes, refresh }) {
@@ -9,7 +9,7 @@ function PostButtons ({ postID, likes, refresh }) {
   const path = `/post/${postID}`;
 
   async function handleLike() {
-    const user = getUser();
+    const user = getCurrentUser();
     if (user) {
       if (likes.includes(user.uid)) {
         setLikesCount(likes.length - 1);

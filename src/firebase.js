@@ -44,24 +44,16 @@ function getProfilePicUrl() {
 }
 
 // Returns the user's display name.
-async function getUserName(uid) {
+async function getUserProfile(uid) {
   const docRef = doc(db, 'users', uid);
   const docSnap = await getDoc(docRef);
   if (docSnap.exists()) {
-    return docSnap.data().name;
+    return docSnap.data();
   }
 }
 
-function getUserID() {
-  return getAuth().currentUser.uid;
-}
-
-function getUser() {
+function getCurrentUser() {
   return getAuth().currentUser;
-}
-
-function getEmail() {
-  return getAuth().currentUser.email;
 }
 
 async function signIn() {
@@ -80,15 +72,10 @@ async function handleSignUp(name) {
   saveUser(name);
 }
 
-function uploadUserPic() {
- 
-}
-
-
 async function saveUser(name) {
   const postRef = await setDoc(doc(db, 'users', getAuth().currentUser.uid), {
     name: name,
-    email: getEmail(),
+    email: getAuth().currentUser.email,
     profilePicUrl: getProfilePicUrl(),
   });
 }
@@ -108,10 +95,11 @@ async function authStateObserver(user) {
   if (user) {
     // get user name and pic
     const profilePicUrl = getProfilePicUrl();
-    const userName = await getUserName(getUserID());
+    const user = await getUserProfile(getAuth().currentUser.uid);
     // set user name and pic
+    console.log('here');
     userPicElement.src = profilePicUrl;
-    userNameElement.textContent = userName;
+    userNameElement.textContent = user.name;
 
     //hide login buttons
     loginBtns.setAttribute('hidden', 'true');
@@ -138,10 +126,10 @@ function addSizeToGoogleProfilePic(url) {
 async function uploadPost(file, text) {
   try {
     // add doc to firestore 
-    const uid = getUserID()
+    const uid = getAuth().currentUser.uid;
     const postRef = await addDoc(collection(db, 'posts'), {
       uid: uid,
-      email: getEmail(),
+      email: getAuth().currentUser.email,
       text: text,
       profilePicUrl: getProfilePicUrl(),
       timestamp: serverTimestamp(),
@@ -183,7 +171,7 @@ async function addComment(postID, text) {
     const colRef = collection(db, 'posts', postID, 'comments');
     await addDoc(colRef, {
       text: text,
-      uid: getUserID(),
+      uid: getAuth().currentUser.uid,
       profilePicUrl: getProfilePicUrl(),
       timestamp: serverTimestamp(),
     });
@@ -225,4 +213,4 @@ const storage = getStorage(app);
 initFirebaseAuth();
 getPosts();
 
-export { signIn, signOutUser, uploadPost, getPosts, handleSignUp, getUser, getUserName, updateLikes, addComment, getComments, callAuthStateObserver };
+export { signIn, signOutUser, uploadPost, getPosts, handleSignUp, getCurrentUser, getUserProfile, updateLikes, addComment, getComments, callAuthStateObserver };

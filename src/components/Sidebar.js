@@ -1,12 +1,15 @@
-import React, {useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import { signIn, signOutUser, callAuthStateObserver, getCurrentUser } from "../firebase";
 
 function Sidebar ({ openUpload, openSignUp }) {
 
+  const [uid, setUID] = useState('');
+
   useEffect(() => {
     async function refreshUser() {
       await callAuthStateObserver();
+      setUID(await getCurrentUser().uid);
     }
     refreshUser();
   }, []);
@@ -18,7 +21,7 @@ function Sidebar ({ openUpload, openSignUp }) {
         <button onClick={signIn}>Login</button>
       </div>
       <div id="user-info" hidden>
-        <Link to={'/profile/' + getCurrentUser().uid} >
+        <Link to={'/profile/' + uid} >
           <div id="user-container">
             <img id="user-pic" alt='user-pic' referrerPolicy="no-referrer"/>
             <div id="user-name"></div>

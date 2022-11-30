@@ -97,7 +97,6 @@ async function authStateObserver(user) {
     const profilePicUrl = getProfilePicUrl();
     const user = await getUserProfile(getAuth().currentUser.uid);
     // set user name and pic
-    console.log('here');
     userPicElement.src = profilePicUrl;
     userNameElement.textContent = user.name;
 
@@ -116,12 +115,12 @@ async function callAuthStateObserver() {
   await authStateObserver(getAuth());
 }
 
-function addSizeToGoogleProfilePic(url) {
-  if (url.indexOf('googleusercontent.com') !== -1 && url.indexOf('?') === -1) {
-    return url + '?sz=150';
-  }
-  return url;
-}
+// function addSizeToGoogleProfilePic(url) {
+//   if (url.indexOf('googleusercontent.com') !== -1 && url.indexOf('?') === -1) {
+//     return url + '?sz=150';
+//   }
+//   return url;
+// }
 
 async function uploadPost(file, text) {
   try {
@@ -206,6 +205,14 @@ async function getPosts() {
   }
 }
 
+async function getPost(postID) {
+  const docRef = doc(db, 'posts', postID);
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()) {
+    return docSnap.data();
+  }
+}
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -213,4 +220,4 @@ const storage = getStorage(app);
 initFirebaseAuth();
 getPosts();
 
-export { signIn, signOutUser, uploadPost, getPosts, handleSignUp, getCurrentUser, getUserProfile, updateLikes, addComment, getComments, callAuthStateObserver };
+export { signIn, signOutUser, uploadPost, getPosts, getPost, handleSignUp, getCurrentUser, getUserProfile, updateLikes, addComment, getComments, callAuthStateObserver };

@@ -9,7 +9,7 @@ function Sidebar ({ openUpload, openSignUp }) {
   useEffect(() => {
     async function refreshUser() {
       await callAuthStateObserver();
-      setUID(await getCurrentUser().uid);
+      setUID(getCurrentUser().uid);
     }
     refreshUser();
   }, []);

@@ -10,6 +10,7 @@ function Profile () {
     async function getUser() {
       const user = await getUserProfile(userID);
       setUser(user);
+      console.log(user);
     }
     getUser();
   }, [userID]);
@@ -20,7 +21,11 @@ function Profile () {
 
       </div>
       <div className="profile-userinfo">
-        {user.name}
+        <div>
+          {user.name}
+        </div>
+        <div>
+        </div>
       </div>
       <div className="profile-btns">
 

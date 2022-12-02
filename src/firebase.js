@@ -125,13 +125,15 @@ async function callAuthStateObserver() {
 async function uploadPost(file, text) {
   try {
     // add doc to firestore 
+    const timestamp = serverTimestamp();
     const uid = getAuth().currentUser.uid;
+
     const postRef = await addDoc(collection(db, 'posts'), {
       uid: uid,
       email: getAuth().currentUser.email,
       text: text,
       profilePicUrl: getProfilePicUrl(),
-      timestamp: serverTimestamp(),
+      timestamp: timestamp,
       likes: [uid],
     });
 
@@ -148,6 +150,13 @@ async function uploadPost(file, text) {
       imageUrl: publicImageUrl,
       storageUri: fileSnapshot.metadata.fullPath,
       postID: postRef.id,
+    });
+
+    //update user - posts with new post
+    const docRef = doc(db, 'users', uid, 'posts', postRef.id);
+    await setDoc(docRef, {
+      postID: postRef.id,
+      timestamp: timestamp,
     });
   } catch(error) {
     console.error('Error uploading to Firebase', error);
@@ -210,6 +219,19 @@ async function getPost(postID) {
   const docSnap = await getDoc(docRef);
   if (docSnap.exists()) {
     return docSnap.data();
+  }
+}
+
+async function getUserPosts(userID) {
+  try {
+    const colRef = collection(db, 'users', userID, 'posts');
+    const q = query(colRef, orderBy('timestamp', 'desc'));
+    const querySnapshot = await getDocs(q);
+    const arr = [];
+    querySnapshot.forEach(e => arr.push(e.data()));
+    return arr;
+  } catch(error) {
+    console.error('Error acessing data from Firebase', error);
   }
 }
 

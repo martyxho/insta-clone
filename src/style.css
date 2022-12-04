@@ -15,9 +15,11 @@ nav {
   width: 100%;
   height: 55px;
   box-shadow: 0px 0px 20px 2px rgb(221, 219, 219);
+  background-color: white;
+  opacity: .8;
 }
 
-.home-main, .profile-main {
+.home-main {
   margin-top: 6.5em;
   display: flex;
   flex-direction: column;
@@ -194,4 +196,75 @@ nav {
   border-radius: 50%;
 }
 
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
+.profile-header {
+  z-index: -2;
+}
+
+.profile-hero {
+  position: relative;
+  width: 100vw;
+  height: 320px;
+  object-fit: cover;
+  display: block;
+  object-position: center;
+}
+
+.profile-outer {
+  padding: 0 5%;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+}
+
+.profile-imgContainer {
+  transform: translateY(-50%);
+  width: 200px;
+  height: 200px;
+  border-radius: 100%;
+}
+
+.profile-img {
+  box-shadow: 0 0 20px 1px rgb(0 0 0 / 10%);
+  border-radius: 100%;
+  width: 200px;
+  height: 200px;
+  cursor: pointer;
+  object-fit: cover;
+}
+
+.profile-topRight {
+  display: flex;
+  grid-gap: 16px;
+  gap: 16px;
+  transform: translateY(-50%);
+  width: fit-content;
+  height: fit-content;
+}
+
+.profile-topRight button {
+  background-color: white;
+  box-shadow: 0 0 20px 1px rgb(0 0 0 / 10%);
+  border: none;
+  color: black;
+  height: 44px;
+  cursor: pointer;
+}
+
+.profile-editBtn {
+  padding: 0 32px;
+  font-size: 17px;
+  font-weight: 700;
+  border-radius: 20px;
+}
+
+.profile-postBtn {
+  width: 44px;
+  border-radius: 100%;
+  font-size: 24px;
+}

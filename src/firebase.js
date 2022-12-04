@@ -157,6 +157,7 @@ async function uploadPost(file, text) {
     await setDoc(docRef, {
       postID: postRef.id,
       timestamp: timestamp,
+      imageUrl: publicImageUrl,
     });
   } catch(error) {
     console.error('Error uploading to Firebase', error);

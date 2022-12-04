@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getUserProfile, getUserPosts } from "../firebase";
+import ProfileSidebar from "./ProfileSidebar";
+import ProfileFeed from "./ProfileFeed";
 import background from '../assets/images/profile-background-default.webp';
+
 
 function Profile () {
   const {userID} = useParams();
@@ -34,12 +37,8 @@ function Profile () {
         </div>
       </div>
       <div className="profile-inner">
-        <div>
-          {user.name}
-        </div>
-        <div>
-          {posts.length} posts
-        </div>
+        <ProfileSidebar user={user} postCount={posts.length} />
+        <ProfileFeed posts={posts} />
       </div>
     </div>
   )

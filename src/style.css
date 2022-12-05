@@ -218,6 +218,7 @@ nav {
 .profile-outer {
   padding: 0 5%;
   width: 100vw;
+  height: 100px;
   display: flex;
   justify-content: space-between;
 }
@@ -282,6 +283,14 @@ nav {
   display: grid;
   grid-template-columns: repeat(auto-fill, 300px);
   padding: 0 0 100px 24px;
+  gap: 41px;
+  grid-gap: 41px;
+}
+
+@media only screen and (min-width: 1500px) {
+  .profile-feed {
+    grid-template-columns: repeat(auto-fill, 20vw);
+  }
 }
 
 .profile-card {
@@ -291,6 +300,13 @@ nav {
   justify-content: center;
   border-radius: 9px;
   overflow: hidden;
+}
+
+@media only screen and (min-width: 1500px) {
+  .profile-card {
+    width: 20vw;
+    height: 20vw;
+  }
 }
 
 .profile-card-img {

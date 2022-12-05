@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { getUserProfile, getComments } from "../firebase";
 import PostComments from "./PostComments";
 import PostButtons from "./PostButtons";
@@ -30,10 +31,12 @@ function PostSidebar({post, refresh }) {
     <div className="post-sidebar">
       <div className="post-header">
         <div className="post-user">
-          <img src={profilePicUrl} alt='user profile pic' className='post-profile-img' />
-          <div className="user-info">
-            {username}
-          </div>
+          <Link to={'/profile/' + uid}>
+            <img src={profilePicUrl} alt='user profile pic' className='post-profile-img' />
+            <div className="user-info">
+              {username}
+            </div>
+          </Link>
         </div>
         <div className="post-caption">
           {text}

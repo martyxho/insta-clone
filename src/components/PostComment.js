@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { getUserProfile } from "../firebase";
 
 function PostComment ({ cmt }) {
@@ -45,9 +46,13 @@ function PostComment ({ cmt }) {
   return (
     <div className="post-cmt">
       <div className="post-cmt-start">
-        <img className="post-cmt-user-pic" src={cmt.profilePicUrl} alt='user profile pic' />
+        <Link to={'/profile/' + cmt.uid}>
+          <img className="post-cmt-user-pic" src={cmt.profilePicUrl} alt='user profile pic' />
+        </Link>
         <div className="post-cmt-inner">
-          <p className="post-cmt-username">{username}</p>
+          <Link to={'/profile/' + cmt.uid}>
+            <p className="post-cmt-username">{username}</p>
+          </Link>
           <p className="post-cmt-text">{cmt.text}</p>
         </div>
       </div>

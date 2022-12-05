@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { getUserProfile } from "../firebase";
 
 function CommentSmall({ uid, text }) {
@@ -13,7 +14,9 @@ function CommentSmall({ uid, text }) {
 
   return (
     <div className="cmt-sm">
-      <div className="cmt-name">{username}</div>
+      <Link to={'/profile/' + uid}>
+        <div className="cmt-name">{username}</div>
+      </Link>
       <div className="cmt-text">{text}</div>
     </div>
   )

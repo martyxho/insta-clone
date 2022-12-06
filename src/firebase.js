@@ -21,6 +21,7 @@ import {
   serverTimestamp,
   getDocs,
   getDoc,
+  deleteDoc,
 } from 'firebase/firestore';
 import { 
   getStorage, 
@@ -54,6 +55,14 @@ async function getUserProfile(uid) {
 
 function getCurrentUser() {
   return getAuth().currentUser;
+}
+
+async function checkFollow(uid) {
+  const follows = await getUserFollows(getAuth().currentUser.uid);
+  if (follows.some(e => e.uid === uid)) {
+    return true;
+  }
+  return false;
 }
 
 async function signIn() {
@@ -236,6 +245,49 @@ async function getUserPosts(userID) {
   }
 }
 
+async function getUserFollows(userID) {
+  try {
+    const colRef = collection(db, 'users', userID, 'following');
+    const q = query(colRef);
+    const querySnapshot = await getDocs(q);
+    const arr = [];
+    querySnapshot.forEach(e => arr.push(e.data()));
+    return arr;
+  } catch(error) {
+    console.error('Error acessing data from Firebase', error);
+  }
+}
+
+async function followUser(uid) {
+  //get currentUser ID
+  const cUID = getAuth().currentUser.uid;
+
+  //update currentUser -- following 
+  const docRef = doc(db, 'users', cUID, 'following', uid);
+  await setDoc(docRef, {
+    uid: uid,
+  });
+
+  //update followed user -- followers 
+  const docRef2 = doc(db, 'users', uid, 'followers', cUID);
+  await setDoc(docRef2, {
+    uid: cUID,
+  });
+}
+
+async function unfollowUser(uid) {
+  //get currentUser ID
+  const cUID = getAuth().currentUser.uid;
+
+  //update currentUser -- following
+  const docRef = doc(db, 'users', cUID, 'following', uid);
+  await deleteDoc(docRef);
+
+  //update followed user -- followers
+  const docRef2 = doc(db, 'users', uid, 'followers', cUID);
+  await deleteDoc(docRef2);
+}
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -243,4 +295,4 @@ const storage = getStorage(app);
 initFirebaseAuth();
 getPosts();
 
-export { signIn, signOutUser, uploadPost, getPosts, getPost, getUserPosts, handleSignUp, getCurrentUser, getUserProfile, updateLikes, addComment, getComments, callAuthStateObserver };
+export { signIn, signOutUser, uploadPost, getPosts, getPost, getUserPosts, handleSignUp, getCurrentUser, getUserProfile, updateLikes, addComment, getComments, callAuthStateObserver, checkFollow, followUser, unfollowUser };

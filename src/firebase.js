@@ -44,13 +44,16 @@ function getProfilePicUrl() {
   return getAuth().currentUser.photoURL || './assets/images/profile_placeholder.png';
 }
 
-// Returns the user's display name.
 async function getUserProfile(uid) {
   const docRef = doc(db, 'users', uid);
   const docSnap = await getDoc(docRef);
   if (docSnap.exists()) {
     return docSnap.data();
   }
+}
+
+async function getCurrentUserProfile() {
+  return await getUserProfile(getAuth().currentUser.uid);
 }
 
 function getCurrentUser() {
@@ -86,7 +89,14 @@ async function saveUser(name) {
     name: name,
     email: getAuth().currentUser.email,
     profilePicUrl: getProfilePicUrl(),
+    bio: `Hi my name is ${name}`,
+    bannerURL: await getDefaultBannerUrl(),
   });
+}
+
+async function getDefaultBannerUrl() {
+  const bannerRef = ref(storage, 'assets/profile-banner-default.webp');
+  return await getDownloadURL(bannerRef);
 }
 
 function initFirebaseAuth() {
@@ -147,16 +157,11 @@ async function uploadPost(file, text) {
     });
 
     // Upload the image to Cloud Storage.
-    const filePath = `${getAuth().currentUser.uid}/${file.name}`;
-    const imageRef = ref(storage, filePath);
-    const fileSnapshot = await uploadBytes(imageRef, file);
-
-    // Generate a public URL for the file.
-    const publicImageUrl = await getDownloadURL(imageRef);
+    const [fileSnapshot, imageUrl] = await uploadImgToCloud(file);
 
     // Update firestore doc with the image's URL.
     await updateDoc(postRef,{
-      imageUrl: publicImageUrl,
+      imageUrl: imageUrl,
       storageUri: fileSnapshot.metadata.fullPath,
       postID: postRef.id,
     });
@@ -166,12 +171,57 @@ async function uploadPost(file, text) {
     await setDoc(docRef, {
       postID: postRef.id,
       timestamp: timestamp,
-      imageUrl: publicImageUrl,
+      imageUrl: imageUrl,
     });
   } catch(error) {
     console.error('Error uploading to Firebase', error);
   }
 } 
+
+async function uploadImgToCloud(file) {
+  //upload file to cloud storage
+  const filePath = `${getAuth().currentUser.uid}/${file.name}`;
+  const imageRef = ref(storage, filePath);
+  const fileSnapshot = await uploadBytes(imageRef, file);
+
+  //generate public image url
+  const imageUrl = await getDownloadURL(imageRef);
+
+  return [fileSnapshot, imageUrl];
+}
+
+async function updateProfile(name, bio) {
+  //update user doc
+  const userRef = doc(db, 'users', getAuth().currentUser.uid);
+  await updateDoc(userRef, {
+    name: name,
+    bio: bio,
+  });
+}
+
+async function updateProfileBanner(bannerFile) {
+  //upload image to Cloud Storage
+  const [bannerSnapshot, bannerUrl] = await uploadImgToCloud(bannerFile);
+
+  //update user doc
+  const userRef = doc(db, 'users', getAuth().currentUser.uid);
+  await updateDoc(userRef, {
+    bannerURL: bannerUrl,
+    bannerStorageUri: bannerSnapshot.metadata.fullPath,
+  });
+}
+
+async function updateProfilePic(picFile) {
+  //upload image to Cloud Storage
+  const [picSnapshot, picUrl] = await uploadImgToCloud(picFile);
+
+  //update user doc
+  const userRef = doc(db, 'users', getAuth().currentUser.uid);
+  await updateDoc(userRef, {
+    profilePicUrl: picUrl,
+    profilePicStorageUri: picSnapshot.metadata.fullPath,
+  });
+}
 
 async function updateLikes(postID, likes) {
   try {
@@ -295,4 +345,23 @@ const storage = getStorage(app);
 initFirebaseAuth();
 getPosts();
 
-export { signIn, signOutUser, uploadPost, getPosts, getPost, getUserPosts, handleSignUp, getCurrentUser, getUserProfile, updateLikes, addComment, getComments, callAuthStateObserver, checkFollow, followUser, unfollowUser };
+export { 
+  signIn, 
+  signOutUser, 
+  uploadPost, 
+  getPosts, 
+  getPost, 
+  getUserPosts, 
+  handleSignUp, 
+  getCurrentUser, 
+  getCurrentUserProfile, 
+  getUserProfile, 
+  updateLikes, 
+  addComment, 
+  getComments, 
+  callAuthStateObserver, 
+  checkFollow, followUser, 
+  unfollowUser, 
+  updateProfile, 
+  updateProfileBanner, 
+  updateProfilePic };

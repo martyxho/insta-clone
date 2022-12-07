@@ -3,6 +3,7 @@ import Nav from "./components/Nav";
 import Post from "./components/Post";
 import Home from "./Home";
 import Profile from "./components/Profile";
+import EditProfile from "./components/EditProfile";
 
 function RouteSwitch ({ posts, refresh}) {
   return (
@@ -12,6 +13,7 @@ function RouteSwitch ({ posts, refresh}) {
         <Route path="/" element={<Home posts={posts} refresh={refresh} />} />
         <Route path="/post/:postID" element={<Post />} />
         <Route path="/profile/:userID" element={<Profile />} />
+        <Route path="/settings" element={<EditProfile />} />
       </Routes>
     </BrowserRouter>
   );

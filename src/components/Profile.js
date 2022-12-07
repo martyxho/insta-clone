@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { getUserProfile, getUserPosts } from "../firebase";
 import ProfileSidebar from "./ProfileSidebar";
 import ProfileFeed from "./ProfileFeed";
-import background from '../assets/images/profile-background-default.webp';
-
 
 function Profile () {
   const {userID} = useParams();
@@ -25,14 +23,14 @@ function Profile () {
   return (
     <div className="profile">
       <div className="profile-header">
-        <img className="profile-hero" alt="banner" src={background} />
+        <img className="profile-hero" alt="banner" src={user.bannerURL}/>
       </div>
       <div className="profile-outer">
         <div className="profile-imgContainer">
           <img className="profile-img" alt="user profile img" src={user.profilePicUrl} />
         </div>
         <div className="profile-topRight">
-          <button className="profile-editBtn">Edit Profile</button>
+          <Link to='/settings' ><button className="profile-editBtn">Edit Profile</button></Link>
           <button className="profile-postBtn">+</button>
         </div>
       </div>

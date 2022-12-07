@@ -5,15 +5,15 @@ import CardComments from "./CardComments";
 import PostButtons from './PostButtons';
 
 function Card ({ post, refresh }) {
-  const { postID, uid, imageUrl, profilePicUrl, likes, text } = post;
-  const [username, setUsername] = useState('');
+  const { postID, uid, imageUrl, likes, text } = post;
+  const [user, setUser] = useState('');
   const [follow, setFollow] = useState('');
   const [overlay, setOverlay] = useState('');
 
   useEffect(() => {
     async function setState() {
       const user = await getUserProfile(uid);
-      setUsername(user.name);
+      setUser(user);
       const follow = await checkFollow(uid);
       setFollow(follow);
     }
@@ -62,9 +62,9 @@ function Card ({ post, refresh }) {
       }
       <div className="card-header">
         <Link to={'/profile/' + uid} >
-          <img src={profilePicUrl} className='user-pic' alt="user-pic" referrerPolicy="no-referrer"/>
+          <img src={user.profilePicUrl} className='user-pic' alt="user-pic" referrerPolicy="no-referrer"/>
           <div className="user-name">
-            {username}
+            {user.name}
           </div>
         </Link>
         <div className="card-ext-btn" onClick={openOverlay} >

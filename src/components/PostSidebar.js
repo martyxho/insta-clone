@@ -6,14 +6,14 @@ import PostButtons from "./PostButtons";
 import CommentForm from "./CommentForm";
 
 function PostSidebar({post, refresh }) {
-  const { profilePicUrl, text, uid, postID, likes, timestamp } = post;
-  const [username, setUsername] = useState('');
+  const { text, uid, postID, likes, timestamp } = post;
+  const [user, setUser] = useState('');
   const [comments, setComments] = useState('');
 
   useEffect(() => {
     async function setName() {
       const user = await getUserProfile(uid);
-      setUsername(user.name);
+      setUser(user);
     }
     setName()
   }, [uid]);
@@ -32,9 +32,9 @@ function PostSidebar({post, refresh }) {
       <div className="post-header">
         <div className="post-user">
           <Link to={'/profile/' + uid}>
-            <img src={profilePicUrl} alt='user profile pic' className='post-profile-img' />
+            <img src={user.profilePicUrl} alt='user profile pic' className='post-profile-img' />
             <div className="user-info">
-              {username}
+              {user.name}
             </div>
           </Link>
         </div>

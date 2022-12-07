@@ -112,11 +112,10 @@ async function authStateObserver(user) {
   const userNameElement = document.getElementById('user-name');
 
   if (user) {
-    // get user name and pic
-    const profilePicUrl = getProfilePicUrl();
+    // get user profile
     const user = await getUserProfile(getAuth().currentUser.uid);
     // set user name and pic
-    userPicElement.src = profilePicUrl;
+    userPicElement.src = user.profilePicUrl;
     userNameElement.textContent = user.name;
 
     //hide login buttons
@@ -151,7 +150,6 @@ async function uploadPost(file, text) {
       uid: uid,
       email: getAuth().currentUser.email,
       text: text,
-      profilePicUrl: getProfilePicUrl(),
       timestamp: timestamp,
       likes: [uid],
     });

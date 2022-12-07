@@ -67,9 +67,9 @@ nav {
 
 #user-pic {
   position: relative;
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
 }
 
 .upload_container, #sign-up-form {
@@ -195,6 +195,12 @@ nav {
   width: 35em;
   height: 39.5em;
   object-fit: cover;
+}
+
+.post-profile-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
 }
 
 .post-sidebar {

@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import { getUserProfile } from "../firebase";
 
 function PostComment ({ cmt }) {
-  const [username, setUsername] = useState('');
+  const [user, setUser] = useState('');
   const [time, setTime] = useState({format: '', time: ''});
 
   useEffect(() => {
     async function setName() {
       const user = await getUserProfile(cmt.uid);
-      setUsername(user.name);
+      setUser(user);
     }
     setName();
     calcTime();
@@ -47,11 +47,11 @@ function PostComment ({ cmt }) {
     <div className="post-cmt">
       <div className="post-cmt-start">
         <Link to={'/profile/' + cmt.uid}>
-          <img className="post-cmt-user-pic" src={cmt.profilePicUrl} alt='user profile pic' />
+          <img className="post-cmt-user-pic" src={user.profilePicUrl} alt='user profile pic' />
         </Link>
         <div className="post-cmt-inner">
           <Link to={'/profile/' + cmt.uid}>
-            <p className="post-cmt-username">{username}</p>
+            <p className="post-cmt-username">{user.name}</p>
           </Link>
           <p className="post-cmt-text">{cmt.text}</p>
         </div>

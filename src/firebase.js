@@ -238,7 +238,6 @@ async function addComment(postID, text) {
     await addDoc(colRef, {
       text: text,
       uid: getAuth().currentUser.uid,
-      profilePicUrl: getProfilePicUrl(),
       timestamp: serverTimestamp(),
     });
   } catch(error) {

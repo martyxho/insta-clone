@@ -62,9 +62,11 @@ function Card ({ post, refresh }) {
       }
       <div className="card-header">
         <Link to={'/profile/' + uid} >
-          <img src={user.profilePicUrl} className='user-pic' alt="user-pic" referrerPolicy="no-referrer"/>
-          <div className="user-name">
-            {user.name}
+          <div className="card-userInfo">
+            <img src={user.profilePicUrl} className='card-user-pic' alt="user-pic" referrerPolicy="no-referrer"/>
+            <div className="user-name">
+              {user.name}
+            </div>
           </div>
         </Link>
         <div className="card-ext-btn" onClick={openOverlay} >

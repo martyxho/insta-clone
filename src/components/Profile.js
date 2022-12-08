@@ -3,11 +3,13 @@ import { useParams, Link } from "react-router-dom";
 import { getUserProfile, getUserPosts } from "../firebase";
 import ProfileSidebar from "./ProfileSidebar";
 import ProfileFeed from "./ProfileFeed";
+import PostForm from "./PostForm";
 
-function Profile () {
+function Profile ({ refresh }) {
   const {userID} = useParams();
   const [user, setUser] = useState('');
   const [posts, setPosts] = useState('');
+  const [postForm, setPostForm] = useState('');
 
   useEffect(() => {
     async function getInfo() {
@@ -20,6 +22,14 @@ function Profile () {
     getInfo();
   }, [userID]);
 
+  function openPostForm() {
+    setPostForm(true);
+  }
+
+  function closePostForm() {
+    setPostForm(false);
+  }
+
   return (
     <div className="profile">
       <div className="profile-header">
@@ -31,13 +41,16 @@ function Profile () {
         </div>
         <div className="profile-topRight">
           <Link to='/settings' ><button className="profile-editBtn">Edit Profile</button></Link>
-          <button className="profile-postBtn">+</button>
+          <button className="profile-postBtn" onClick={openPostForm} >+</button>
         </div>
       </div>
       <div className="profile-inner">
         <ProfileSidebar user={user} postCount={posts.length} />
         <ProfileFeed posts={posts} />
       </div>
+      {postForm &&
+        <PostForm refresh={refresh} close={closePostForm} />
+      }
     </div>
   )
 }

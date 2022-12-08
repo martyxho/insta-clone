@@ -139,9 +139,15 @@ nav {
 .card-header {
   display: flex;
   height: 60px;
-  padding: 10px 30px;
+  padding: 10px 22px;
   align-items: center;
   justify-content: space-between;
+}
+
+.card-userInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .card-ext-btn {
@@ -167,9 +173,9 @@ nav {
   font-weight: bold;
 }
 
-.user-pic {
-  height: 40px;
-  border-radius: 50%;
+.card-user-pic {
+  height: 50px;
+  border-radius: 100%;
 }
 
 .main-img {
@@ -204,7 +210,6 @@ nav {
 }
 
 .post-sidebar {
-  border: 1px solid black;
   width: 400px;
 }
 

@@ -12,7 +12,7 @@ function RouteSwitch ({ posts, refresh}) {
       <Routes>
         <Route path="/" element={<Home posts={posts} refresh={refresh} />} />
         <Route path="/post/:postID" element={<Post />} />
-        <Route path="/profile/:userID" element={<Profile />} />
+        <Route path="/profile/:userID" element={<Profile refresh={refresh} />} />
         <Route path="/settings" element={<EditProfile />} />
       </Routes>
     </BrowserRouter>

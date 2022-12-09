@@ -1,27 +1,7 @@
-import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
-import { signIn, signOutUser, getCurrentUserProfile } from "../firebase";
-import { onAuthStateChanged, getAuth } from "firebase/auth";
+import { signIn, signOutUser } from "../firebase";
 
-function Sidebar ({ openUpload, openSignUp }) {
-
-  const [user, setUser] = useState(false);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(getAuth(), authStateObserver);
-    // Cleanup subscription on unmount
-    return () => unsubscribe();
-  }, []);
-
-  async function authStateObserver(user) {
-    if (user) {
-      const cUser = await getCurrentUserProfile();
-      console.log(cUser);
-      setUser(cUser);
-    } else {
-      setUser(false);
-    }
-  }
+function Sidebar ({ openUpload, openSignUp, user }) {
 
   return (
     <div className="home-sidebar">

@@ -4,7 +4,7 @@ import Sidebar from "./components/Sidebar";
 import PostForm from "./components/PostForm";
 import SignUpForm from "./components/SignUpForm";
 
-function Home({ posts, refresh }) {
+function Home({ user, posts, refresh }) {
 
   const [signUp, setSignUp] = useState(false);
   const [upload, setUpload] = useState(false);
@@ -40,7 +40,7 @@ function Home({ posts, refresh }) {
               posts.map(e => <Card post={e} refresh={refresh}/> )
             }
           </div>
-          <Sidebar openUpload={openUploadForm} openSignUp={openSignUpForm} />
+          <Sidebar openUpload={openUploadForm} openSignUp={openSignUpForm} user={user} />
         </div>
       </div>
     </div>

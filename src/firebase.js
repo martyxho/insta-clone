@@ -85,12 +85,14 @@ async function handleSignUp(name) {
 }
 
 async function saveUser(name) {
-  const postRef = await setDoc(doc(db, 'users', getAuth().currentUser.uid), {
+  const uid = getAuth().currentUser.uid;
+  const postRef = await setDoc(doc(db, 'users', uid), {
     name: name,
     email: getAuth().currentUser.email,
     profilePicUrl: getProfilePicUrl(),
     bio: `Hi my name is ${name}`,
     bannerURL: await getDefaultBannerUrl(),
+    uid: uid,
   });
 }
 
@@ -99,39 +101,39 @@ async function getDefaultBannerUrl() {
   return await getDownloadURL(bannerRef);
 }
 
-function initFirebaseAuth() {
-  // Listen to auth state changes.
-  onAuthStateChanged(getAuth(), authStateObserver);
-}
+// function initFirebaseAuth() {
+//   // Listen to auth state changes.
+//   onAuthStateChanged(getAuth(), authStateObserver);
+// }
 
-async function authStateObserver(user) {
-  // html element shortcuts
-  const loginBtns = document.getElementById('login-btns');
-  const userInfo = document.getElementById('user-info');
-  const userPicElement = document.getElementById('user-pic');
-  const userNameElement = document.getElementById('user-name');
+// async function authStateObserver(user) {
+//   // html element shortcuts
+//   const loginBtns = document.getElementById('login-btns');
+//   const userInfo = document.getElementById('user-info');
+//   const userPicElement = document.getElementById('user-pic');
+//   const userNameElement = document.getElementById('user-name');
 
-  if (user) {
-    // get user profile
-    const user = await getUserProfile(getAuth().currentUser.uid);
-    // set user name and pic
-    userPicElement.src = user.profilePicUrl;
-    userNameElement.textContent = user.name;
+//   if (user) {
+//     // get user profile
+//     const user = await getUserProfile(getAuth().currentUser.uid);
+//     // set user name and pic
+//     userPicElement.src = user.profilePicUrl;
+//     userNameElement.textContent = user.name;
 
-    //hide login buttons
-    loginBtns.setAttribute('hidden', 'true');
+//     //hide login buttons
+//     loginBtns.setAttribute('hidden', 'true');
 
-    //show user info
-    userInfo.removeAttribute('hidden');
-  } else {
-    loginBtns.removeAttribute('hidden');
-    userInfo.setAttribute('hidden', 'true');
-  }
-}
+//     //show user info
+//     userInfo.removeAttribute('hidden');
+//   } else {
+//     loginBtns.removeAttribute('hidden');
+//     userInfo.setAttribute('hidden', 'true');
+//   }
+// }
 
-async function callAuthStateObserver() {
-  await authStateObserver(getAuth());
-}
+// async function callAuthStateObserver() {
+//   await authStateObserver(getAuth());
+// }
 
 // function addSizeToGoogleProfilePic(url) {
 //   if (url.indexOf('googleusercontent.com') !== -1 && url.indexOf('?') === -1) {
@@ -339,7 +341,7 @@ async function unfollowUser(uid) {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const storage = getStorage(app);
-initFirebaseAuth();
+// initFirebaseAuth();
 getPosts();
 
 export { 
@@ -356,8 +358,8 @@ export {
   updateLikes, 
   addComment, 
   getComments, 
-  callAuthStateObserver, 
-  checkFollow, followUser, 
+  checkFollow, 
+  followUser, 
   unfollowUser, 
   updateProfile, 
   updateProfileBanner, 

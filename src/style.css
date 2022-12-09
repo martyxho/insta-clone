@@ -366,3 +366,72 @@ nav {
   justify-content: center;
   align-items: center;
 }
+
+.settings input[type='file'] {
+  cursor: pointer;
+  opacity: 0;
+  font-size: 0;
+}
+
+.settings-banner {
+  display: flex;
+  position: relative;
+  width: 400px;
+  height: 144px;
+}
+
+.settings-bannerImg {
+  z-index: -2;
+}
+
+#bannerInput {
+  z-index: 0;
+}
+
+#bannerInput, .settings-bannerImg {
+  position: absolute;
+  width: 400px;
+  height: 144px;
+}
+
+#settings-bannerOverlay {
+  z-index: -1;
+}
+
+#settings-profileOverlay, #settings-bannerOverlay {
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  opacity: 0;
+  transition: opacity .25s;
+}
+ 
+.settings-profilePic {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 56px;
+  justify-content: center;
+}
+
+.settings-profileInputContainer {
+  position: absolute;
+  top: -56px;
+  width: 112px;
+  height: 112px;
+}
+
+#profilePicInput, .settings-profileImg {
+  position: absolute;
+  height: 112px;
+  width: 112px;
+  border-radius: 100%;
+}
+
+.settings-profileImg {
+  z-index: 1;
+}
+
+#profilePicInput {
+  z-index: 2;
+}

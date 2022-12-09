@@ -10,12 +10,22 @@ function App () {
   const [user, setUser] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(getAuth(), authStateObserver);
+    const unsubscribe = onAuthStateChanged(getAuth(), refreshUser);
     // Cleanup subscription on unmount
     return () => unsubscribe();
   }, []);
 
-  async function authStateObserver(user) {
+  useEffect(() => {
+    async function setData() {
+      const x = await getPosts();
+      setPosts(x);
+    }
+    refreshUser(true);
+    setData();
+    console.log('refresh');
+  }, [refresh]);
+
+  async function refreshUser(user) {
     if (user) {
       const cUser = await getCurrentUserProfile();
       setUser(cUser);
@@ -23,15 +33,6 @@ function App () {
       setUser(false);
     }
   }
-
-  useEffect(() => {
-    async function setData() {
-      const x = await getPosts();
-      setPosts(x);
-    }
-    setData();
-    console.log('refresh');
-  }, [refresh]);
 
   function toggleRefresh() {
     if (refresh) {

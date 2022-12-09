@@ -1,21 +1,18 @@
+import { ref } from "firebase/storage";
 import React, { useState, useEffect } from "react";
-import { updateProfile, updateProfileBanner, updateProfilePic, getCurrentUserProfile } from "../firebase";
+import { updateProfile, getCurrentUserProfile } from "../firebase";
+import BannerInput from "./BannerInput";
+import ProfileInput from "./ProfileInput";
 
-function EditProfile() {
+function EditProfile({ user, refresh }) {
 
-  const [user, setUser] = useState('');
   const [name, setName] = useState('');
   const [bio, setBio] = useState('');
 
   useEffect(() => {
-    async function setData() {
-      setUser(await getCurrentUserProfile());
-    }
     if (user) {
       setName(user.name);
       setBio(user.bio);
-    } else {
-      setData();
     }
   }, [user]);
 
@@ -29,44 +26,20 @@ function EditProfile() {
 
   function handleSubmit(e) {
     e.preventDefault();
-
-    // get banner and profilePic files
-    const bannerInput = document.getElementById('banner');
-    const bannerImg = bannerInput.files[0];
-    const profileInput = document.getElementById('profilePic');
-    const profilePic = profileInput.files[0];
-
-    //call update functions
-    if (bannerImg) {
-      updateProfileBanner(bannerImg);
-    }
-
-    if (profilePic) {
-      updateProfilePic(profilePic);
-    }
-
     updateProfile(name, bio);
   }
 
   return (
+    
     <div className="settings">
+    {user && 
       <div className="editProfile-container">
         <h3>Profile</h3>
         <form>
           <div className="editProfile-inner">
             <div>
-              <div className="settings-bannerContainer">
-                <label>
-                  <p>Banner Image: </p>
-                  <input id="banner" type="file" accept="image/jpeg, image/png, image/jpg" className="settings-bannerInput" />
-                </label>
-              </div>
-              <div className="settings-profilePic">
-              <label>
-                <p>Profile Pic: </p>
-                <input id="profilePic" type="file" accept="image/jpeg, image/png, image/jpg" className="settings-bannerInput" />
-              </label>
-              </div>
+              <BannerInput user={user} refresh={refresh} />
+              <ProfileInput user={user} refresh={refresh} />
             </div>
             <div className="settings-textInputs">
               <div className="settings-name">
@@ -89,6 +62,8 @@ function EditProfile() {
           </div>
         </form>
       </div>
+    }  
+      
     </div>
   )
 }

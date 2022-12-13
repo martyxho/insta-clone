@@ -405,6 +405,12 @@ nav {
   opacity: 0;
   transition: opacity .25s;
 }
+
+#settings-profileOverlay {
+  position: absolute;
+  border-radius: 100%;
+  z-index: 2;
+}
  
 .settings-profilePic {
   position: relative;
@@ -429,9 +435,9 @@ nav {
 }
 
 .settings-profileImg {
-  z-index: 1;
+  z-index: 2;
 }
 
 #profilePicInput {
-  z-index: 2;
+  z-index: 4;
 }

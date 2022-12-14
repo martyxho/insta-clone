@@ -1,6 +1,6 @@
-import { ref } from "firebase/storage";
 import React, { useState, useEffect } from "react";
-import { updateProfile, getCurrentUserProfile } from "../firebase";
+import { Link } from "react-router-dom";
+import { updateProfile} from "../firebase";
 import BannerInput from "./BannerInput";
 import ProfileInput from "./ProfileInput";
 
@@ -36,7 +36,7 @@ function EditProfile({ user, refresh }) {
       <div className="editProfile-container">
         <h3>Profile</h3>
         <form>
-          <div className="editProfile-inner">
+          <div className="settings-inner">
             <div>
               <BannerInput user={user} refresh={refresh} />
               <ProfileInput user={user} refresh={refresh} />
@@ -58,7 +58,7 @@ function EditProfile({ user, refresh }) {
           </div>
           <div className="settings-btns">
             <button onClick={handleSubmit}>Save</button>
-            <button>View Profile</button>
+            <Link to={'/profile/' + user.uid}>View Profile</Link>
           </div>
         </form>
       </div>

@@ -281,10 +281,10 @@ async function getPost(postID) {
   }
 }
 
-async function getUserPosts(userID) {
+async function getUserPosts(userID, lim = false) {
   try {
     const colRef = collection(db, 'users', userID, 'posts');
-    const q = query(colRef, orderBy('timestamp', 'desc'));
+    const q = lim ? query(colRef, orderBy('timestamp', 'desc'), limit(lim)) : query(colRef, orderBy('timestamp', 'desc'));
     const querySnapshot = await getDocs(q);
     const arr = [];
     querySnapshot.forEach(e => arr.push(e.data()));
@@ -294,9 +294,52 @@ async function getUserPosts(userID) {
   }
 }
 
+async function getUserFeed(userID) {
+  //get followed users
+  const follows = await getUserFollows(userID);
+  
+  //create array with user posts
+  const all = await getUserPosts(userID, 5);
+  
+  //get user posts from followed users and push to array
+  for await (const user of follows) {
+    all.push(...await getUserPosts(user.uid, 5));
+  }
+  
+  //sort array by timestamp
+  all.sort(sortFeedArray);
+
+  //limit array to first 10
+  all.splice(9);
+
+  //use postID's to get posts from firebase
+  const posts = [];
+  for await (const post of all) {
+    posts.push(await getPost(post.postID));
+  }
+  return posts;
+}
+
+function sortFeedArray(a, b) {
+  return b.timestamp - a.timestamp;
+}
+
 async function getUserFollows(userID) {
   try {
     const colRef = collection(db, 'users', userID, 'following');
+    const q = query(colRef);
+    const querySnapshot = await getDocs(q);
+    const arr = [];
+    querySnapshot.forEach(e => arr.push(e.data()));
+    return arr;
+  } catch(error) {
+    console.error('Error acessing data from Firebase', error);
+  }
+}
+
+async function getUserFollowers(userID) {
+  try {
+    const colRef = collection(db, 'users', userID, 'followers');
     const q = query(colRef);
     const querySnapshot = await getDocs(q);
     const arr = [];
@@ -342,7 +385,6 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const storage = getStorage(app);
 // initFirebaseAuth();
-getPosts();
 
 export { 
   signIn, 
@@ -350,6 +392,7 @@ export {
   uploadPost, 
   getPosts, 
   getPost, 
+  getUserFeed,
   getUserPosts, 
   handleSignUp, 
   getCurrentUser, 
@@ -360,7 +403,9 @@ export {
   getComments, 
   checkFollow, 
   followUser, 
-  unfollowUser, 
+  unfollowUser,
+  getUserFollows,
+  getUserFollowers, 
   updateProfile, 
   updateProfileBanner, 
   updateProfilePic };

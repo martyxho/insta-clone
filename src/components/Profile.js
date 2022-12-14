@@ -5,22 +5,24 @@ import ProfileSidebar from "./ProfileSidebar";
 import ProfileFeed from "./ProfileFeed";
 import PostForm from "./PostForm";
 
-function Profile ({ refresh }) {
+function Profile () {
   const {userID} = useParams();
   const [user, setUser] = useState('');
   const [posts, setPosts] = useState('');
   const [postForm, setPostForm] = useState('');
 
   useEffect(() => {
-    async function getInfo() {
+    async function getUser() {
       const user = await getUserProfile(userID);
-      const posts = await getUserPosts(userID);
       setUser(user);
-      setPosts(posts);
-      console.log(user);
     }
-    getInfo();
+    getUser();
+    refreshPosts(userID);
   }, [userID]);
+
+  async function refreshPosts() {
+    setPosts(await getUserPosts(userID));
+  }
 
   function openPostForm() {
     setPostForm(true);
@@ -44,12 +46,14 @@ function Profile ({ refresh }) {
           <button className="profile-postBtn" onClick={openPostForm} >+</button>
         </div>
       </div>
-      <div className="profile-inner">
-        <ProfileSidebar user={user} postCount={posts.length} />
-        <ProfileFeed posts={posts} />
-      </div>
+      {user &&
+        <div className="profile-inner">
+          <ProfileSidebar user={user} postCount={posts.length} />
+          <ProfileFeed posts={posts} />
+        </div>
+      }
       {postForm &&
-        <PostForm refresh={refresh} close={closePostForm} />
+        <PostForm refresh={refreshPosts} close={closePostForm} />
       }
     </div>
   )

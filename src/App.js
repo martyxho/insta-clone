@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getPosts, getCurrentUserProfile } from "./firebase";
+import { getPosts, getCurrentUserProfile, getUserFeed } from "./firebase";
 import RouteSwitch from "./RouteSwitch";
 import { onAuthStateChanged, getAuth } from "firebase/auth";
 
@@ -17,13 +17,19 @@ function App () {
 
   useEffect(() => {
     async function setData() {
-      const x = await getPosts();
-      setPosts(x);
+      setPosts(await getPosts());
     }
-    refreshUser(true);
-    setData();
+    async function setDataUser() {
+      console.log('user feed');
+      setPosts(await getUserFeed(user.uid));
+    }
+    if (user) {
+      setDataUser();
+    } else {
+      setData();
+    }
     console.log('refresh');
-  }, [refresh]);
+  }, [user]);
 
   async function refreshUser(user) {
     if (user) {

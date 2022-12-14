@@ -257,7 +257,7 @@ nav {
 }
 
 .profile-outer {
-  padding: 0 5%;
+  padding: 0 7%;
   width: 100vw;
   height: 100px;
   display: flex;
@@ -314,16 +314,18 @@ nav {
 .profile-inner {
   display: grid;
   grid-template-columns: minmax(240px, 1fr) 5fr;
+  width: 100%;
+  padding: 0 7%;
 }
 
 .profile-sidebar {
-  color: white;
 }
 
 .profile-feed {
   display: grid;
+  align-items: center;
   grid-template-columns: repeat(auto-fill, 300px);
-  padding: 0 0 100px 24px;
+  padding: 0 50px 100px 74px;
   gap: 41px;
   grid-gap: 41px;
 }

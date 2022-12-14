@@ -4,22 +4,22 @@ import { getUserProfile, getUserPosts } from "../firebase";
 import ProfileSidebar from "./ProfileSidebar";
 import ProfileFeed from "./ProfileFeed";
 import PostForm from "./PostForm";
+import ProfileTopRight from "./ProfileTopRight";
 
-function Profile () {
+function Profile ({ cUser, refresh }) {
   const {userID} = useParams();
   const [user, setUser] = useState('');
   const [posts, setPosts] = useState('');
   const [postForm, setPostForm] = useState('');
 
   useEffect(() => {
-    async function getUser() {
-      const user = await getUserProfile(userID);
-      setUser(user);
-    }
-    getUser();
-    refreshPosts(userID);
-  }, [userID]);
+    refreshUser();
+    refreshPosts();
+  }, []);
 
+  async function refreshUser() {
+    setUser(await getUserProfile(userID));
+  }
   async function refreshPosts() {
     setPosts(await getUserPosts(userID));
   }
@@ -41,10 +41,7 @@ function Profile () {
         <div className="profile-imgContainer">
           <img className="profile-img" alt="user profile img" src={user.profilePicUrl} />
         </div>
-        <div className="profile-topRight">
-          <Link to='/settings' ><button className="profile-editBtn">Edit Profile</button></Link>
-          <button className="profile-postBtn" onClick={openPostForm} >+</button>
-        </div>
+        <ProfileTopRight cUser={cUser} userID={userID} openPostForm={openPostForm} refresh={refresh} />
       </div>
       {user &&
         <div className="profile-inner">
@@ -53,7 +50,7 @@ function Profile () {
         </div>
       }
       {postForm &&
-        <PostForm refresh={refreshPosts} close={closePostForm} />
+        <PostForm refresh={refresh} close={closePostForm} />
       }
     </div>
   )

@@ -16,20 +16,17 @@ function App () {
   }, []);
 
   useEffect(() => {
-    async function setData() {
+    setState();
+    console.log('mounted');
+  }, [user]);
+
+  async function setState() {
+    if (user) {
+      setPosts(await getUserFeed(user.uid));
+    } else {
       setPosts(await getPosts());
     }
-    async function setDataUser() {
-      console.log('user feed');
-      setPosts(await getUserFeed(user.uid));
-    }
-    if (user) {
-      setDataUser();
-    } else {
-      setData();
-    }
-    console.log('refresh');
-  }, [user]);
+  }
 
   async function refreshUser(user) {
     if (user) {
@@ -41,6 +38,7 @@ function App () {
   }
 
   function toggleRefresh() {
+    console.log('refresh');
     if (refresh) {
       setRefresh(false);
     } else {
@@ -50,7 +48,7 @@ function App () {
 
   return (
     <div className="app">
-      <RouteSwitch posts={posts} refresh={toggleRefresh} user={user} />
+      <RouteSwitch posts={posts} refresh={setState} user={user} />
     </div>
   )
 }

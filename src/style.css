@@ -129,11 +129,6 @@ nav {
 
 .card-btns {
   display: flex;
-  justify-content: space-between;
-}
-
-.card-btns-right {
-  position: relative;
 }
 
 .card-btn {
@@ -223,6 +218,19 @@ nav {
   width: 400px;
 }
 
+.post-btns-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.extra-button {
+  position: relative;
+}
+
+.extra-button button {
+  cursor: pointer;
+}
+
 .postExtraOverlay {
   position: fixed;
   top: 0;
@@ -233,7 +241,7 @@ nav {
 
 .postExtraMenu {
   position: absolute;
-  bottom: 40px;
+  bottom: 50px;
   left: -60px;
   width: 160px;
   background-color: white;

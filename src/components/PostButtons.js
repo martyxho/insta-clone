@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { getCurrentUser, updateLikes } from "../firebase";
 import heart from '../assets/heart-outline.svg';
+import PostExtraMenu from "./PostExtraMenu";
 
-function PostButtons ({ postID, likes, refresh }) {
+function PostButtons ({ postID, uid, likes, refresh }) {
 
   const [likesCount, setLikesCount] = useState(likes.length);
+  const [extra, setExtra] = useState(false);
   const path = `/post/${postID}`;
 
   async function handleLike() {
@@ -23,13 +25,30 @@ function PostButtons ({ postID, likes, refresh }) {
       refresh();
     }
   }
+
+  function openExtra() {
+    setExtra(true);
+  }
+
+  function closeExtra() {
+    console.log('close');
+    setExtra(false);
+  }
   
   return (
     <div className="post-btns-div">
       <div className="card-btns">
-        <img className='card-btn' alt='heart' src={heart} onClick={handleLike} />
-        <Link to={path}>View Post</Link>
-        <button>btn</button>
+        <div className="card-btns-left">
+          <img className='card-btn' alt='heart' src={heart} onClick={handleLike} />
+          <Link to={path}>View Post</Link>
+          <button>btn</button>
+        </div>
+        <div className="card-btns-right">
+          <button onClick={openExtra}>...</button>
+          {extra && 
+            <PostExtraMenu close={closeExtra} postID={postID} uid={uid}/>
+          }
+        </div>
       </div>
       <div className="card-likes">
         {likesCount} likes

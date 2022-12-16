@@ -129,6 +129,11 @@ nav {
 
 .card-btns {
   display: flex;
+  justify-content: space-between;
+}
+
+.card-btns-right {
+  position: relative;
 }
 
 .card-btn {
@@ -194,7 +199,12 @@ nav {
   box-shadow: 0px 0px 100px 5px rgb(221, 219, 219);
   border-radius: 20px;
   display: flex;
+}
+
+.post-img-container {
+  display: flex;
   overflow: hidden;
+  border-radius: 20px 0 0 20px;
 }
 
 .post-img {
@@ -211,6 +221,39 @@ nav {
 
 .post-sidebar {
   width: 400px;
+}
+
+.postExtraOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+}
+
+.postExtraMenu {
+  position: absolute;
+  bottom: 40px;
+  left: -60px;
+  width: 160px;
+  background-color: white;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  box-shadow: 0px 0px 20px 2px rgb(221, 219, 219);
+  padding: 1px;
+}
+
+.postExtraMenu button {
+  border: none;
+  background-color: white;
+  height: 33px;
+  cursor: pointer;
+}
+
+.postExtraMenu button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .post-comments {
@@ -316,9 +359,6 @@ nav {
   grid-template-columns: minmax(240px, 1fr) 5fr;
   width: 100%;
   padding: 0 7%;
-}
-
-.profile-sidebar {
 }
 
 .profile-feed {

@@ -22,6 +22,7 @@ function Profile ({ cUser, refresh }) {
   }
   async function refreshPosts() {
     setPosts(await getUserPosts(userID));
+    refresh();
   }
 
   function openPostForm() {
@@ -50,7 +51,7 @@ function Profile ({ cUser, refresh }) {
         </div>
       }
       {postForm &&
-        <PostForm refresh={refresh} close={closePostForm} />
+        <PostForm refresh={refreshPosts} close={closePostForm} />
       }
     </div>
   )

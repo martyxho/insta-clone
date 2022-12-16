@@ -44,7 +44,7 @@ function PostSidebar({post, refresh }) {
       </div>
       <PostComments comments={comments}/>
       <div className="post-footer">
-        <PostButtons postID={postID} likes={likes} refresh={refresh} />
+        <PostButtons postID={postID} uid={uid} likes={likes} refresh={refresh} />
         <CommentForm postID={postID} refresh={refresh} setData={setData}/>
       </div>
     </div>

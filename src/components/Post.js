@@ -19,7 +19,9 @@ function Post() {
     <div className="post-main">
       {post &&
         <div className="post-container">
-          <img src={post.imageUrl} alt="post-img" className="post-img"/>
+          <div className="post-img-container">
+            <img src={post.imageUrl} alt="post-img" className="post-img"/>
+          </div>
           <PostSidebar post={post} refresh={get}/>
         </div>
       }

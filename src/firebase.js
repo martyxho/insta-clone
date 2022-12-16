@@ -281,6 +281,11 @@ async function getPost(postID) {
   }
 }
 
+async function deletePost(postID, uid) {
+  await deleteDoc(doc(db, 'posts', postID));
+  await deleteDoc(doc(db, 'users', uid, 'posts', postID));
+}
+
 async function getUserPosts(userID, lim = false) {
   try {
     const colRef = collection(db, 'users', userID, 'posts');
@@ -392,6 +397,7 @@ export {
   uploadPost, 
   getPosts, 
   getPost, 
+  deletePost,
   getUserFeed,
   getUserPosts, 
   handleSignUp, 

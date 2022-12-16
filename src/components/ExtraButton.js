@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PostExtraMenu from "./PostExtraMenu";
 
-function ExtraButton({ postID, uid }) {
+function ExtraButton({ postID, uid, cUser }) {
 
   const [extra, setExtra] = useState(false);
 
@@ -18,7 +18,7 @@ function ExtraButton({ postID, uid }) {
     <div className="extra-button">
       <button onClick={openExtra}>...</button>
       {extra && 
-        <PostExtraMenu close={closeExtra} postID={postID} uid={uid}/>
+        <PostExtraMenu close={closeExtra} postID={postID} uid={uid} cUser={cUser} />
       }
     </div>
   )

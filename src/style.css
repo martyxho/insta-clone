@@ -218,9 +218,13 @@ nav {
   width: 400px;
 }
 
-.post-btns-container {
+.post-btns-container, .card-btns-container {
   display: flex;
   justify-content: space-between;
+}
+
+.card-btns-container button {
+  height: min-content;
 }
 
 .extra-button {

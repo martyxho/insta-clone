@@ -78,7 +78,10 @@ function Card ({ post, refresh }) {
         <div className="caption">
           {text}
         </div>
-        <PostButtons postID={postID} likes={likes} refresh={refresh} />
+        <div className="card-btns-container">
+          <PostButtons postID={postID} likes={likes} refresh={refresh} />
+          <button>Share</button>
+        </div>
         <CardComments postID={postID} refresh={refresh} />
       </div>
     </div>

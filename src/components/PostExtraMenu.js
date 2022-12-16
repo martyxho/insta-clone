@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { deletePost } from "../firebase";
 
-function PostExtraMenu ({ postID, uid, close }) {
+function PostExtraMenu ({ postID, uid, close, cUser }) {
 
   const navigate = useNavigate();
 
@@ -14,7 +14,9 @@ function PostExtraMenu ({ postID, uid, close }) {
     <div>
       <div className="postExtraMenu">
         <button>Copy Link</button>
-        <button onClick={handleDelete} >Delete</button>
+        {cUser && cUser.uid === uid && 
+          <button onClick={handleDelete}>Delete</button>
+        }
       </div>
       <div className="postExtraOverlay" onClick={close}>
       </div>

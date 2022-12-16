@@ -11,7 +11,7 @@ function RouteSwitch ({ user, posts, refresh}) {
       <Nav />
       <Routes>
         <Route path="/" element={<Home posts={posts} refresh={refresh} user={user} />} />
-        <Route path="/post/:postID" element={<Post />} />
+        <Route path="/post/:postID" element={<Post cUser={user} />} />
         <Route path="/profile/:userID" element={<Profile cUser={user} refresh={refresh} />} />
         <Route path="/settings" element={<EditProfile user={user} refresh={refresh} />} />
       </Routes>

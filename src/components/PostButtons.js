@@ -3,24 +3,19 @@ import { Link } from "react-router-dom";
 import { getCurrentUser, updateLikes } from "../firebase";
 import heart from '../assets/heart-outline.svg';
 
-function PostButtons ({ postID, likes, refresh }) {
+function PostButtons ({ postID, likes, likesCount, refresh }) {
 
-  const [likesCount, setLikesCount] = useState(likes.length);
   const path = `/post/${postID}`;
 
   async function handleLike() {
     const user = getCurrentUser();
     if (user) {
       if (likes.includes(user.uid)) {
-        const count = likes.length - 1;
-        setLikesCount(count);
         const newLikes = likes.filter(e => e !== user.uid);
-        await updateLikes(postID, newLikes, count);
+        await updateLikes(postID, newLikes, likesCount - 1);
       } else {
-        const count = likes.length + 1;
-        setLikesCount(count);
         const newLikes = [...likes, user.uid];
-        await updateLikes(postID, newLikes, count);
+        await updateLikes(postID, newLikes, likesCount + 1);
       }
       refresh();
     }

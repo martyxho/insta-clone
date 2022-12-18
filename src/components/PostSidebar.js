@@ -7,7 +7,7 @@ import CommentForm from "./CommentForm";
 import ExtraButton from "./ExtraButton";
 
 function PostSidebar({post, refresh, cUser }) {
-  const { text, uid, postID, likes, timestamp } = post;
+  const { text, uid, postID, likes, likesCount } = post;
   const [user, setUser] = useState('');
   const [comments, setComments] = useState('');
 
@@ -46,7 +46,7 @@ function PostSidebar({post, refresh, cUser }) {
       <PostComments comments={comments}/>
       <div className="post-footer">
         <div className="post-btns-container">
-          <PostButtons postID={postID} likes={likes} refresh={refresh} />
+          <PostButtons postID={postID} likes={likes} likesCount={likesCount} refresh={refresh} />
           <ExtraButton postID={postID} uid={uid} cUser={cUser} />
         </div>
         <CommentForm postID={postID} refresh={refresh} setData={setData}/>

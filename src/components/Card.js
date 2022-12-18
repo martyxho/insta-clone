@@ -5,7 +5,7 @@ import CardComments from "./CardComments";
 import PostButtons from './PostButtons';
 
 function Card ({ post, refresh }) {
-  const { postID, uid, imageUrl, likes, text } = post;
+  const { postID, uid, imageUrl, likes, likesCount, text } = post;
   const [user, setUser] = useState('');
   const [follow, setFollow] = useState('');
   const [overlay, setOverlay] = useState('');
@@ -79,7 +79,7 @@ function Card ({ post, refresh }) {
           {text}
         </div>
         <div className="card-btns-container">
-          <PostButtons postID={postID} likes={likes} refresh={refresh} />
+          <PostButtons postID={postID} likes={likes} likesCount={likesCount} refresh={refresh} />
           <button>Share</button>
         </div>
         <CardComments postID={postID} refresh={refresh} />

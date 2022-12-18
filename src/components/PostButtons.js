@@ -12,13 +12,15 @@ function PostButtons ({ postID, likes, refresh }) {
     const user = getCurrentUser();
     if (user) {
       if (likes.includes(user.uid)) {
-        setLikesCount(likes.length - 1);
+        const count = likes.length - 1;
+        setLikesCount(count);
         const newLikes = likes.filter(e => e !== user.uid);
-        await updateLikes(postID, newLikes);
+        await updateLikes(postID, newLikes, count);
       } else {
-        setLikesCount(likes.length + 1);
+        const count = likes.length + 1;
+        setLikesCount(count);
         const newLikes = [...likes, user.uid];
-        await updateLikes(postID, newLikes);
+        await updateLikes(postID, newLikes, count);
       }
       refresh();
     }

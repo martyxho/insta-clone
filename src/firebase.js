@@ -14,11 +14,13 @@ import {
   query,
   orderBy,
   limit,
+  where,
   onSnapshot,
   setDoc,
   updateDoc,
   doc,
   serverTimestamp,
+  Timestamp,
   getDocs,
   getDoc,
   deleteDoc,
@@ -154,6 +156,7 @@ async function uploadPost(file, text) {
       text: text,
       timestamp: timestamp,
       likes: [uid],
+      likesCount: 1,
     });
 
     // Upload the image to Cloud Storage.
@@ -223,11 +226,12 @@ async function updateProfilePic(picFile) {
   });
 }
 
-async function updateLikes(postID, likes) {
+async function updateLikes(postID, likes, likesCount) {
   try {
     const docRef = doc(db, 'posts', postID);
     await updateDoc(docRef, {
-      likes: likes
+      likes: likes,
+      likesCount: likesCount,
     });
   } catch(error) {
     console.error('Error uploading to Firebase', error);
@@ -264,6 +268,22 @@ async function getPosts() {
   try {
     const postsRef = collection(db, 'posts');
     const q = query(postsRef, orderBy('timestamp', 'desc'), limit(15));
+    const querySnapshot = await getDocs(q);
+    const arr = [];
+    querySnapshot.forEach(e => arr.push(e.data()));
+    arr.push(...await getMostLikedPosts());
+    const unique = [...removeDuplicates(arr)];
+    unique.sort(sortFeedArray);
+    return unique;
+  } catch(error) {
+    console.error('Error acessing data from Firebase', error);
+  }
+}
+
+async function getMostLikedPosts() {
+  try {
+    const postsRef = collection(db, 'posts');
+    const q = query(postsRef, orderBy('likesCount', 'desc'), limit(1));
     const querySnapshot = await getDocs(q);
     const arr = [];
     querySnapshot.forEach(e => arr.push(e.data()));
@@ -311,18 +331,42 @@ async function getUserFeed(userID) {
     all.push(...await getUserPosts(user.uid, 5));
   }
   
+  //get most Liked posts from any user
+  all.push(...await getMostLikedPosts());
+
+  //filter out duplicates
+  const filtered = [...removeDuplicates(all)];
+
   //sort array by timestamp
-  all.sort(sortFeedArray);
+  filtered.sort(sortFeedArray);
 
   //limit array to first 10
-  all.splice(9);
+  filtered.splice(9);
 
   //use postID's to get posts from firebase
   const posts = [];
-  for await (const post of all) {
+  for await (const post of filtered) {
     posts.push(await getPost(post.postID));
   }
   return posts;
+}
+
+function removeDuplicates(arr) {
+  const uniqueIds = [];
+
+  const unique = arr.filter(e => {
+    const isDuplicate =  uniqueIds.includes(e.postID);
+
+    if(!isDuplicate) {
+      uniqueIds.push(e.postID);
+
+      return true;
+    }
+
+    return false;
+  });
+
+  return unique;
 }
 
 function sortFeedArray(a, b) {

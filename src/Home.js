@@ -31,7 +31,7 @@ function Home({ user, posts, refresh }) {
         <PostForm close={closeUploadForm} refresh={refresh}/>
       }
       {signUp &&
-        <SignUpForm />
+        <SignUpForm close={closeSignUpForm} />
       }
       <div className="home-main">
         <div className="home-inner">

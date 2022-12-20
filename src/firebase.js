@@ -81,9 +81,25 @@ function signOutUser() {
   signOut(getAuth());
 }
 
-async function handleSignUp(name) {
+async function signUp(name) {
   await signIn();
-  saveUser(name);
+  const userEmails = await getUserEmails();
+  const newUser = !(userEmails.includes(getAuth().currentUser.email));
+  if (newUser) {
+    saveUser(name);
+  }
+}
+
+async function getUserEmails() {
+  try {
+    const usersRef = collection(db, 'users');
+    const querySnapshot = await getDocs(usersRef);
+    const arr = [];
+    querySnapshot.forEach(e => arr.push(e.data().email));
+    return arr;
+  } catch(error) {
+    console.error('Error acessing data from Firebase', error);
+  }
 }
 
 async function saveUser(name) {
@@ -444,7 +460,7 @@ export {
   deletePost,
   getUserFeed,
   getUserPosts, 
-  handleSignUp, 
+  signUp, 
   getCurrentUser, 
   getCurrentUserProfile, 
   getUserProfile, 

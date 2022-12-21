@@ -70,6 +70,12 @@ async function checkFollow(uid) {
   return false;
 }
 
+async function isNewUser() {
+  const userEmails = await getUserEmails();
+  const newUser = !(userEmails.includes(getAuth().currentUser.email));
+  return newUser;
+}
+
 async function signIn() {
   // Sign in Firebase using popup auth and Google as the identity provider.
   var provider = new GoogleAuthProvider();
@@ -81,13 +87,23 @@ function signOutUser() {
   signOut(getAuth());
 }
 
+async function handleLogin() {
+  await signIn();
+  if (await isNewUser()) {
+    signOutUser();
+  }
+}
+
 async function signUp(name) {
   await signIn();
-  const userEmails = await getUserEmails();
-  const newUser = !(userEmails.includes(getAuth().currentUser.email));
-  if (newUser) {
-    saveUser(name);
+  if (await isNewUser()) {
+    await saveUser(name);
   }
+}
+
+async function newUser() {
+  const userEmails = await getUserEmails();
+  return !(userEmails.includes(getAuth().currentUser.email));
 }
 
 async function getUserEmails() {
@@ -111,6 +127,8 @@ async function saveUser(name) {
     bio: `Hi my name is ${name}`,
     bannerURL: await getDefaultBannerUrl(),
     uid: uid,
+    followingCount: 0,
+    followersCount: 0,
   });
 }
 
@@ -415,21 +433,41 @@ async function getUserFollowers(userID) {
   }
 }
 
-async function followUser(uid) {
-  //get currentUser ID
-  const cUID = getAuth().currentUser.uid;
+async function followUser(user) {
+  try {
+    //get currentUser 
+    const cUser = getCurrentUserProfile();
+    const cUID = cUser.uid;
+    const uid = user.uid;
 
-  //update currentUser -- following 
-  const docRef = doc(db, 'users', cUID, 'following', uid);
-  await setDoc(docRef, {
-    uid: uid,
-  });
+    //update currentUser -- following 
+    const docRef = doc(db, 'users', cUID, 'following', uid);
+    await setDoc(docRef, {
+      uid: uid,
+    });
 
-  //update followed user -- followers 
-  const docRef2 = doc(db, 'users', uid, 'followers', cUID);
-  await setDoc(docRef2, {
-    uid: cUID,
-  });
+    //update followed user -- followers 
+    const docRef2 = doc(db, 'users', uid, 'followers', cUID);
+    await setDoc(docRef2, {
+      uid: cUID,
+    });
+
+    //update current user --followingCount, 
+    const userRef = doc(db, 'users', cUID);
+    await updateDoc(userRef, {
+      followingCount: cUser.followingCount + 1,
+    });
+
+    //update followed user -- followersCount
+    const userRef2 = doc(db, 'users', uid);
+    await updateDoc(userRef2, {
+      followersCount: user.followersCount + 1,
+    });
+
+  } catch(error) {
+    console.error('Error acessing data from Firebase', error);
+  }
+  
 }
 
 async function unfollowUser(uid) {
@@ -452,7 +490,7 @@ const storage = getStorage(app);
 // initFirebaseAuth();
 
 export { 
-  signIn, 
+  handleLogin, 
   signOutUser, 
   uploadPost, 
   getPosts, 

@@ -7,7 +7,7 @@ import CommentForm from "./CommentForm";
 import ExtraButton from "./ExtraButton";
 import calcTime from "../utils/calcTime";
 
-function PostSidebar({post, refresh, cUser }) {
+function PostSidebar({ post, refresh, cUser }) {
   const { text, uid, postID, likes, likesCount, timestamp } = post;
   const [user, setUser] = useState('');
   const [comments, setComments] = useState('');

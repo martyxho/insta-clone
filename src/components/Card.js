@@ -33,7 +33,7 @@ function Card ({ post, refresh }) {
   }
 
   function handleFollow() {
-    followUser(uid);
+    followUser(user);
     setFollow(true);
     closeOverlay();
   }

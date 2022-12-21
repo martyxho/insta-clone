@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { signIn, signOutUser } from "../firebase";
+import { handleLogin, signOutUser } from "../firebase";
 
 function Sidebar ({ openUpload, openSignUp, user }) {
 
@@ -8,7 +8,7 @@ function Sidebar ({ openUpload, openSignUp, user }) {
       {!user &&
         <div id="login-btns">
           <button onClick={openSignUp}>Sign Up</button>
-          <button onClick={signIn}>Login</button>
+          <button onClick={handleLogin}>Login</button>
         </div>
       }
       {user && 

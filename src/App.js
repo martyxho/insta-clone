@@ -5,7 +5,6 @@ import { onAuthStateChanged, getAuth } from "firebase/auth";
 
 function App () {
 
-  const [refresh, setRefresh] = useState(false);
   const [posts, setPosts] = useState(false);
   const [user, setUser] = useState(false);
 
@@ -37,18 +36,13 @@ function App () {
     }
   }
 
-  function toggleRefresh() {
-    console.log('refresh');
-    if (refresh) {
-      setRefresh(false);
-    } else {
-      setRefresh(true);
-    }
+  function refresh() {
+    refreshUser(true);
   }
 
   return (
     <div className="app">
-      <RouteSwitch posts={posts} refresh={setState} user={user} />
+      <RouteSwitch posts={posts} refresh={refresh} user={user} />
     </div>
   )
 }

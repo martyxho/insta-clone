@@ -8,7 +8,7 @@ import EditProfile from "./components/EditProfile";
 function RouteSwitch ({ user, posts, refresh}) {
   return (
     <BrowserRouter>
-      <Nav />
+      <Nav user={user}/>
       <Routes>
         <Route path="/" element={<Home posts={posts} refresh={refresh} user={user} />} />
         <Route path="/post/:postID" element={<Post cUser={user} />} />

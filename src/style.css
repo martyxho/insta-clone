@@ -46,6 +46,50 @@ nav {
   align-items: center;
 }
 
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.sidebar-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  border-radius: 20px;
+  box-shadow: 0 5px 20px 1px rgb(0 0 0 / 5%);
+  width: 70%;
+  height: 45px;
+}
+
+.sidebar-nav:hover {
+  background-color: black;
+}
+
+.sidebar-nav:hover .user-stat p {
+  color: white;
+}
+
+.navBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.navBox p {
+  font-size: 11px;
+  color: #888;
+}
+
+.user-stat p{
+  font-size: 14px;
+  font-weight: bold;
+  color: black;
+}
+
 .login-btns {
   display: flex;
   flex-direction: column;

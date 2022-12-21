@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
+import { signOutUser } from "../firebase";
 
-function Nav () {
+function Nav ({ user }) {
   return (
     <nav>
       <div id="logo">
@@ -10,6 +11,9 @@ function Nav () {
 
       </div>
       <div id="nav-btns">
+        {user &&
+          <button onClick={signOutUser}>Log Out</button>
+        }
       </div>
     </nav>
   )

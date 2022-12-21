@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { handleLogin, signOutUser } from "../firebase";
+import { handleLogin } from "../firebase";
+import SidebarNav from "./SidebarNav";
 
 function Sidebar ({ openUpload, openSignUp, user }) {
 
@@ -12,15 +13,14 @@ function Sidebar ({ openUpload, openSignUp, user }) {
         </div>
       }
       {user && 
-        <div id="user-info">
+        <div className="user-info">
           <Link to={'/profile/' + user.uid} >
             <div id="user-container">
               <img id="user-pic" alt='user-pic' referrerPolicy="no-referrer" src={user.profilePicUrl}/>
               <div id="user-name">{user.name}</div>
             </div>
           </Link>
-          <button onClick={openUpload}>New Post</button>
-          <button onClick={signOutUser}>Log Out</button>
+          <SidebarNav user={user} openUpload={openUpload}/>
         </div>
       }
     </div>

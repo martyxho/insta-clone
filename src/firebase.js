@@ -436,7 +436,7 @@ async function getUserFollowers(userID) {
 async function followUser(user) {
   try {
     //get currentUser 
-    const cUser = getCurrentUserProfile();
+    const cUser = await getCurrentUserProfile();
     const cUID = cUser.uid;
     const uid = user.uid;
 
@@ -470,17 +470,36 @@ async function followUser(user) {
   
 }
 
-async function unfollowUser(uid) {
-  //get currentUser ID
-  const cUID = getAuth().currentUser.uid;
+async function unfollowUser(user) {
+  try {
+    //get currentUser ID
+    const cUser = await getCurrentUserProfile();
+    const cUID = cUser.uid;
+    const uid = user.uid;
 
-  //update currentUser -- following
-  const docRef = doc(db, 'users', cUID, 'following', uid);
-  await deleteDoc(docRef);
+    //update currentUser -- following
+    const docRef = doc(db, 'users', cUID, 'following', uid);
+    await deleteDoc(docRef);
 
-  //update followed user -- followers
-  const docRef2 = doc(db, 'users', uid, 'followers', cUID);
-  await deleteDoc(docRef2);
+    //update followed user -- followers
+    const docRef2 = doc(db, 'users', uid, 'followers', cUID);
+    await deleteDoc(docRef2);
+
+    //update current user --followingCount, 
+    const userRef = doc(db, 'users', cUID);
+    await updateDoc(userRef, {
+      followingCount: cUser.followingCount - 1,
+    });
+
+    //update followed user -- followersCount
+    const userRef2 = doc(db, 'users', uid);
+    await updateDoc(userRef2, {
+      followersCount: user.followersCount - 1,
+    });
+  } catch(error) {
+    console.error('Error accessing firebase', error);
+  }
+  
 }
 
 // Initialize Firebase

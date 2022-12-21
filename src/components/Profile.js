@@ -42,7 +42,7 @@ function Profile ({ cUser, refresh }) {
         <div className="profile-imgContainer">
           <img className="profile-img" alt="user profile img" src={user.profilePicUrl} />
         </div>
-        <ProfileTopRight cUser={cUser} userID={userID} openPostForm={openPostForm} refresh={refresh} />
+        <ProfileTopRight cUser={cUser} user={user} openPostForm={openPostForm} refresh={refresh} />
       </div>
       {user &&
         <div className="profile-inner">

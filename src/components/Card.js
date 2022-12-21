@@ -39,7 +39,7 @@ function Card ({ post, refresh }) {
   }
 
   function handleUnfollow() {
-    unfollowUser(uid);
+    unfollowUser(user);
     setFollow(false);
     closeOverlay();
   }

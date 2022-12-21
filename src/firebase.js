@@ -129,6 +129,7 @@ async function saveUser(name) {
     uid: uid,
     followingCount: 0,
     followersCount: 0,
+    postCount: 0,
   });
 }
 
@@ -182,7 +183,8 @@ async function uploadPost(file, text) {
   try {
     // add doc to firestore 
     const timestamp = serverTimestamp();
-    const uid = getAuth().currentUser.uid;
+    const user = await getCurrentUserProfile();
+    const uid = user.uid;
 
     const postRef = await addDoc(collection(db, 'posts'), {
       uid: uid,
@@ -203,13 +205,20 @@ async function uploadPost(file, text) {
       postID: postRef.id,
     });
 
-    //update user - posts with new post
+    //update user - posts with new post 
     const docRef = doc(db, 'users', uid, 'posts', postRef.id);
     await setDoc(docRef, {
       postID: postRef.id,
       timestamp: timestamp,
       imageUrl: imageUrl,
     });
+
+    //update user - postCount
+    const userRef = doc(db, 'users', uid);
+    await updateDoc(userRef, {
+      postCount: user.postCount + 1,
+    })
+
   } catch(error) {
     console.error('Error uploading to Firebase', error);
   }
@@ -335,9 +344,14 @@ async function getPost(postID) {
   }
 }
 
-async function deletePost(postID, uid) {
+async function deletePost(postID) {
+  const user = await getCurrentUserProfile();
   await deleteDoc(doc(db, 'posts', postID));
-  await deleteDoc(doc(db, 'users', uid, 'posts', postID));
+  await deleteDoc(doc(db, 'users', user.uid, 'posts', postID));
+  const userRef = doc(db, 'users', user.uid);
+  await updateDoc(userRef, {
+    postCount: user.postCount - 1,
+  });
 }
 
 async function getUserPosts(userID, lim = false) {

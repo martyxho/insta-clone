@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function SidebarNav({ user, openUpload }) {
   return (
     <div className="sidebar-nav">
@@ -13,12 +15,14 @@ function SidebarNav({ user, openUpload }) {
         </div>
         <p>Followers</p>
       </div>
-      <div className="navBox 3">
-        <div className="user-stat">
-          <p>{user.postCount}</p>
+      <Link to={'/profile/' + user.uid}>
+        <div className="navBox 3">
+          <div className="user-stat">
+            <p>{user.postCount}</p>
+          </div>
+          <p>Posts</p>
         </div>
-        <p>Posts</p>
-      </div>
+      </Link>
       <div className="navBox 4" onClick={openUpload}>
         <div className="user-stat">
           <p>+</p>

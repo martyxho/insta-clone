@@ -3,7 +3,7 @@ import { signOutUser } from "../firebase";
 
 function Nav ({ user }) {
   return (
-    <nav>
+    <nav className="main-nav">
       <div id="logo">
         <Link to='/'>Instagram</Link>
       </div>

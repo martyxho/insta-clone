@@ -38,6 +38,7 @@ function App () {
 
   function refresh() {
     refreshUser(true);
+    setState();
   }
 
   return (

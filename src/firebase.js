@@ -326,7 +326,7 @@ async function getPosts() {
 async function getMostLikedPosts() {
   try {
     const postsRef = collection(db, 'posts');
-    const q = query(postsRef, orderBy('likesCount', 'desc'), limit(1));
+    const q = query(postsRef, orderBy('likesCount', 'desc'), limit(3));
     const querySnapshot = await getDocs(q);
     const arr = [];
     querySnapshot.forEach(e => arr.push(e.data()));
@@ -370,17 +370,21 @@ async function getUserPosts(userID, lim = false) {
 async function getUserFeed(userID) {
   //get followed users
   const follows = await getUserFollows(userID);
-  
   //create array with user posts
   const all = await getUserPosts(userID, 5);
   
-  //get user posts from followed users and push to array
-  for await (const user of follows) {
-    all.push(...await getUserPosts(user.uid, 5));
+  //check if user has follows
+  if (follows.length > 0) {
+    //get user posts from followed users and push to array
+    for await (const user of follows) {
+      all.push(...await getUserPosts(user.uid, 5));
+    }
+    
+    //get most Liked posts from any user
+    all.push(...await getMostLikedPosts());
+  } else {
+    all.push(...await getPosts());
   }
-  
-  //get most Liked posts from any user
-  all.push(...await getMostLikedPosts());
 
   //filter out duplicates
   const filtered = [...removeDuplicates(all)];

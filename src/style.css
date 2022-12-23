@@ -5,6 +5,10 @@
   font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
+button {
+  cursor: pointer;
+}
+
 ::-webkit-scrollbar {
   display: none;
 }
@@ -183,6 +187,10 @@ nav {
   opacity: .7;
   justify-content: center;
   align-items: center;
+}
+
+.overlay-btn {
+  cursor: pointer;
 }
 
 .overlay-close {

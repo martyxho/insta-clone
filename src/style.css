@@ -62,10 +62,12 @@ nav {
   box-shadow: 0 5px 20px 1px rgb(0 0 0 / 5%);
   width: 70%;
   height: 45px;
+  transition: all .5s;
 }
 
 .sidebar-nav:hover {
   background-color: black;
+  transform: translateY(-3%);
 }
 
 .sidebar-nav:hover .user-stat p {
@@ -114,6 +116,12 @@ nav {
   width: 80px;
   height: 80px;
   border-radius: 100%;
+  transition: all .5s;
+  box-shadow: 0 5px 20px 1px rgb(0 0 0 / 5%);
+}
+
+#user-pic:hover {
+  transform: translateY(-3%);
 }
 
 .upload_container, #sign-up-form {
@@ -387,15 +395,26 @@ nav {
   width: 200px;
   height: 200px;
   border-radius: 100%;
+  transition: all .25s;
+}
+
+.profile-imgContainer:hover {
+  transform: translateY(-51%);
 }
 
 .profile-img {
-  box-shadow: 0 0 20px 1px rgb(0 0 0 / 10%);
+  position: absolute;
   border-radius: 100%;
   width: 200px;
   height: 200px;
   cursor: pointer;
   object-fit: cover;
+}
+
+.blur {
+  filter: blur(16px);
+  z-index: -3;
+  opacity: .75;
 }
 
 .profile-topRight {

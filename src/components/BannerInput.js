@@ -11,7 +11,7 @@ function BannerInput({ user, refresh }) {
   }
   function handleMouseEnterBanner() {
     const overlay = document.getElementById('settings-bannerOverlay');
-    overlay.style.opacity = '0.2';
+    overlay.style.opacity = '0.3';
   }
 
   function handleMouseLeaveBanner() {

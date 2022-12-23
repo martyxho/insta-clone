@@ -41,6 +41,7 @@ function Profile ({ cUser, refresh }) {
       <div className="profile-outer">
         <div className="profile-imgContainer">
           <img className="profile-img" alt="user profile img" src={user.profilePicUrl} />
+          <img className="profile-img blur" alt="user profile img" src={user.profilePicUrl} />
         </div>
         <ProfileTopRight cUser={cUser} user={user} openPostForm={openPostForm} refresh={refresh} />
       </div>

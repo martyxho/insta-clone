@@ -12,7 +12,7 @@ function ProfileInput({ user, refresh }) {
 
   function handleMouseEnter() {
     const overlay = document.getElementById('settings-profileOverlay');
-    overlay.style.opacity = '0.2';
+    overlay.style.opacity = '0.3';
   }
 
   function handleMouseLeave() {

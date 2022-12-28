@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { handleLogin } from "../firebase";
 import SidebarNav from "./SidebarNav";
 
-function Sidebar ({ openUpload, openSignUp, user }) {
+function Sidebar ({ openUpload, openSignUp, openFollow, user }) {
 
   return (
     <div className="home-sidebar">
@@ -20,7 +20,7 @@ function Sidebar ({ openUpload, openSignUp, user }) {
               <div id="user-name">{user.name}</div>
             </div>
           </Link>
-          <SidebarNav user={user} openUpload={openUpload}/>
+          <SidebarNav user={user} openUpload={openUpload} openFollow={openFollow}/>
         </div>
       }
     </div>

@@ -44,7 +44,7 @@ function Home({ user, posts, refresh }) {
         <SignUpForm close={closeSignUpForm} refresh={refresh}/>
       }
       {followInfo &&
-        <FollowInfo user={user} close={closeFollow} tab1={followInfo.tab1} />
+        <FollowInfo user={user} close={closeFollow} tab1={followInfo.tab1} refresh={refresh}/>
       }
       <div className="home-main">
         <div className="home-inner">

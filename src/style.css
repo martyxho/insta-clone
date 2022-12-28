@@ -640,6 +640,18 @@ button {
   border-radius: 100%;
   object-fit: cover;
 }
+
+.followUser {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.follow_user_container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
  
 .follow-header {
   display: flex;

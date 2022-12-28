@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { getUserProfile, checkFollow, followUser, unfollowUser } from "../firebase";
 
 function FollowUser ({uid, refresh}) {
@@ -18,43 +19,43 @@ function FollowUser ({uid, refresh}) {
     setFollow(await checkFollow(uid));
   }
 
-  async function handleFollow() {
+  async function handleFollow(e) {
+    e.preventDefault();
     setDisabled(true);
     await followUser(user);
+    refresh();
     await setFollowState();
     setDisabled(false);
-    refresh();
   }
 
-  async function handleUnfollow() {
+  async function handleUnfollow(e) {
+    e.preventDefault();
     setDisabled(true);
     await unfollowUser(user);
+    refresh();
     await setFollowState();
     setDisabled(false);
-    refresh();
   }
 
   return (
-    <div className="followUser">
-      <div className="follow_user_container">
-        <div className="follow_avatar_container">
-          <img className="userPic" src={user.profilePicUrl} alt='user profile pic'/>
+    <Link to={'/profile/' + uid}>
+      <div className="followUser">
+        <div className="follow_user_container">
+          <div className="follow_avatar_container">
+            <img className="userPic" src={user.profilePicUrl} alt='user profile pic'/>
+          </div>
+          <div className="follow_user_info">
+            <p>{user.name}</p>
+          </div>
         </div>
-        <div className="follow_user_info">
-          <p>{user.name}</p>
-        </div>
+        {user && follow &&
+          <button className="follow-btn" onClick={handleUnfollow} disabled={disabled}>Unfollow</button>
+        }
+        {user && !follow &&
+          <button className="follow-btn" onClick={handleFollow} disabled={disabled}>Follow</button>
+        }
       </div>
-      {user &&
-        <div>
-          {follow &&
-            <button onClick={handleUnfollow} disabled={disabled}>Unfollow</button>
-          }
-          {!follow &&
-            <button onClick={handleFollow} disabled={disabled}>Follow</button>
-          }
-        </div>
-      }
-    </div>
+    </Link>
   )
 }
 

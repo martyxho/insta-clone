@@ -7,6 +7,7 @@
 
 :root {
   --primary-font-color: black;
+  --secondary-font-color: #888;
   --nav-background-color: rgba(255, 255, 255, 0.733);
   --primary-transparent-color: rgba(255, 255, 255, 0.98);
   --user-menu-font-color: black;
@@ -641,10 +642,20 @@ button {
   object-fit: cover;
 }
 
+.follow-container {
+  padding: 10px;
+}
+
 .followUser {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-radius: 5px;
+  padding: 20px 25px;
+}
+
+.followUser:hover {
+  background-color: var(--menu-hover-color);
 }
 
 .follow_user_container {
@@ -652,6 +663,26 @@ button {
   align-items: center;
   gap: 15px;
 }
+
+.follow-btn {
+  width: 155px;
+  height: 43px;
+  border-radius: 19px;
+  background: none;
+  border: var(--secondary-border);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--secondary-font-color);
+  transition: box-shadow .25s, transform .25s;
+}
+
+.follow-btn:hover {
+  color: white;
+  background-color: black;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px 1px rgb(0 0 0 / 25%);
+}
+
  
 .follow-header {
   display: flex;

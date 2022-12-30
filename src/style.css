@@ -226,8 +226,9 @@ button {
   display: flex;
 }
 
-.card-btn {
-  height: 25px;
+.heart {
+  width: 24px;
+  height: 24px;
   cursor: pointer;
 }
 

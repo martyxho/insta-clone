@@ -8,7 +8,7 @@ import ExtraButton from "./ExtraButton";
 import calcTime from "../utils/calcTime";
 
 function PostSidebar({ post, refresh, cUser }) {
-  const { text, uid, postID, likes, likesCount, timestamp } = post;
+  const { text, uid, postID, likes, timestamp } = post;
   const [user, setUser] = useState('');
   const [comments, setComments] = useState('');
   const time = calcTime(timestamp);
@@ -48,7 +48,7 @@ function PostSidebar({ post, refresh, cUser }) {
       <PostComments comments={comments}/>
       <div className="post-footer">
         <div className="post-btns-container">
-          <PostButtons postID={postID} likes={likes} likesCount={likesCount} refresh={refresh} />
+          <PostButtons postID={postID} likes={likes} refresh={refresh} />
           <div className="post-btns-right">
             <ExtraButton postID={postID} uid={uid} cUser={cUser} />
             <p className="elapsed-time">

@@ -269,12 +269,11 @@ async function updateProfilePic(picFile) {
   });
 }
 
-async function updateLikes(postID, likes, likesCount) {
+async function updateLikes(postID, likes) {
   try {
     const docRef = doc(db, 'posts', postID);
     await updateDoc(docRef, {
       likes: likes,
-      likesCount: likesCount,
     });
   } catch(error) {
     console.error('Error uploading to Firebase', error);

@@ -192,7 +192,6 @@ async function uploadPost(file, text) {
       text: text,
       timestamp: timestamp,
       likes: [uid],
-      likesCount: 1,
     });
 
     // Upload the image to Cloud Storage.

@@ -1,14 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getUserProfile, checkFollow, followUser, unfollowUser } from "../firebase";
+import { getComments } from "../firebase";
 import CardComments from "./CardComments";
 import PostButtons from './PostButtons';
+import Likes from "./Likes";
+import CommentForm from "./CommentForm";
 
 function Card ({ post, refresh, cUser, openSignUp }) {
-  const { postID, uid, imageUrl, likes, likesCount, text } = post;
+  const { postID, uid, imageUrl, likes } = post;
   const [user, setUser] = useState('');
   const [follow, setFollow] = useState('');
   const [overlay, setOverlay] = useState('');
+  const [likesCount, setLikesCount] = useState(likes.length);
+  const [comments, setComments] = useState('');
+
+  useEffect(() => {
+    setData();
+  }, []);
+
+  async function setData() {
+    const x = await getComments(postID);
+    setComments(x);
+  }
 
   useEffect(() => {
     async function setState() {
@@ -51,6 +65,10 @@ function Card ({ post, refresh, cUser, openSignUp }) {
     closeOverlay();
   }
 
+  function updateLikesCount(count) {
+    setLikesCount(count);
+  }
+
   return (
     <div className="card">
       {(overlay) &&
@@ -83,17 +101,25 @@ function Card ({ post, refresh, cUser, openSignUp }) {
           ...
         </div>
       </div>
-      <img src={imageUrl} className="main-img" alt="pic"/>
+      <Link to={'/post/' + postID}>
+        <div className="main-img-div">
+          <img src={imageUrl} className="main-img" alt="pic"/>
+        </div>
+      </Link>
       <div className="card-footer">
-        <div className="caption">
-          {text}
-        </div>
         <div className="card-btns-container">
-          <PostButtons postID={postID} likes={likes} likesCount={likesCount} refresh={refresh} />
-          <button>Share</button>
+          <PostButtons postID={postID} likes={likes} likesCount={likesCount} updateLikesCount={updateLikesCount} refresh={refresh} />
+          <div className="svg-div">
+            <svg className="post-btn" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="home__card_icon__3nf38" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="128" cy="256" r="48" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></circle><circle cx="384" cy="112" r="48" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></circle><circle cx="384" cy="400" r="48" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></circle>
+              <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M169.83 279.53l172.34 96.94m0-240.94l-172.34 96.94"></path>
+            </svg>
+          </div>
         </div>
-        <CardComments postID={postID} refresh={refresh} />
+        <Likes count={likesCount} />
+        <CardComments postID={postID} comments={comments} />
+        <CommentForm postID={postID} refresh={refresh} setData={setData}/>
       </div>
+      <img src={imageUrl} className='img-blur' alt='blur effect'/>
     </div>
   )
 }

@@ -5,6 +5,7 @@ import PostComments from "./PostComments";
 import PostButtons from "./PostButtons";
 import CommentForm from "./CommentForm";
 import ExtraButton from "./ExtraButton";
+import Likes from "./Likes";
 import calcTime from "../utils/calcTime";
 
 function PostSidebar({ post, refresh, cUser }) {
@@ -12,6 +13,7 @@ function PostSidebar({ post, refresh, cUser }) {
   const [user, setUser] = useState('');
   const [comments, setComments] = useState('');
   const time = calcTime(timestamp);
+  const [likesCount, setLikesCount] = useState(likes.length);
 
   useEffect(() => {
     async function setName() {
@@ -28,6 +30,10 @@ function PostSidebar({ post, refresh, cUser }) {
   async function setData() {
     const x = await getComments(postID, 50);
     setComments(x);
+  }
+
+  function updateLikesCount(count) {
+    setLikesCount(count);
   }
 
   return (
@@ -48,14 +54,15 @@ function PostSidebar({ post, refresh, cUser }) {
       <PostComments comments={comments}/>
       <div className="post-footer">
         <div className="post-btns-container">
-          <PostButtons postID={postID} likes={likes} refresh={refresh} />
-          <div className="post-btns-right">
-            <ExtraButton postID={postID} uid={uid} cUser={cUser} />
-            <p className="elapsed-time">
-              {Math.floor(time.time)}
-              {time.format}
-            </p>
-          </div>
+          <PostButtons postID={postID} likes={likes} updateLikesCount={updateLikesCount} refresh={refresh} />
+          <ExtraButton postID={postID} uid={uid} cUser={cUser} />
+        </div>
+        <div>
+          <Likes count={likesCount} />
+          <p className="elapsed-time">
+            {Math.floor(time.time)}
+            {time.format}
+          </p>
         </div>
         <CommentForm postID={postID} refresh={refresh} setData={setData}/>
       </div>

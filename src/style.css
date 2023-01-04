@@ -2,7 +2,17 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: Helvetica, Arial, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+}
+
+::placeholder {
+  color: var(--secondary-font-color);
+  opacity: 1;
 }
 
 :root {
@@ -35,6 +45,11 @@ button {
   display: none;
 }
 
+img {
+  overflow-clip-margin: content-box;
+  overflow: clip;
+}
+
 .main-nav {
   position: fixed;
   top: 0;
@@ -43,6 +58,7 @@ button {
   box-shadow: 0px 0px 20px 2px rgb(221, 219, 219);
   background-color: white;
   opacity: .8;
+  z-index: 1;
 }
 
 .home-main {
@@ -163,6 +179,7 @@ button {
   gap: 16px;
   background-color: white;
   padding: 16px;
+  z-index: 10;
 }
 
 #sign-up-form form {
@@ -187,16 +204,6 @@ button {
 .upload_header {
   display: flex;
   justify-content: space-between;
-}
-
-.card {
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0px 0px 50px 2px rgb(221, 219, 219);
-  width: 600px;
-  height: 750px;
-  margin-bottom: 4em;
 }
 
 .overlay {
@@ -230,22 +237,30 @@ button {
 }
 
 .post-btn-div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 40px;
-  width: 40px;
+  width: 35px;
 }
 
 .post-btn {
   width: 24px;
   height: 24px;
-  cursor: pointer;
 }
 
 .heart {
   width: 28px;
   height: 28px;
+}
+
+.card {
+  position: relative;
+  border: var(--primary-border);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 560px;
+  height: 750px;
+  margin-bottom: 4em;
+  background-color: white;
 }
 
 .card-header {
@@ -273,25 +288,77 @@ button {
 
 .card-footer {
   height: 200px;
-  padding: 10px 30px;
+  padding: 16px 1.25em;
 }
-.cmt-sm {
-  display: flex;
-  gap: .7em;
-  font-size: 12px;
+
+.likes {
+  font-size: .85rem;
+  cursor: pointer;
+  font-weight: 700;
+  margin: 0.5rem 0;
+}
+
+.card-cmts {
+  font-size: .85rem;
+}
+
+.cmts-container {
+  height: 48px;
+}
+
+.cmt-tag {
+  color: var(--secondary-font-color);
+  cursor: pointer;
+  margin-bottom: 6px;
+}
+
+.card-cmt-container p {
+  padding-bottom: 6px;
 }
 
 .cmt-name {
-  font-weight: bold;
+  font-weight: 700;
+  cursor: pointer;
+  margin-right: 5px;
 }
 
 .card-user-pic {
-  height: 50px;
+  height: 2.25em;
+  width: 2.25em;
+  object-fit: cover;
+  display: block;
+  object-position: center;
   border-radius: 100%;
+  cursor: pointer;
+}
+
+.main-img-div {
+  width: 560px;
+  height: 500px;
+  margin-left: -1px;
 }
 
 .main-img {
-  height: 450px;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 0px;;
+  object-fit: cover;
+  object-position: center center;
+  cursor: pointer;
+  opacity: 1;
+}
+
+.img-blur {
+  position: absolute;
+  filter: blur(2em);
+  opacity: 0.3;
+  width: inherit;
+  height: inherit;
+  object-fit: cover;
+  display: block;
+  object-position: center;
+  z-index: -10;
 }
 
 .post-main {
@@ -333,6 +400,7 @@ button {
 .post-btns-container, .card-btns-container {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .card-btns-container button {
@@ -407,6 +475,36 @@ button {
 .elapsed-time {
   font-size: 14px;
   color: rgba(0, 0, 0, 0.5);
+}
+
+.comment-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(32,32,32,0);
+  border: 1px solid hsla(0,0%,48.6%,0);
+  border-top-color: hsla(0,0%,48.6%,.281);
+  padding-top: 10px;
+  margin-bottom: 7px;
+}
+
+.svg-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.comment-form {
+  width: 100%;
+}
+
+.comment-input {
+  width: 100%;
+  text-align: left;
+  border: 0 solid hsla(0,0%,48.6%,0);
+  background: rgba(32,32,32,0);
+  color: var(--primary-font-color);
 }
 
 .profile {

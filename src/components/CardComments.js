@@ -1,29 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { getComments } from "../firebase";
-import CommentSmall from "./CommentSmall";
-import CommentForm from "./CommentForm";
+import { Link } from "react-router-dom";
+import CardComment from "./CardComment";
 
-function CardComments({ postID, refresh }) {
-  const [comments, setComments] = useState('');
-
-  useEffect(() => {
-    setData();
-  }, [postID]);
-
-  async function setData() {
-    const x = await getComments(postID);
-    setComments(x);
-  }
-
+function CardComments({ postID, comments }) {
   return (
-    <div className="cmts-container">
-      <p>View All Comments</p>
-      <div className="cmts">
+    <div className="card-cmts">
+      <Link to={'/post/' + postID}>
+        <p className="cmt-tag">View All Comments</p>
+      </Link>
+      <div className="cmts-container">
         {comments && 
-          comments.map(e => <CommentSmall uid={e.uid} text={e.text} />)
+          comments.map(e => <CardComment uid={e.uid} text={e.text} />)
         }
       </div>
-      <CommentForm postID={postID} refresh={refresh} setData={setData}/>
     </div>
   )
 }

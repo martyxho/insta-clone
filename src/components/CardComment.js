@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getUserProfile } from "../firebase";
 
-function CommentSmall({ uid, text }) {
+function CardComment({ uid, text }) {
   const [username, setUsername] = useState('');
   useEffect(() => {
     async function setName() {
@@ -13,13 +13,15 @@ function CommentSmall({ uid, text }) {
   }, [uid]);
 
   return (
-    <div className="cmt-sm">
-      <Link to={'/profile/' + uid}>
-        <div className="cmt-name">{username}</div>
-      </Link>
-      <div className="cmt-text">{text}</div>
+    <div className="card-cmt-container">
+      <p>
+        <Link to={'/profile/' + uid}>
+          <span className="cmt-name">{username}</span>
+        </Link>
+        {text}
+      </p>
     </div>
   )
 }
 
-export default CommentSmall;
+export default CardComment;

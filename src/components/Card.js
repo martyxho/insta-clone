@@ -72,52 +72,58 @@ function Card ({ post, refresh, cUser, openSignUp }) {
   return (
     <div className="card">
       {(overlay) &&
-        <div className="overlay">
-          <button className="overlay-close" onClick={closeOverlay}>X</button>
-          {overlay === 1 &&
-            <Link to={'/settings'}><button className="overlay-btn">Edit Profile</button></Link>
-          }
-          {overlay === 2 && follow &&
-            <button className="overlay-btn" onClick={handleUnfollow}>Unfollow</button>
-          }
-          {overlay === 2 && !follow && 
-            <button className="overlay-btn" onClick={handleFollow}>Follow</button>
-          }  
-          {overlay === 3 &&
-            <button className="overlay-btn" onClick={handleOpenLogin}>Login</button>
-          }
+        <div className="card-overlay">
+          <div className="card-overlay-header">
+            <svg onClick={closeOverlay} className="card-overlay-close" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144m224 0L144 368"></path></svg>
+          </div>
+          <div className="card-overlay-main">
+            {overlay === 1 &&
+              <Link to={'/settings'}><button className="overlay-btn">Edit Profile</button></Link>
+            }
+            {overlay === 2 && follow &&
+              <button className="card-overlay-btn" onClick={handleUnfollow}>Unfollow</button>
+            }
+            {overlay === 2 && !follow && 
+              <button className="card-overlay-btn" onClick={handleFollow}>Follow</button>
+            }  
+            {overlay === 3 &&
+              <button className="card-overlay-btn" onClick={handleOpenLogin}>Login</button>
+            }
+          </div>
         </div>
       }
-      <div className="card-header">
-        <Link to={'/profile/' + uid} >
-          <div className="card-userInfo">
-            <img src={user.profilePicUrl} className='card-user-pic' alt="user-pic" referrerPolicy="no-referrer"/>
-            <div className="user-name">
-              {user.name}
+      <div className="card-container">
+        <div className="card-header">
+          <Link to={'/profile/' + uid} >
+            <div className="card-userInfo">
+              <img src={user.profilePicUrl} className='card-user-pic' alt="user-pic" referrerPolicy="no-referrer"/>
+              <div className="user-name">
+                {user.name}
+              </div>
             </div>
+          </Link>
+          <div className="card-ext-btn" onClick={openOverlay} >
+            <svg className="card-btn-svg" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg>
+          </div>
+        </div>
+        <Link to={'/post/' + postID}>
+          <div className="main-img-div">
+            <img src={imageUrl} className="main-img" alt="pic"/>
           </div>
         </Link>
-        <div className="card-ext-btn" onClick={openOverlay} >
-          ...
-        </div>
-      </div>
-      <Link to={'/post/' + postID}>
-        <div className="main-img-div">
-          <img src={imageUrl} className="main-img" alt="pic"/>
-        </div>
-      </Link>
-      <div className="card-footer">
-        <div className="card-btns-container">
-          <PostButtons postID={postID} likes={likes} likesCount={likesCount} updateLikesCount={updateLikesCount} refresh={refresh} />
-          <div className="svg-div">
-            <svg className="post-btn" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="home__card_icon__3nf38" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="128" cy="256" r="48" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></circle><circle cx="384" cy="112" r="48" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></circle><circle cx="384" cy="400" r="48" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></circle>
-              <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M169.83 279.53l172.34 96.94m0-240.94l-172.34 96.94"></path>
-            </svg>
+        <div className="card-footer">
+          <div className="card-btns-container">
+            <PostButtons postID={postID} likes={likes} likesCount={likesCount} updateLikesCount={updateLikesCount} refresh={refresh} />
+            <div className="svg-div">
+              <svg className="post-btn" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="128" cy="256" r="48" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></circle><circle cx="384" cy="112" r="48" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></circle><circle cx="384" cy="400" r="48" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></circle>
+                <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M169.83 279.53l172.34 96.94m0-240.94l-172.34 96.94"></path>
+              </svg>
+            </div>
           </div>
+          <Likes count={likesCount} />
+          <CardComments postID={postID} comments={comments} />
+          <CommentForm postID={postID} refresh={refresh} setData={setData}/>
         </div>
-        <Likes count={likesCount} />
-        <CardComments postID={postID} comments={comments} />
-        <CommentForm postID={postID} refresh={refresh} setData={setData}/>
       </div>
       <img src={imageUrl} className='img-blur' alt='blur effect'/>
     </div>

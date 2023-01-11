@@ -16,7 +16,12 @@ function Sidebar ({ openUpload, openSignUp, openFollow, user }) {
         <div className="user-info">
           <Link to={'/profile/' + user.uid} >
             <div id="user-container">
-              <img id="user-pic" alt='user-pic' referrerPolicy="no-referrer" src={user.profilePicUrl}/>
+              <div className="user-image-container">
+                <div id="user-pic-div">
+                  <img id="user-pic" alt='user-pic' referrerPolicy="no-referrer" src={user.profilePicUrl}/>
+                </div>
+                <img className="user-pic-blur" alt='user pic blur' referrerPolicy="no-referrer" src={user.profilePicUrl}/>
+              </div>
               <div id="user-name">{user.name}</div>
             </div>
           </Link>

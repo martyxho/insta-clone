@@ -5,7 +5,8 @@ function ExtraButton({ postID, uid, cUser }) {
 
   const [extra, setExtra] = useState(false);
 
-  function openExtra() {
+  function openExtra(e) {
+    e.stopPropagation();
     setExtra(true);
   }
 

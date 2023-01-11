@@ -78,7 +78,7 @@ function Card ({ post, refresh, cUser, openSignUp }) {
           </div>
           <div className="card-overlay-main">
             {overlay === 1 &&
-              <Link to={'/settings'}><button className="overlay-btn">Edit Profile</button></Link>
+              <Link to={'/settings'}><button className="card-overlay-btn">Edit Profile</button></Link>
             }
             {overlay === 2 && follow &&
               <button className="card-overlay-btn" onClick={handleUnfollow}>Unfollow</button>
@@ -97,7 +97,7 @@ function Card ({ post, refresh, cUser, openSignUp }) {
           <Link to={'/profile/' + uid} >
             <div className="card-userInfo">
               <img src={user.profilePicUrl} className='card-user-pic' alt="user-pic" referrerPolicy="no-referrer"/>
-              <div className="user-name">
+              <div className="card-username">
                 {user.name}
               </div>
             </div>

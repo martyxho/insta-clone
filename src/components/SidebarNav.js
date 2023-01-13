@@ -14,20 +14,20 @@ function SidebarNav({ user, openUpload, openFollow }) {
     <div className="sidebar-nav">
       <div className="navBox 1" onClick={followingClick}>
         <div className="user-stat">
-          <p>{user.followingCount}</p> 
+          <p>{user.following.length}</p> 
         </div>
         <p>Following</p>
       </div>
       <div className="navBox 2" onClick={followersClick}>
         <div className="user-stat">
-          <p>{user.followersCount}</p>
+          <p>{user.followers.length}</p>
         </div>
         <p>Followers</p>
       </div>
       <Link to={'/profile/' + user.uid}>
         <div className="navBox 3">
           <div className="user-stat">
-            <p>{user.postCount}</p>
+            <p>{user.posts.length}</p>
           </div>
           <p>Posts</p>
         </div>

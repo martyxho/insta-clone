@@ -47,7 +47,7 @@ const firebaseConfig = {
 function getProfilePicUrl() {
   return getAuth().currentUser.photoURL || './assets/images/profile_placeholder.png';
 }
-
+ 
 async function getUserProfile(uid) {
   const docRef = doc(db, 'users', uid);
   const docSnap = await getDoc(docRef);
@@ -65,11 +65,8 @@ function getCurrentUser() {
 }
 
 async function checkFollow(uid) {
-  const follows = await getUserFollows(getAuth().currentUser.uid);
-  if (follows.some(e => e.uid === uid)) {
-    return true;
-  }
-  return false;
+  const cUser = await getCurrentUserProfile();
+  return cUser.following.includes(uid);
 }
 
 async function isNewUser() {
@@ -335,6 +332,14 @@ async function getPost(postID) {
   }
 }
 
+async function getPostsFromIDArr(arr) {
+  const posts = [];
+  for await (const postID of arr) {
+    posts.push(await getPost(postID));
+  }
+  return posts;
+}
+
 async function deletePost(postID) {
   const user = await getCurrentUserProfile();
   await deleteDoc(doc(db, 'posts', postID));
@@ -344,29 +349,34 @@ async function deletePost(postID) {
   });
 }
 
-async function getUserPosts(userID, lim = false) {
+async function getUserPostsArr(userID, lim=false) {
   try {
-    const colRef = collection(db, 'users', userID, 'posts');
-    const q = lim ? query(colRef, orderBy('timestamp', 'desc'), limit(lim)) : query(colRef, orderBy('timestamp', 'desc'));
-    const querySnapshot = await getDocs(q);
-    const arr = [];
-    querySnapshot.forEach(e => arr.push(e.data()));
-    return arr;
+    const user = await getUserProfile(userID);
+    const posts = user.posts;
+    if (lim && posts.length > lim) {
+      return posts.slice(posts.length - lim);
+    }
+    return posts;
   } catch(error) {
     console.error('Error acessing data from Firebase', error);
   }
 }
 
+async function getUserPosts(userID) {
+  const postsArr = await getUserPostsArr(userID);
+  return getPostsFromIDArr(postsArr);
+}
+
 async function getUserFeed(userID) {
-  //get followed users
-  const follows = await getUserFollows(userID);
+  //get user doc
+  const user = await getUserProfile(userID);
   //create array with user posts
   const all = await getUserPosts(userID, 5);
   
   //check if user has follows
-  if (follows.length > 0) {
+  if (user.following.length > 0) {
     //get user posts from followed users and push to array
-    for await (const user of follows) {
+    for await (const user of user.following) {
       all.push(...await getUserPosts(user.uid, 5));
     }
     
@@ -413,32 +423,6 @@ function removeDuplicates(arr) {
 
 function sortFeedArray(a, b) {
   return b.timestamp - a.timestamp;
-}
-
-async function getUserFollows(userID) {
-  try {
-    const colRef = collection(db, 'users', userID, 'following');
-    const q = query(colRef);
-    const querySnapshot = await getDocs(q);
-    const arr = [];
-    querySnapshot.forEach(e => arr.push(e.data()));
-    return arr;
-  } catch(error) {
-    console.error('Error acessing data from Firebase', error);
-  }
-}
-
-async function getUserFollowers(userID) {
-  try {
-    const colRef = collection(db, 'users', userID, 'followers');
-    const q = query(colRef);
-    const querySnapshot = await getDocs(q);
-    const arr = [];
-    querySnapshot.forEach(e => arr.push(e.data()));
-    return arr;
-  } catch(error) {
-    console.error('Error acessing data from Firebase', error);
-  }
 }
 
 async function followUser(user) {
@@ -513,8 +497,6 @@ export {
   checkFollow, 
   followUser, 
   unfollowUser,
-  getUserFollows,
-  getUserFollowers, 
   updateProfile, 
   updateProfileBanner, 
   updateProfilePic };

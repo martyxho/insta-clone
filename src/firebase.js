@@ -24,6 +24,8 @@ import {
   getDocs,
   getDoc,
   deleteDoc,
+  arrayUnion,
+  arrayRemove,
 } from 'firebase/firestore';
 import { 
   getStorage, 
@@ -127,9 +129,9 @@ async function saveUser(name) {
     bio: `Hi my name is ${name}`,
     bannerURL: await getDefaultBannerUrl(),
     uid: uid,
-    followingCount: 0,
-    followersCount: 0,
-    postCount: 0,
+    posts: [],
+    following: [],
+    followers: [],
   });
 }
 
@@ -205,19 +207,10 @@ async function uploadPost(file, text) {
     });
 
     //update user - posts with new post 
-    const docRef = doc(db, 'users', uid, 'posts', postRef.id);
-    await setDoc(docRef, {
-      postID: postRef.id,
-      timestamp: timestamp,
-      imageUrl: imageUrl,
+    const docRef = doc(db, 'users', uid);
+    await updateDoc(docRef, {
+      posts: arrayUnion(postRef.id)
     });
-
-    //update user - postCount
-    const userRef = doc(db, 'users', uid);
-    await updateDoc(userRef, {
-      postCount: user.postCount + 1,
-    })
-
   } catch(error) {
     console.error('Error uploading to Firebase', error);
   }
@@ -345,10 +338,9 @@ async function getPost(postID) {
 async function deletePost(postID) {
   const user = await getCurrentUserProfile();
   await deleteDoc(doc(db, 'posts', postID));
-  await deleteDoc(doc(db, 'users', user.uid, 'posts', postID));
   const userRef = doc(db, 'users', user.uid);
   await updateDoc(userRef, {
-    postCount: user.postCount - 1,
+    posts: arrayRemove(postID)
   });
 }
 
@@ -457,29 +449,16 @@ async function followUser(user) {
     const uid = user.uid;
 
     //update currentUser -- following 
-    const docRef = doc(db, 'users', cUID, 'following', uid);
-    await setDoc(docRef, {
-      uid: uid,
+    const cUserRef = doc(db, 'users', cUID);
+    await updateDoc(cUserRef, {
+      following: arrayUnion(uid)
     });
 
     //update followed user -- followers 
-    const docRef2 = doc(db, 'users', uid, 'followers', cUID);
-    await setDoc(docRef2, {
-      uid: cUID,
-    });
-
-    //update current user --followingCount, 
-    const userRef = doc(db, 'users', cUID);
+    const userRef = doc(db, 'users', uid);
     await updateDoc(userRef, {
-      followingCount: cUser.followingCount + 1,
+      followers: arrayUnion(cUID)
     });
-
-    //update followed user -- followersCount
-    const userRef2 = doc(db, 'users', uid);
-    await updateDoc(userRef2, {
-      followersCount: user.followersCount + 1,
-    });
-
   } catch(error) {
     console.error('Error acessing data from Firebase', error);
   }
@@ -493,29 +472,20 @@ async function unfollowUser(user) {
     const cUID = cUser.uid;
     const uid = user.uid;
 
-    //update currentUser -- following
-    const docRef = doc(db, 'users', cUID, 'following', uid);
-    await deleteDoc(docRef);
-
-    //update followed user -- followers
-    const docRef2 = doc(db, 'users', uid, 'followers', cUID);
-    await deleteDoc(docRef2);
-
-    //update current user --followingCount, 
-    const userRef = doc(db, 'users', cUID);
-    await updateDoc(userRef, {
-      followingCount: cUser.followingCount - 1,
+    //update currentUser -- following 
+    const cUserRef = doc(db, 'users', cUID);
+    await updateDoc(cUserRef, {
+      following: arrayRemove(uid)
     });
 
-    //update followed user -- followersCount
-    const userRef2 = doc(db, 'users', uid);
-    await updateDoc(userRef2, {
-      followersCount: user.followersCount - 1,
+    //update followed user -- followers 
+    const userRef = doc(db, 'users', uid);
+    await updateDoc(userRef, {
+      followers: arrayRemove(cUID)
     });
   } catch(error) {
     console.error('Error accessing firebase', error);
   }
-  
 }
 
 // Initialize Firebase

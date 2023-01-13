@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: Helvetica, sans-serif;
   text-rendering: optimizeLegibility;
 }
 
@@ -822,6 +822,23 @@ img {
   transition: opacity .15s;
   opacity: 0;
   border-radius: 9px;
+  font-size: 24px;
+  color: white;
+  gap: 27px;
+}
+
+.profile-card-icon, .profile-card-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-card-icon {
+  gap: 8px;
+}
+
+.profile-card-icon > p {
+  font-size: 16px;
 }
 
 .profile-card-overlay:hover {

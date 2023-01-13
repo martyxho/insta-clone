@@ -705,9 +705,13 @@ img {
   object-position: center;
 }
 
+.profile-outer, .profile-inner {
+  max-width: 1600px;
+  width: 90%;
+  padding: 0 16px;
+}
+
 .profile-outer {
-  padding: 0 7%;
-  width: 100vw;
   height: 100px;
   display: flex;
   justify-content: space-between;
@@ -741,21 +745,29 @@ img {
 }
 
 .profile-topRight {
-  display: flex;
-  grid-gap: 16px;
-  gap: 16px;
-  transform: translateY(-50%);
+  position: relative;
   width: fit-content;
-  height: fit-content;
 }
 
-.profile-topRight button {
+.profile-topBtnRow {
+  display: flex;
+  gap: 16px;
+  transform: translateY(-50%);
+}
+
+.profile-topBtnRow button {
   background-color: white;
   box-shadow: 0 0 20px 1px rgb(0 0 0 / 10%);
   border: none;
   color: black;
   height: 44px;
   cursor: pointer;
+  transition: box-shadow .25s, transform .25s;
+}
+
+.profile-topBtnRow button:hover {
+  box-shadow: 0 3px 20px 1px rgb(0 0 0 / 20%);
+  transform: translateY(-2px);
 }
 
 .profile-editBtn {
@@ -774,8 +786,6 @@ img {
 .profile-inner {
   display: grid;
   grid-template-columns: minmax(240px, 1fr) 5fr;
-  width: 100%;
-  padding: 0 7%;
 }
 
 .profile-feed {

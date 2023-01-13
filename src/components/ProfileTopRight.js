@@ -28,13 +28,13 @@ function ProfileTopRight ({ cUser, user, openPostForm, refresh }) {
   return (
     <div className="profile-topRight">
       {cUser && (cUser.uid === user.uid) &&
-        <div>
+        <div className="profile-topBtnRow">
           <Link to='/settings' ><button className="profile-editBtn">Edit Profile</button></Link>
           <button className="profile-postBtn" onClick={openPostForm} >+</button>
         </div>
       }
       {(cUser && (cUser.uid !== user.uid)) && 
-        <div>
+        <div className="profile-topBtnRow">
           {follow && 
             <button className="profile-editBtn" onClick={handleUnfollow}>UnFollow</button>
           }

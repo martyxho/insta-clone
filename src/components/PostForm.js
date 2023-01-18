@@ -13,6 +13,7 @@ function PostForm ({ close, refresh }) {
     const fileInput = document.getElementById('pic-input');
     const file = fileInput.files[0];
     if (file) {
+      e.target.disabled = true;
       await uploadPost(file, text);
       close();
     }

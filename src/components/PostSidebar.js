@@ -38,15 +38,18 @@ function PostSidebar({ post, refresh, cUser }) {
 
   return (
     <div className="post-sidebar">
-      <div className="post-header">
-        <div className="post-user">
-          <Link to={'/profile/' + uid}>
-            <img src={user.profilePicUrl} alt='user profile pic' className='post-profile-img' />
-            <div className="user-info">
-              {user.name}
-            </div>
-          </Link>
-        </div>
+      <div className="post-sidebar-top">
+        <Link to={'/profile/' + uid}>
+          <div className="post-sidebar-profileContainer">
+              <div className="post-sidebar-imageContainer">
+                <img src={user.profilePicUrl} alt='user profile pic' className='post-sidebar-profileImg' />
+                <img src={user.profilePicUrl} alt='user profile pic' className='post-sidebar-profileImgBlur' />
+              </div>
+              <div className="post-sidebar-nameContainer">
+                <h2>{user.name}</h2>
+              </div>
+          </div>
+        </Link>
         <div className="post-caption">
           {text}
         </div>

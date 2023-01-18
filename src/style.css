@@ -566,16 +566,53 @@ img {
   object-fit: cover;
 }
 
-.post-profile-img {
-  width: 80px;
-  height: 80px;
-  border-radius: 100%;
-}
-
 .post-sidebar {
   width: 400px;
 }
 
+.post-sidebar-top {
+  display: flex;
+  height: 180px;
+  border-bottom: 1px solid hsla(0,0%,48.6%,.281);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 1.25em;
+  padding: 1.2rem 0;
+}
+
+.post-sidebar-profileContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.post-sidebar-imageContainer {
+  width: 5em;
+  height: 5em;
+  cursor: pointer;
+}
+
+.post-sidebar-profileImg, .post-sidebar-profileImgBlur {
+  border-radius: 100%;
+  width: 5em;
+  height: 5em;
+  position: absolute;
+  object-fit: cover;
+}
+
+.post-sidebar-profileImgBlur {
+  filter: blur(1em);
+  opacity: .65;
+  z-index: -3;
+}
+
+.post-sidebar-nameContainer {
+  margin-left: 1em;
+  cursor: pointer;
+  text-align: left;
+}
+ 
 .post-btns-container, .card-btns-container {
   display: flex;
   justify-content: space-between;

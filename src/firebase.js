@@ -26,6 +26,7 @@ import {
   deleteDoc,
   arrayUnion,
   arrayRemove,
+  increment,
 } from 'firebase/firestore';
 import { 
   getStorage, 
@@ -191,6 +192,7 @@ async function uploadPost(file, text) {
       text: text,
       timestamp: timestamp,
       likes: [uid],
+      commentCount: 0,
     });
 
     // Upload the image to Cloud Storage.
@@ -271,11 +273,15 @@ async function updateLikes(postID, likes) {
 
 async function addComment(postID, text) {
   try {
+    const docRef = doc(db, 'posts', postID);
     const colRef = collection(db, 'posts', postID, 'comments');
     await addDoc(colRef, {
-      text: text,
       uid: getAuth().currentUser.uid,
-      timestamp: serverTimestamp(),
+      text: text,
+      timestamp: serverTimestamp()
+    });
+    await updateDoc(docRef, {
+      commentCount: increment(1)
     });
   } catch(error) {
     console.error('Error uploading to Firebase', error);
@@ -284,12 +290,12 @@ async function addComment(postID, text) {
 
 async function getComments(postID, lim = 2) {
   try {
-    const cmtsRef = collection(db, 'posts', postID, 'comments');
-    const q = query(cmtsRef, orderBy('timestamp', 'desc'), limit(lim));
+    const colRef = collection(db, 'posts', postID, 'comments');
+    const q = query(colRef, orderBy('timestamp', 'desc'), limit(2));
     const querySnapshot = await getDocs(q);
-    const arr = [];
-    querySnapshot.forEach(e => arr.push(e.data()));
-    return arr;
+    const data = [];
+    querySnapshot.forEach(e => data.push(e.data()));
+    return data;
   } catch(error) {
     console.error('Error acessing data from Firebase', error);
   }

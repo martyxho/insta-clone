@@ -613,6 +613,19 @@ img {
   text-align: left;
 }
 
+.post-sidebar-captionContainer {
+  padding: 0 1.25em;
+  text-align: center;
+  width: 100%;
+}
+
+.post-sidebar-caption {
+  color: var(--secondary-font-color);
+  margin-top: 1rem;
+  font-size: .8rem;
+  word-break: normal;
+}
+
 .post-sidebar-footer {
   width: inherit;
   height: 7em;

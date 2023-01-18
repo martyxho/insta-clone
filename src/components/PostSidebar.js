@@ -50,8 +50,8 @@ function PostSidebar({ post, refresh, cUser }) {
               </div>
           </div>
         </Link>
-        <div className="post-caption">
-          {text}
+        <div className="post-sidebar-captionContainer">
+          <p className="post-sidebar-caption">{text}</p>
         </div>
       </div>
       <PostComments comments={comments}/>

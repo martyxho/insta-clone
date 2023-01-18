@@ -120,9 +120,9 @@ function Card ({ post, refresh, cUser, openSignUp }) {
               </svg>
             </div>
           </div>
-          <Likes count={likesCount} />
+          <Likes count={likesCount} className={'card-likes'}/>
           <CardComments postID={postID} comments={comments} />
-          <CommentForm postID={postID} refresh={refresh} setData={setData}/>
+          <CommentForm postID={postID} refresh={refresh} setData={setData} className={'comment-box'}/>
         </div>
       </div>
       <img src={imageUrl} className='img-blur' alt='blur effect'/>

@@ -1,6 +1,6 @@
-function Likes ({ count }) {
+function Likes ({ count, className }) {
   return (
-    <p className="likes">
+    <p className={className}>
       {count} likes
     </p>
   )

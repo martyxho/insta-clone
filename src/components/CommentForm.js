@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { getCurrentUser, addComment } from "../firebase";
 
-function CommentForm({postID, refresh, setData}) {
+function CommentForm({postID, refresh, setData, className}) {
   const [value, setValue] = useState('');
 
   function handleChange(e) {
@@ -21,7 +21,7 @@ function CommentForm({postID, refresh, setData}) {
   }
 
   return (
-    <div className="comment-box">
+    <div className={className}>
       <form className="comment-form" onSubmit={handleSend}>
         <input className="comment-input" type='text' placeholder="Add a comment..." value={value} onChange={handleChange}/>
       </form>

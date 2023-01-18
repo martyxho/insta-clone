@@ -4,7 +4,7 @@ import { getUserProfile, getComments } from "../firebase";
 import PostComments from "./PostComments";
 import PostButtons from "./PostButtons";
 import CommentForm from "./CommentForm";
-import ExtraButton from "./ExtraButton";
+import PostMenuOpen from "./PostMenuOpen";
 import Likes from "./Likes";
 import calcTime from "../utils/calcTime";
 
@@ -55,19 +55,19 @@ function PostSidebar({ post, refresh, cUser }) {
         </div>
       </div>
       <PostComments comments={comments}/>
-      <div className="post-footer">
+      <div className="post-sidebar-footer">
         <div className="post-btns-container">
           <PostButtons postID={postID} likes={likes} updateLikesCount={updateLikesCount} refresh={refresh} />
-          <ExtraButton postID={postID} uid={uid} cUser={cUser} />
+          <PostMenuOpen postID={postID} uid={uid} cUser={cUser} />
         </div>
-        <div>
-          <Likes count={likesCount} />
-          <p className="elapsed-time">
+        <div className="post-sidebar-infoContainer">
+          <Likes count={likesCount} className={'post-sidebar-likes'}/>
+          <p className="post-sidebar-time">
             {Math.floor(time.time)}
             {time.format}
           </p>
         </div>
-        <CommentForm postID={postID} refresh={refresh} setData={setData}/>
+        <CommentForm postID={postID} refresh={refresh} setData={setData} className={'post-sidebar-commentBox'}/>
       </div>
     </div>
   )

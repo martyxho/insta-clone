@@ -960,6 +960,64 @@ img {
   grid-template-columns: minmax(240px, 1fr) 5fr;
 }
 
+.profile-sidebar {
+  width: 240px;
+  margin: 24px 0 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-sidebar-username {
+  color: var(--primary-font-color);
+  font-size: 28px;
+}
+
+.profile-sidebar-postsContainer {
+  display: flex;
+  align-items: flex-end;
+  padding: 16px 0 0;
+}
+
+.profile-sidebar-posts {
+  color: var(--secondary-font-color);
+  font-size: 16px;
+  margin-left:  0.5rem;
+  font-weight: 700;
+}
+
+.profile-sidebar-userInfo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  border-top: 1px solid hsla(0,0%,48.6%,.2);
+  border-bottom: 1px solid hsla(0,0%,48.6%,.2);
+  padding: 16px 0;
+  margin: 16px 0;
+  font-weight: 700;
+  width: 90%;
+}
+
+.profile-sidebar-followContainer {
+  cursor: pointer;
+}
+
+.profile-sidebar-follow {
+  color: var(--secondary-font-color);
+  font-size: 14px;
+  width: fit-content;
+}
+
+.profile-sidebar-bioHeader {
+  margin-bottom: 4px;
+  color: var(--primary-font-color);
+}
+
+.profile-sidebar-bioText {
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--primary-font-color);
+}
+
 .profile-feed {
   display: grid;
   align-items: center;

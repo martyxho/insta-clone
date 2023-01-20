@@ -549,9 +549,10 @@ img {
 }
 
 .post-container {
-  box-shadow: 0px 0px 100px 5px rgb(221, 219, 219);
-  border-radius: 20px;
+  box-shadow: 0 0 1em 1px rgb(0 0 0 / 10%);
+  border-radius: 1em;
   display: flex;
+  overflow: hidden;
 }
 
 .post-img-container {
@@ -718,7 +719,7 @@ img {
 }
 
 .post-sidebar-time {
-  font-size: .75rem;
+  font-size: .85rem;
   color: var(--secondary-font-color);
 }
 
@@ -742,11 +743,73 @@ img {
   overflow-y: scroll;
   height: 315px;
 }
+
+.post-cmt {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 10px;
+  border-radius: 10px;
+  justify-content: space-between;
+}
+
+.post-cmt:hover {
+  background-color: var(--menu-hover-color);
+}
+
+.post-cmt-start {
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+  word-break: break-all;
+}
+
+.post-cmt-imgContainer {
+  width: 27px;
+  height: 27px;
+  position: relative;
+  z-index: 1;
+  border-radius: 100%;
+  box-shadow: none;
+  display: block;
+  transform: initial;
+}
+
+.post-cmt-img {
+  position: relative;
+  width: 27px;
+  height: 27px;
+  opacity: 1;
+  border-radius: 100%;
+  transform: initial;
+  object-fit: cover;
+  object-position: center center;
+  cursor: pointer;
+  transition: opacity 0.7s ease 0s;
+  box-shadow: none;
+}
+
+.post-cmt-inner {
+  margin: 14px 0;
+}
+
+.post-cmt-user {
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.post-cmt-username {
+  font-weight: bold;
+}
  
+.post-cmt-time {
+  color: var(--secondary-font-color);
+}
 .post-btns-container, .card-btns-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 28px;
 }
 
 .post-btns-container {
@@ -763,30 +826,6 @@ img {
   left: 0;
   height: 100vh;
   width: 100vw;
-}
-
-.post-comments {
-  height: 315px;
-  overflow: scroll;
-}
-
-.post-cmt {
-  display: flex;
-  justify-content: space-between;
-}
-
-.post-cmt-username {
-  font-weight: bold;
-}
-
-.post-cmt div {
-  display: flex;
-  gap: 5px;
-}
-
-.post-cmt-user-pic {
-  height: 30px;
-  border-radius: 50%;
 }
 
 .comment-box {

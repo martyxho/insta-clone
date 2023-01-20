@@ -291,7 +291,7 @@ async function addComment(postID, text) {
 async function getComments(postID, lim = 2) {
   try {
     const colRef = collection(db, 'posts', postID, 'comments');
-    const q = query(colRef, orderBy('timestamp', 'desc'), limit(2));
+    const q = query(colRef, orderBy('timestamp', 'desc'), limit(lim));
     const querySnapshot = await getDocs(q);
     const data = [];
     querySnapshot.forEach(e => data.push(e.data()));

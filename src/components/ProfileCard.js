@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
 function ProfileCard ({ post }) {
-  console.log(post);
   const { imageUrl, postID } = post;
   return (
     <div className="profile-card">

@@ -19,16 +19,20 @@ function PostComment ({ cmt }) {
     <div className="post-cmt">
       <div className="post-cmt-start">
         <Link to={'/profile/' + cmt.uid}>
-          <img className="post-cmt-user-pic" src={user.profilePicUrl} alt='user profile pic' />
+          <div className="post-cmt-imgContainer">
+            <img className="post-cmt-img" src={user.profilePicUrl} alt='user profile pic' />
+          </div>
         </Link>
-        <div className="post-cmt-inner">
-          <Link to={'/profile/' + cmt.uid}>
-            <p className="post-cmt-username">{user.name}</p>
-          </Link>
-          <p className="post-cmt-text">{cmt.text}</p>
-        </div>
+        <p className="post-cmt-inner">
+          <span className="post-cmt-user">
+            <Link to={'/profile/' + cmt.uid}>
+              {user.name + ' '}
+            </Link>
+          </span>
+          {cmt.text}
+        </p>
       </div>
-      <p className="elapsed-time">
+      <p className="post-cmt-time">
         {Math.floor(time.time)}
         {time.format}
       </p>

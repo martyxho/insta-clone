@@ -92,9 +92,18 @@ img {
   align-items: center;
 }
 
-.nav-icon-home {
+.nav-home {
   font-size: 1.5rem;
   transform: translateY(1px);
+}
+
+.active>.nav-icon>path, .nav-icon:hover>path {
+  fill: var(--primary-font-color);
+  stroke: var(--primary-font-color);
+}
+
+.nav-icon path {
+  stroke-width: 25px;
 }
 
 .user-menu-container {
@@ -155,7 +164,7 @@ img {
   background-color: var(--menu-hover-color);
 }
 
-.nav-icon-user {
+.nav-user {
   font-size: 1.45rem;
   transform: translateY(2px) translateX(-1px);
 }
@@ -1290,10 +1299,6 @@ img {
   height: 100%;
   display: flex;
   align-items: center;
-}
-
-.active {
-  border-bottom: 1px solid black;
 }
 
 .nav-div button {

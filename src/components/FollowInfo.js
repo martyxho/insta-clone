@@ -18,10 +18,10 @@ function FollowInfo({ user, close, tab1, refresh }) {
       <div className="follow-div">
         <div className="follow-header">
           <nav className="follow-nav">
-            <div className={tab ? 'nav-div active' : 'nav-div'} id="following">
+            <div className={tab ? 'nav-div active-header' : 'nav-div'} id="following">
               <button onClick={followingClick}>Following</button>
             </div>
-            <div className={!tab ? 'nav-div active' : 'nav-div'} id="followers">
+            <div className={!tab ? 'nav-div active-header' : 'nav-div'} id="followers">
               <button onClick={followersClick}>Followers</button>
             </div>
             <button className="follow-close" onClick={close}>X</button>

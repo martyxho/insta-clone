@@ -21,20 +21,22 @@ function PostForm ({ close, refresh }) {
   }
 
   return (
-    <div className="upload_container">
-      <div className="upload_header">
-        <h3>Create New Post</h3>
-        <button onClick={close}>x</button>
-      </div>
-      <div className="upload_input_container">
-        <div>
-          <input id='pic-input' type='file' accept="image/jpeg, image/png, image/jpg"/>
+    <div className="upload_modal">
+      <div className="upload_container">
+        <div className="upload_header">
+          <h3>Create New Post</h3>
+          <button onClick={close}>x</button>
         </div>
-        <div>
-          <textarea value={text} onChange={handleTextChange} placeholder='caption'></textarea>
+        <div className="upload_input_container">
+          <div>
+            <input id='pic-input' type='file' accept="image/jpeg, image/png, image/jpg"/>
+          </div>
+          <div>
+            <textarea value={text} onChange={handleTextChange} placeholder='caption'></textarea>
+          </div>
         </div>
+        <button type="submit" onClick={handleSubmit}>Post</button>
       </div>
-      <button type="submit" onClick={handleSubmit}>Post</button>
     </div>
   )
 }

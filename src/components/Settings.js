@@ -43,18 +43,18 @@ function Settings({ user, refresh }) {
             </form>
           </div>
           <div className="settings-textInputs">
-            <div className="settings-name">
-              <label>
+            <form className="settings-textForm">
+              <div className="settings-inputContainer">
                 <p>Display Name:</p>
-                <input id='name' type='text' value={name} onChange={handleName} />
-              </label>
-            </div>
-            <div className="settings-bio">
-              <label>
+                <div className="settings-input">
+                  <input autoComplete="off" name="displayName" className="settings-inputBoxDisplay" maxLength={25} minLength={3} type='text' value={name} onChange={handleName} />
+                </div>
+              </div>
+              <div className="settings-inputContainer">
                 <p>Bio:</p>
-                <textarea id="bio" value={bio} onChange={handleBio}/>
-              </label>
-            </div>
+                <textarea className="settings-bioInput" name='bio' maxLength={150} placeholder={'Hi my name is ' + name} value={bio} onChange={handleBio}/>
+              </div>
+            </form>
           </div>
         </div>
         <div className="settings-btns">

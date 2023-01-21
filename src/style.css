@@ -1149,39 +1149,67 @@ img {
   font-size: 0;
 }
 
-.settings-banner {
+.settings-bannerOverlayContainer {
   display: flex;
-  position: relative;
-  width: 400px;
-  height: 144px;
+  cursor: pointer;
 }
 
-.settings-bannerImg {
-  z-index: -2;
-}
-
-#bannerInput {
-  z-index: 0;
-}
-
-#bannerInput, .settings-bannerImg {
+.settings-bannerOverlayContainer>.settings-fileInput {
   position: absolute;
   width: 400px;
   height: 144px;
-}
-
-#settings-bannerOverlay {
+  opacity: 0;
   z-index: -1;
 }
 
-#settings-bannerOverlay {
-  height: 100%;
+.settings-bannerContainer {
+  display: flex;
+  align-items: center;
+  height: 144px;
   width: 100%;
-  background-color: black;
-  opacity: 0;
-  transition: opacity .25s;
+  align-self: flex-start;
 }
 
+.settings-banner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 0;
+  display: block;
+}
+
+.settings-bannerImg {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  object-fit: cover;
+  object-position: center center;
+  cursor: pointer;
+}
+
+.settings-bannerOverlay {
+  display: flex;
+  position: absolute;
+  justify-content: flex-end;
+  align-items: flex-start;
+  background-color: rgba(0,0,0,.301);
+  opacity: 0;
+  width: 400px;
+  height: 144px;
+  transition: opacity .25s;
+  padding: 19px;
+}
+
+.settings-bannerOverlay:hover {
+  opacity: 1;
+}
+
+.settings-bannerIcon {
+  position: absolute;
+  color: white;
+  font-size: 24px;
+}
 #settings-profileOverlay {
   background-color: rgba(0,0,0,.301);
   opacity: 0;

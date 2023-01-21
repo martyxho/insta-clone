@@ -1114,11 +1114,33 @@ img {
 }
 
 .settings {
-  height: 100vh;
-  width: 100vw;
-  display: flex;
+  display: grid;
   justify-content: center;
+  text-align: center;
+  width: 100%;
+  padding-top: 54px;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.settings-container {
+  display: grid;
   align-items: center;
+  grid-template-rows: 1fr 8fr 3fr;
+  box-shadow: 0 0 16px 1px rgb(0 0 0 / 10%);
+  overflow: hidden;
+  border-radius: 16px;
+  border: var(--primary-border);
+  width: 400px;
+  height: 672px;
+}
+
+.settings-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .settings input[type='file'] {
@@ -1152,7 +1174,7 @@ img {
   z-index: -1;
 }
 
-#settings-profileOverlay, #settings-bannerOverlay {
+#settings-bannerOverlay {
   height: 100%;
   width: 100%;
   background-color: black;
@@ -1161,12 +1183,24 @@ img {
 }
 
 #settings-profileOverlay {
-  position: absolute;
-  border-radius: 100%;
+  background-color: rgba(0,0,0,.301);
+  opacity: 0;
+  z-index: 1;
+  transition: opacity .25s;
+}
+
+#settings-profileOverlay:hover {
+  opacity: 1;
+}
+
+.settings-profileIcon {
   z-index: 2;
+  position: absolute;
+  color: white;
+  font-size: 40px;
 }
  
-.settings-profilePic {
+.settings-containerBar {
   position: relative;
   display: flex;
   width: 100%;
@@ -1174,26 +1208,52 @@ img {
   justify-content: center;
 }
 
-.settings-profileInputContainer {
+.settings-profileOverlayContainer, #settings-profileOverlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
-  top: -56px;
+  border-radius: 100%;
   width: 112px;
   height: 112px;
 }
 
-#profilePicInput, .settings-profileImg {
+.settings-profileOverlayContainer {
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.settings-profileOverlayContainer>.settings-fileInput {
   position: absolute;
   height: 112px;
   width: 112px;
   border-radius: 100%;
+  z-index: -1;
+  opacity: 0;
+}
+
+.settings-profileInputContainer {
+  position: relative;
+  width: 112px;
+  height: 112px;
+  z-index: 1;
+  box-shadow: rgb(0 0 0 / 10%) 0px 0.5em 1.5em 1px;
+  display: block;
+  transform: initial;
+  border-radius: 100%;
 }
 
 .settings-profileImg {
-  z-index: 2;
-}
-
-#profilePicInput {
-  z-index: 4;
+  position: relative;
+  height: 112px;
+  width: 112px;
+  border-radius: 100%;
+  opacity: 1;
+  transform: initial;
+  object-fit: cover;
+  object-position: center center;
+  cursor: pointer;
+  box-shadow: rgb(0 0 0 / 10%) 0px 0.5em 1.5em 1px;
 }
 
 .follow-overlay {

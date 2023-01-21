@@ -57,9 +57,11 @@ function Settings({ user, refresh }) {
             </form>
           </div>
         </div>
-        <div className="settings-btns">
-          <button onClick={handleSubmit}>Save</button>
-          <Link to={'/profile/' + user.uid}>View Profile</Link>
+        <div className="settings-btnContainer">
+          <button className="settings-submitBtn" onClick={handleSubmit}>Save</button>
+          <Link className="settings-profileLink" to={'/profile/' + user.uid}>
+            <button className="settings-profileBtn">View Profile</button>
+          </Link>
         </div>
       </div>
     }  

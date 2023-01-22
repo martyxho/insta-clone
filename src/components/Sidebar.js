@@ -9,7 +9,7 @@ function Sidebar ({ openUpload, openFollow, user }) {
       <div className="home-sidebar-container">
         {!user &&
           <div className="home-sidebar-loginBtns">
-            <Link><button className="home-login-signUp" >Sign Up</button></Link>
+            <Link to='/sign-up'><button className="home-login-signUp" >Sign Up</button></Link>
             <button className="home-login-login" onClick={handleLogin}>Login</button>
           </div>
         }

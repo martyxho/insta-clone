@@ -15,7 +15,7 @@ function RouteSwitch ({ user, posts, refresh}) {
         <Route path="/post/:postID" element={<Post cUser={user} />} />
         <Route path="/profile/:userID" element={<Profile cUser={user} refresh={refresh} />} />
         <Route path="/settings" element={<Settings user={user} refresh={refresh} />} />
-        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/sign-up" element={<SignUp refresh={refresh}/>} />
       </Routes>
     </BrowserRouter>
   );

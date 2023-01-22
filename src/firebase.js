@@ -91,6 +91,7 @@ async function handleLogin() {
   await signIn();
   if (await isNewUser()) {
     signOutUser();
+    window.location.reload();
   }
 }
 
@@ -99,11 +100,6 @@ async function signUp(name) {
   if (await isNewUser()) {
     await saveUser(name);
   }
-}
-
-async function newUser() {
-  const userEmails = await getUserEmails();
-  return !(userEmails.includes(getAuth().currentUser.email));
 }
 
 async function getUserEmails() {

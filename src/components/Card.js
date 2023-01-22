@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getUserProfile, checkFollow, followUser, unfollowUser, handleLogin } from "../firebase";
+import { getUserProfile, checkFollow, followUser, unfollowUser } from "../firebase";
 import { getComments } from "../firebase";
 import CardComments from "./CardComments";
 import PostButtons from './PostButtons';
@@ -60,11 +60,6 @@ function Card ({ post, refresh, cUser}) {
     refresh();
   }
 
-  function handleOpenLogin() {
-    handleLogin();
-    closeOverlay();
-  }
-
   function updateLikesCount(count) {
     setLikesCount(count);
   }
@@ -87,7 +82,7 @@ function Card ({ post, refresh, cUser}) {
               <button className="card-overlay-btn" onClick={handleFollow}>Follow</button>
             }  
             {overlay === 3 &&
-              <button className="card-overlay-btn" onClick={handleOpenLogin}>Login</button>
+              <Link to='/sign-up'><button className="card-overlay-btn">Login</button></Link>
             }
           </div>
         </div>

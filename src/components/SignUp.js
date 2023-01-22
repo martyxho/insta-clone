@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { signUp, handleLogin } from "../firebase";
+import { useNavigate } from "react-router-dom";
 import logo from '../assets/images/instagram-logo.png';
 
-function SignUp ({ refresh }) {
+function SignUp ({refresh}) {
+  const navigate = useNavigate();
   const [value, setValue] = useState('');
 
   function handleChange(e) {
@@ -12,11 +14,13 @@ function SignUp ({ refresh }) {
   async function handleSignUp (e) {
     e.preventDefault();
     await signUp(value);
+    navigate('/');
     refresh();
   }
 
-  function login() {
-    handleLogin();
+  async function login() {
+    await handleLogin();
+    navigate('/');
   }
 
   return (

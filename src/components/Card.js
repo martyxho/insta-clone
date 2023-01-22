@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getUserProfile, checkFollow, followUser, unfollowUser } from "../firebase";
+import { getUserProfile, checkFollow, followUser, unfollowUser, handleLogin } from "../firebase";
 import { getComments } from "../firebase";
 import CardComments from "./CardComments";
 import PostButtons from './PostButtons';
 import Likes from "./Likes";
 import CommentForm from "./CommentForm";
 
-function Card ({ post, refresh, cUser, openSignUp }) {
+function Card ({ post, refresh, cUser}) {
   const { postID, uid, imageUrl, likes } = post;
   const [user, setUser] = useState('');
   const [follow, setFollow] = useState('');
@@ -61,7 +61,7 @@ function Card ({ post, refresh, cUser, openSignUp }) {
   }
 
   function handleOpenLogin() {
-    openSignUp();
+    handleLogin();
     closeOverlay();
   }
 

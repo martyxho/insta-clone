@@ -2,14 +2,14 @@ import { Link } from "react-router-dom";
 import { handleLogin } from "../firebase";
 import SidebarNav from "./SidebarNav";
 
-function Sidebar ({ openUpload, openSignUp, openFollow, user }) {
+function Sidebar ({ openUpload, openFollow, user }) {
 
   return (
     <div className="home-sidebar">
       <div className="home-sidebar-container">
         {!user &&
           <div className="home-sidebar-loginBtns">
-            <Link><button className="home-login-signUp" onClick={openSignUp}>Sign Up</button></Link>
+            <Link><button className="home-login-signUp" >Sign Up</button></Link>
             <button className="home-login-login" onClick={handleLogin}>Login</button>
           </div>
         }

@@ -4,6 +4,7 @@ import Post from "./components/Post";
 import Home from "./Home";
 import Profile from "./components/Profile";
 import Settings from "./components/Settings";
+import SignUp from "./components/SignUp";
 
 function RouteSwitch ({ user, posts, refresh}) {
   return (
@@ -14,6 +15,7 @@ function RouteSwitch ({ user, posts, refresh}) {
         <Route path="/post/:postID" element={<Post cUser={user} />} />
         <Route path="/profile/:userID" element={<Profile cUser={user} refresh={refresh} />} />
         <Route path="/settings" element={<Settings user={user} refresh={refresh} />} />
+        <Route path="/sign-up" element={<SignUp />} />
       </Routes>
     </BrowserRouter>
   );

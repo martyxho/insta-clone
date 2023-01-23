@@ -15,7 +15,7 @@ function Profile ({ cUser, refresh }) {
   useEffect(() => {
     refreshUser();
     refreshPosts();
-  }, []);
+  }, [userID]);
 
   async function refreshUser() {
     setUser(await getUserProfile(userID));

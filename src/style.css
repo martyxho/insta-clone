@@ -1135,6 +1135,16 @@ p.plus-icon {
   font-size: 24px;
 }
 
+.profile-actionBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  font-size: 19px;
+  border-radius: 100%;
+  font-weight: 700;
+}
+
 .profile-inner {
   display: grid;
   grid-template-columns: minmax(240px, 1fr) 5fr;

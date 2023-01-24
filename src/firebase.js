@@ -378,8 +378,8 @@ async function getUserFeed(userID) {
   //check if user has follows
   if (user.following.length > 0) {
     //get user posts from followed users and push to array
-    for await (const user of user.following) {
-      all.push(...await getUserPosts(user.uid, 5));
+    for await (const fUser of user.following) {
+      all.push(...await getUserPosts(fUser, 5));
     }
     
     //get most Liked posts from any user

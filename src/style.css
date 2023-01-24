@@ -362,20 +362,124 @@ p.plus-icon {
   object-fit: cover;
 }
 
-.upload_container {
-  width: 400px;
-  border-radius: 20px;
-  border: 1px solid gray;
+.upload_modal {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  height: 101vh;
+  margin: 0;
   position: fixed;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  left: 0;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 200;
+}
+
+.upload_container {
+  display: grid;
+  grid-template-rows: 70px 7fr 2fr;
+  width: 400px;
+  height: 550px;
+  border-radius: 1em;
+  gap: 1.5em;
+  background-color: var(--primary-background-color);
+  box-shadow: 0 0 1em 1px rgb(0 0 0 / 20%);
+  border: var(--primary-border);
+}
+
+.upload_header {
+  display: flex;
+  width: 90%;
+  justify-self: center;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: var(--secondary-border);
+}
+
+.upload_header>h3 {
+  color: var(--secondary-font-color);
+  margin-left: 5px;
+}
+
+.upload_close {
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.upload_topContainer, .upload_uploadContainer {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  background-color: white;
-  padding: 16px;
-  z-index: 10;
+  justify-content: center;
+  align-items: center;
+}
+
+.upload_topContainer {
+  width: 100%;
+  gap: 25px;
+}
+
+.upload_uploadContainer {
+  height: 250px;
+  width: 250px;
+  border-radius: 10px;
+  border: 1px solid hsla(0,0%,48.6%,.281);
+  color: var(--secondary-font-color);
+}
+
+.upload_btnContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+}
+
+#upload_fileInput {
+  position: absolute;
+  height: 250px;
+  width: 250px;
+  z-index: 1;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.upload_uploadIcon {
+  font-size: 100px;
+  cursor: pointer;
+}
+
+.upload_uploadIcon path {
+  stroke-width: 10px;
+}
+
+.upload_btnContainer p {
+  font-size: .7rem;
+  color: var(--secondary-font-color);
+}
+
+.upload_captionContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.upload_captionInput {
+  padding: 1em 1em 0;
+  border: 1px solid hsla(0,0%,48.6%,.281);
+  border-radius: 0.5rem;
+  height: 5rem;
+  width: 250px;
+  resize: none;
+  background-color: var(--primary-background-color);
+}
+
+.upload_captionInput::placeholder {
+  font-size: 16px;
 }
 
 .signUp {

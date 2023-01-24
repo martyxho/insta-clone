@@ -421,6 +421,13 @@ p.plus-icon {
   gap: 25px;
 }
 
+#upload_preview {
+  object-fit: cover;
+  width: 250px;
+  height: 250px;
+  border-radius: 10px;
+}
+
 .upload_uploadContainer {
   height: 250px;
   width: 250px;
@@ -478,8 +485,29 @@ p.plus-icon {
   background-color: var(--primary-background-color);
 }
 
-.upload_captionInput::placeholder {
-  font-size: 16px;
+.upload_postBtn {
+  padding: 0 32px;
+  height: 40px;
+  font-size: 17px;
+  border-radius: 20px;
+  cursor: not-allowed;
+  font-weight: 700;
+  border: var(--secondary-border);
+  justify-self: center;
+  background-color: var(--primary-background-color);
+  color: var(--secondary-font-color);
+  transition: box-shadow .25s, transform .25s;
+}
+
+.upload_postBtn.valid {
+  background-color: var(--primary-font-color);
+  color: var(--primary-background-color);
+  cursor: pointer;
+}
+
+.upload_postBtn.valid:hover {
+  box-shadow: 0 5px 10px 1px rgb(0 0 0 / 20%);
+  transform: translateY(-2px);
 }
 
 .signUp {

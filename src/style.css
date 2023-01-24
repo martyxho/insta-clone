@@ -490,7 +490,7 @@ p.plus-icon {
   height: 40px;
   font-size: 17px;
   border-radius: 20px;
-  cursor: not-allowed;
+  cursor: pointer;
   font-weight: 700;
   border: var(--secondary-border);
   justify-self: center;
@@ -502,7 +502,6 @@ p.plus-icon {
 .upload_postBtn.valid {
   background-color: var(--primary-font-color);
   color: var(--primary-background-color);
-  cursor: pointer;
 }
 
 .upload_postBtn.valid:hover {
@@ -671,6 +670,15 @@ p.plus-icon {
 .heart {
   width: 28px;
   height: 28px;
+}
+
+#heart:hover {
+  width: 28px;
+  height: 28px;
+}
+
+#heart:hover>path {
+  fill: #F44336;
 }
 
 .card {

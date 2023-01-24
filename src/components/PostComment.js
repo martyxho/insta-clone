@@ -24,11 +24,9 @@ function PostComment ({ cmt }) {
           </div>
         </Link>
         <p className="post-cmt-inner">
-          <span className="post-cmt-user">
-            <Link to={'/profile/' + cmt.uid}>
-              {user.name + ' '}
-            </Link>
-          </span>
+          <Link to={'/profile/' + cmt.uid}>
+            <span className="cmt-name">{user.name}</span>
+          </Link>
           {cmt.text}
         </p>
       </div>

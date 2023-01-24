@@ -14,6 +14,7 @@ function Card ({ post, refresh, cUser}) {
   const [overlay, setOverlay] = useState('');
   const [likesCount, setLikesCount] = useState(likes.length);
   const [comments, setComments] = useState('');
+  const path = window.location.host + '/post/' + postID;
 
   useEffect(() => {
     setData();
@@ -44,8 +45,17 @@ function Card ({ post, refresh, cUser}) {
     }
   }
 
+  function openShareOverlay() {
+    setOverlay(4);
+  }
+
   function closeOverlay() {
     setOverlay('');
+  }
+
+  function copyLink() {
+    navigator.clipboard.writeText(path);
+    closeOverlay();
   }
 
   async function handleFollow() {
@@ -84,6 +94,12 @@ function Card ({ post, refresh, cUser}) {
             {overlay === 3 &&
               <Link to='/sign-up'><button className="card-overlay-btn">Login</button></Link>
             }
+            {overlay === 4 &&
+              <div className="card-overlay-share">
+                <input className="card-overlay-link" readOnly={true} value={path} />
+                <button className="card-overlay-btn" onClick={copyLink}>Copy Link</button>
+              </div>
+            }
           </div>
         </div>
       }
@@ -109,7 +125,7 @@ function Card ({ post, refresh, cUser}) {
         <div className="card-footer">
           <div className="card-btns-container">
             <PostButtons postID={postID} likes={likes} likesCount={likesCount} updateLikesCount={updateLikesCount} refresh={refresh} />
-            <div className="svg-div">
+            <div className="svg-div" onClick={openShareOverlay}>
               <svg className="post-btn" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="128" cy="256" r="48" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></circle><circle cx="384" cy="112" r="48" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></circle><circle cx="384" cy="400" r="48" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></circle>
                 <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M169.83 279.53l172.34 96.94m0-240.94l-172.34 96.94"></path>
               </svg>

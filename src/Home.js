@@ -31,7 +31,7 @@ function Home({ user, posts, refresh }) {
         <PostForm close={closeUploadForm} refresh={refresh}/>
       }
       {followInfo &&
-        <FollowInfo user={user} close={closeFollow} tab1={followInfo.tab1} refresh={refresh}/>
+        <FollowInfo cUser={user} close={closeFollow} tab1={followInfo.tab1} refresh={refresh} userID={false}/>
       }
       <div className="home-main">
         <div className="home-inner">

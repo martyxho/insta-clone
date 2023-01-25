@@ -1,6 +1,12 @@
-import React, { useState, useEffect } from "react";
+function ProfileSidebar ({ user, postCount, openFollow }) {
 
-function ProfileSidebar ({ user, postCount }) {
+  function openFollowing() {
+    openFollow(true);
+  }
+
+  function openFollowers() {
+    openFollow(false);
+  }
 
   return (
     <div className="profile-sidebar">
@@ -13,11 +19,11 @@ function ProfileSidebar ({ user, postCount }) {
           <p className="profile-sidebar-posts">Posts</p>
         </div>
         <div className="profile-sidebar-userInfo">
-          <div className="profile-sidebar-followContainer">
+          <div className="profile-sidebar-followContainer" onClick={openFollowing}>
             <h3>{user.following.length}</h3> 
             <p className="profile-sidebar-follow">Following</p>
           </div>
-          <div className="profile-sidebar-followContainer">
+          <div className="profile-sidebar-followContainer" onClick={openFollowers}>
             <h3>{user.followers.length}</h3> 
             <p className="profile-sidebar-follow">Followers</p>
           </div>

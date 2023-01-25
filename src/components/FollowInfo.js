@@ -1,8 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { getUserProfile } from "../firebase";
 import FollowUser from "./FollowUser";
 
-function FollowInfo({ user, close, tab1, refresh }) {
+function FollowInfo({ cUser, close, tab1, refresh, userID}) {
   const [tab, setTab] = useState(tab1);
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    async function setState() {
+      setUser(await getUserProfile(userID));
+    }
+    if (userID) {
+      setState();
+    } else {
+      setUser(cUser);
+    }
+  },[cUser, userID]);
 
   function followingClick() {
     setTab(true);
@@ -27,14 +40,16 @@ function FollowInfo({ user, close, tab1, refresh }) {
             <button className="follow-close" onClick={close}>X</button>
           </nav>
         </div>
-        <div className="follow-container">
-          {tab &&
-            user.following.map(e => <FollowUser uid={e} refresh={refresh}/>)
-          }
-          {!tab &&
-            user.followers.map(e => <FollowUser  uid={e} refresh={refresh}/>)
-          }
-        </div>
+        {user && 
+          <div className="follow-container">
+            {tab &&
+              user.following.map(e => <FollowUser cUser={cUser} uid={e} refresh={refresh}/>)
+            }
+            {!tab &&
+              user.followers.map(e => <FollowUser cUser={cUser} uid={e} refresh={refresh}/>)
+            }
+          </div>
+        }
       </div>
     </div>
   )

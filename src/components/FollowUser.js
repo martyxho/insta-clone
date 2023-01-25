@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getUserProfile, checkFollow, followUser, unfollowUser } from "../firebase";
 
-function FollowUser ({uid, refresh}) {
+function FollowUser ({cUser, uid, refresh}) {
   const [user, setUser] = useState('');
   const [follow, setFollow] = useState('');
   const [disabled, setDisabled] = useState(false);
@@ -13,6 +13,7 @@ function FollowUser ({uid, refresh}) {
       setUser(await getUserProfile(uid));
     }
     setState();
+    console.log(cUser.uid, uid);
   }, [uid]);
 
   async function setFollowState() {
@@ -48,11 +49,14 @@ function FollowUser ({uid, refresh}) {
             <p>{user.name}</p>
           </div>
         </div>
-        {user && follow &&
+        {user && uid !== cUser.uid && follow &&
           <button className="follow-btn" onClick={handleUnfollow} disabled={disabled}>Unfollow</button>
         }
-        {user && !follow &&
+        {user && uid !== cUser.uid && !follow &&
           <button className="follow-btn" onClick={handleFollow} disabled={disabled}>Follow</button>
+        }
+        {user && uid === cUser.uid &&
+          <Link to='/settings'><button className="follow-btn">Edit Profile</button></Link>
         }
       </div>
     </Link>

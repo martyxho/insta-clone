@@ -13,7 +13,6 @@ function FollowUser ({cUser, uid, refresh}) {
       setUser(await getUserProfile(uid));
     }
     setState();
-    console.log(cUser.uid, uid);
   }, [uid]);
 
   async function setFollowState() {

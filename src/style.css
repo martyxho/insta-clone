@@ -1372,9 +1372,8 @@ p.plus-icon {
   display: grid;
   align-items: center;
   grid-template-columns: repeat(auto-fill, 300px);
-  padding: 0 50px 100px 74px;
+  padding: 0 0 100px 24px;
   gap: 41px;
-  grid-gap: 41px;
 }
 
 @media only screen and (min-width: 1500px) {

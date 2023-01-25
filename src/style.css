@@ -1305,6 +1305,10 @@ p.plus-icon {
   font-weight: 700;
 }
 
+.profile-actionBtn>svg{
+  margin-left: 2px;
+}
+
 .profile-inner {
   display: grid;
   grid-template-columns: minmax(240px, 1fr) 5fr;

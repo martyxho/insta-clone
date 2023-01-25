@@ -14,13 +14,13 @@ function ProfileTopRight ({ cUser, user, openPostForm, refresh }) {
   },[user]);
 
   async function handleFollow() {
-    await followUser(user);
+    await followUser(user.uid);
     setFollow(true);
     refresh();
   }
 
   async function handleUnfollow() {
-    await unfollowUser(user);
+    await unfollowUser(user.uid);
     setFollow(false);
     refresh();
   }

@@ -427,12 +427,10 @@ function sortFeedArray(a, b) {
   return b.timestamp - a.timestamp;
 }
 
-async function followUser(user) {
+async function followUser(uid) {
   try {
     //get currentUser 
-    const cUser = await getCurrentUserProfile();
-    const cUID = cUser.uid;
-    const uid = user.uid;
+    const cUID = getAuth().currentUser.uid;
 
     //update currentUser -- following 
     const cUserRef = doc(db, 'users', cUID);
@@ -451,12 +449,10 @@ async function followUser(user) {
   
 }
 
-async function unfollowUser(user) {
+async function unfollowUser(uid) {
   try {
     //get currentUser ID
-    const cUser = await getCurrentUserProfile();
-    const cUID = cUser.uid;
-    const uid = user.uid;
+    const cUID = getAuth().currentUser.uid;
 
     //update currentUser -- following 
     const cUserRef = doc(db, 'users', cUID);

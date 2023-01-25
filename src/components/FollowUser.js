@@ -22,7 +22,7 @@ function FollowUser ({cUser, uid, refresh}) {
   async function handleFollow(e) {
     e.preventDefault();
     setDisabled(true);
-    await followUser(user);
+    await followUser(uid);
     refresh();
     await setFollowState();
     setDisabled(false);
@@ -31,7 +31,7 @@ function FollowUser ({cUser, uid, refresh}) {
   async function handleUnfollow(e) {
     e.preventDefault();
     setDisabled(true);
-    await unfollowUser(user);
+    await unfollowUser(uid);
     refresh();
     await setFollowState();
     setDisabled(false);

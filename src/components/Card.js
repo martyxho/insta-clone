@@ -60,13 +60,13 @@ function Card ({ post, refresh, cUser}) {
 
   async function handleFollow() {
     closeOverlay();
-    await followUser(user);
+    await followUser(uid);
     refresh();
   }
 
   async function handleUnfollow() {
     closeOverlay();
-    await unfollowUser(user);
+    await unfollowUser(uid);
     refresh();
   }
 

@@ -8,7 +8,7 @@ import SignUp from "./components/SignUp";
 
 function RouteSwitch ({ user, posts, refresh}) {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/insta-clone">
       <Nav user={user}/>
       <Routes>
         <Route path="/" element={<Home posts={posts} refresh={refresh} user={user} />} />

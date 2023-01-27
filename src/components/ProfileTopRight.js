@@ -10,8 +10,10 @@ function ProfileTopRight ({ cUser, user, openPostForm, refresh }) {
     async function setState() {
       setFollow(await checkFollow(user.uid));
     }
-    setState();
-  },[user]);
+    if (cUser) {
+      setState();
+    }
+  },[cUser, user]);
 
   async function handleFollow() {
     await followUser(user.uid);
@@ -47,9 +49,15 @@ function ProfileTopRight ({ cUser, user, openPostForm, refresh }) {
         </div>
       }
       {!cUser && 
-        <div>
-          <button className="profile-editBtn">Follow</button>
-          <button className="profile-postBtn">btn</button>
+        <div className="profile-topBtnRow">
+          <Link to='/sign-up'>
+            <button className="profile-editBtn">Follow</button>
+          </Link>
+          <Link to='/sign-up'>
+            <button className="profile-actionBtn">
+              <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" className="action-icon" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M470.3 271.15L43.16 447.31a7.83 7.83 0 01-11.16-7V327a8 8 0 016.51-7.86l247.62-47c17.36-3.29 17.36-28.15 0-31.44l-247.63-47a8 8 0 01-6.5-7.85V72.59c0-5.74 5.88-10.26 11.16-8L470.3 241.76a16 16 0 010 29.39z"></path></svg>
+            </button>
+          </Link>
         </div>
       }
     </div>

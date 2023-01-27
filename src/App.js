@@ -9,7 +9,7 @@ function App () {
   const [user, setUser] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(getAuth(), refreshUser);
+    const unsubscribe = onAuthStateChanged(getAuth(), updateUser);
     // Cleanup subscription on unmount
     return () => unsubscribe();
   }, []);
@@ -27,7 +27,7 @@ function App () {
     }
   }
 
-  async function refreshUser(user) {
+  async function updateUser(user) {
     if (user) {
       const cUser = await getCurrentUserProfile();
       setUser(cUser);
@@ -36,9 +36,16 @@ function App () {
     }
   }
 
+  async function refreshUser() {
+    if (user) {
+      const cUser = await getCurrentUserProfile();
+      setUser(cUser);
+    } 
+  }
+
   function refresh() {
-    refreshUser(true);
     setState();
+    refreshUser();
   }
 
   return (

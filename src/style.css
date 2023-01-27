@@ -1230,9 +1230,15 @@ p.plus-icon {
 }
 
 .profile-outer {
-  height: 100px;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-topSection {
   display: flex;
   justify-content: space-between;
+  width: 100%;
+  height: 100px;
 }
 
 .profile-imgContainer {
@@ -1761,7 +1767,7 @@ p.plus-icon {
   display: grid;
   justify-content: center;
   align-items: center;
-  z-index: 10;
+  z-index: 200;
 }
 
 .follow-div {
@@ -1835,6 +1841,7 @@ p.plus-icon {
   justify-self: center;
   align-items: center;
   border-bottom: var(--secondary-border);
+  justify-content: space-between;
 }
 
 .active-header {
@@ -1927,5 +1934,70 @@ p.plus-icon {
   .main-img-div {
     width: 340px;
     height: 340px;
+  }
+
+  .profile-topSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 200px;
+  }
+
+  .profile-inner {
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .profile-sidebar {
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+    width: 60%;
+    min-width: 256px;
+    justify-content: center;
+  }
+
+  .profile-sidebar-userContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .profile-sidebar-infoContainer {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .profile-sidebar-postsContainer {
+    display: none;
+    text-align: center;
+  }
+
+  .profile-sidebar-userInfo {
+    width: 100%;
+  }
+
+  .profile-sidebar-followContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .profile-sidebar-bio {
+    display: none;
+  }
+
+  .profile-feed {
+    padding: 0 0 100px;
+    grid-template-columns: 1fr;
+  }
+
+  .follow-div {
+    height: 90vh;
+    width: 90vw;
   }
 }

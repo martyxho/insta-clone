@@ -29,7 +29,7 @@ function ProfileSidebar ({ user, postCount, openFollow }) {
           </div>
         </div>
       </div>
-      <div>
+      <div className="profile-sidebar-bio">
         <h3 className="profile-sidebar-bioHeader">Bio</h3>
         <p className="profile-sidebar-bioText">{user.bio}</p>
       </div>

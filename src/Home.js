@@ -26,14 +26,13 @@ function Home({ user, posts, refresh }) {
   }
 
   return (
-    <div className="home">
-      {upload &&
-        <PostForm close={closeUploadForm} refresh={refresh}/>
-      }
-      {followInfo &&
-        <FollowInfo cUser={user} close={closeFollow} tab1={followInfo.tab1} refresh={refresh} userID={false}/>
-      }
-      <div className="home-main">
+    <div className="home-main">
+        {upload &&
+          <PostForm close={closeUploadForm} refresh={refresh}/>
+        }
+        {followInfo &&
+          <FollowInfo cUser={user} close={closeFollow} tab1={followInfo.tab1} refresh={refresh} userID={false}/>
+        }
         <div className="home-inner">
           <div className="home-feed">
             { posts &&
@@ -43,7 +42,6 @@ function Home({ user, posts, refresh }) {
           <Sidebar openUpload={openUploadForm} user={user} openFollow={openFollow}/>
         </div>
       </div>
-    </div>
   );
 }
 

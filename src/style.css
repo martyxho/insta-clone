@@ -1877,3 +1877,55 @@ p.plus-icon {
   background: none;
   font-size: large;
 }
+
+@media only screen and (max-width: 850px){
+  .main-nav {
+    top: auto;
+    bottom: 0;
+    height: fit-content;
+    padding-top: 12px;
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+  }
+
+  .home-main {
+    margin-top: 0;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .home-inner {
+    flex-direction: column-reverse;
+    max-width: 100%;
+  }
+
+  .home-feed {
+    padding-bottom: 54px;
+  }
+
+  .home-sidebar {
+    padding-top: 50px;
+    position: relative;
+    height: fit-content;
+    margin-bottom: 50px;
+  }
+
+  .home-sidebar-container {
+    position: relative;
+  }
+
+  .card {
+    display: flex;
+    width: 340px;
+    height: 590px;
+    margin: 0 0 4em;
+    justify-content: center;
+    border: var(--primary-border);
+    position: relative;
+    border-radius: 16px;
+  }
+
+  .main-img-div {
+    width: 340px;
+    height: 340px;
+  }
+}

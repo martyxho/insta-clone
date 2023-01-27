@@ -986,9 +986,15 @@ p.plus-icon {
   cursor: pointer;
 }
 
-.post-menu-container {
+.post-menu-containerOwn {
   position: fixed;
   transform: translateX(-78px) translateY(-72px);
+  width: 160px;
+}
+
+.post-menu-container {
+  position: fixed;
+  transform: translateX(-78px) translateY(-40px);
   width: 160px;
 }
 

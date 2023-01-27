@@ -24,7 +24,7 @@ function PostMenu ({ postID, uid, close, cUser }) {
   }
 
   return (
-    <div className="post-menu-container">
+    <div className={(cUser && cUser.uid === uid) ? "post-menu-containerOwn" : "post-menu-container"}>
       <div className="post-menu-inner">
         <div className="post-menu-option" onClick={copyLink}>
           <svg className="post-menu-icon" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="128" cy="256" r="48" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></circle><circle cx="384" cy="112" r="48" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></circle><circle cx="384" cy="400" r="48" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></circle><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M169.83 279.53l172.34 96.94m0-240.94l-172.34 96.94"></path></svg>

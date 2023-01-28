@@ -30,15 +30,15 @@ function FollowInfo({ cUser, close, tab1, refresh, userID}) {
     <div className="follow-overlay">
       <div className="follow-div">
         <div className="follow-header">
-          <nav className="follow-nav">
-            <div className={tab ? 'nav-div active-header' : 'nav-div'} id="following">
-              <button onClick={followingClick}>Following</button>
+          <div className="follow-tabs">
+            <div onClick={followingClick} className={tab ? 'nav-div active-header' : 'nav-div'} id="following">
+              <h3>Following</h3>
             </div>
-            <div className={!tab ? 'nav-div active-header' : 'nav-div'} id="followers">
-              <button onClick={followersClick}>Followers</button>
+            <div onClick={followersClick} className={!tab ? 'nav-div active-header' : 'nav-div'} id="followers">
+              <h3>Followers</h3>
             </div>
-            <button className="follow-close" onClick={close}>X</button>
-          </nav>
+          </div>
+          <svg onClick={close} stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="follow-close" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144m224 0L144 368"></path></svg>
         </div>
         {user && 
           <div className="follow-container">

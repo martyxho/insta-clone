@@ -45,7 +45,7 @@ function FollowUser ({cUser, uid, refresh}) {
             <img className="userPic" src={user.profilePicUrl} alt='user profile pic'/>
           </div>
           <div className="follow_user_info">
-            <p>{user.name}</p>
+            <p className="follow_user_name">{user.name}</p>
           </div>
         </div>
         {user && uid !== cUser.uid && follow &&

@@ -1815,6 +1815,11 @@ p.plus-icon {
   gap: 15px;
 }
 
+.follow_user_name {
+  font-size: 20px;
+  font-weight: 700;
+}
+
 .follow-btn {
   width: 155px;
   height: 43px;
@@ -1844,45 +1849,34 @@ p.plus-icon {
   justify-content: space-between;
 }
 
-.active-header {
-  border-bottom: 1px solid black;
+.follow-tabs {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  height: 100%;
 }
 
-.follow-nav {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  display: grid;
-  grid-template-columns: max-content max-content 1fr;
-  align-items: center;
-  gap: 20px;
+.active-header {
+  border-bottom: 1px solid black;
 }
 
 .nav-div {
   height: 100%;
   display: flex;
   align-items: center;
-}
-
-.nav-div button {
-  height: 100%;
-}
-
-.follow-nav button {
-  border: none;
-  background: none;
   cursor: pointer;
-  font-size: large;
 }
 
+.nav-div>h3 {
+  color: var(--secondary-font-color);
+}
+
+.active-header>h3 {
+  color: var(--primary-font-color);
+}
 .follow-close {
-  width: 20px;
-  height: 20px;
-  position: absolute;
-  right: 10px;
-  border: none;
-  background: none;
-  font-size: large;
+  font-size: 22px;
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 850px){
@@ -1934,6 +1928,10 @@ p.plus-icon {
   .main-img-div {
     width: 340px;
     height: 340px;
+  }
+
+  .profile-imgContainer {
+    margin-bottom: -150px;
   }
 
   .profile-topSection {
@@ -1996,8 +1994,34 @@ p.plus-icon {
     grid-template-columns: 1fr;
   }
 
+  .profile-card {
+    width: 85vw;
+    height: 85vw;
+  }
+
   .follow-div {
     height: 90vh;
     width: 90vw;
+  }
+
+  .follow-btn {
+    width: 50%;
+    max-width: 150px;
+    height: 35px;
+    font-size: 14px;
+  }
+
+  .follow_user_name {
+    font-size: 16px;
+  }
+
+  .follow_avatar_container {
+    width: 40px;
+    height: 40px;
+  }
+
+  .followUser {
+    gap: 10px;
+    padding: 10px;
   }
 }

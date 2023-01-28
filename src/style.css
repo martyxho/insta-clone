@@ -133,9 +133,7 @@ img {
 
 .user-menu-inner {
   display: flex;
-  position: fixed;
   flex-direction: column;
-  top: 0;
   width: 100%;
   align-items: flex-start;
   justify-content: center;
@@ -2135,6 +2133,37 @@ p.plus-icon {
 
   .settings-bannerContainer, .settings-bannerOverlay {
     height: 200px;
+  }
+
+  .user-menu {
+    transform: translateY(-107px) translateX(-118px);
+  }
+
+  .user-menu::after { 
+    bottom: -16px;
+    left: 80%;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border: 8px solid transparent;
+    border-bottom: 8px solid var(--primary-transparent-color);
+    transform: rotateX(180deg);
+  }
+
+  .post-menu-containerOwn {
+    transform: translateX(-107px) translateY(-72px);
+    width: 140px;
+  }
+
+  .post-menu-container {
+    transform: translateX(-107px) translateY(-40px);
+    width: 140px;
+  }
+
+  .post-menu-inner::after {
+    left: 80%;
   }
 }
 

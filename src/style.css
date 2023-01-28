@@ -1514,8 +1514,6 @@ p.plus-icon {
 
 .settings-bannerOverlayContainer>.settings-fileInput {
   position: absolute;
-  width: 400px;
-  height: 144px;
   opacity: 0;
   z-index: -1;
 }
@@ -2115,6 +2113,28 @@ p.plus-icon {
 
   .post-sidebar-commentBox .comment-input::placeholder {
     font-size: 16px;
+  }
+
+  .settings {
+    padding: 0 0 54px;
+    overflow: hidden;
+    top: 0;
+    transform: none;
+  }
+
+  .settings-container {
+    width: 100vw;
+    height: 80vh;
+    border: none;
+    box-shadow: none;
+  }
+
+  .settings-bannerOverlay {
+    width: 100vw;
+  }
+
+  .settings-bannerContainer, .settings-bannerOverlay {
+    height: 200px;
   }
 }
 

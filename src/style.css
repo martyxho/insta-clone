@@ -896,12 +896,10 @@ p.plus-icon {
 .post-img-container {
   display: flex;
   overflow: hidden;
-  border-radius: 20px 0 0 20px;
 }
 
 .post-img {
   width: 35em;
-  height: 39.5em;
   object-fit: cover;
 }
 

@@ -1916,7 +1916,7 @@ p.plus-icon {
     display: flex;
     width: 95vw;
     height: calc(95vw + 256px);
-    margin: 0 0 10px;
+    margin: 0px 1px 10px 0;
     justify-content: center;
     border: var(--primary-border);
     position: relative;

@@ -36,7 +36,7 @@ function Home({ user, posts, refresh }) {
         <div className="home-inner">
           <div className="home-feed">
             { posts &&
-              posts.map(e => <Card post={e} refresh={refresh} cUser={user} /> )
+              posts.map(e => <Card key={e.postID} post={e} refresh={refresh} cUser={user} /> )
             }
           </div>
           <Sidebar openUpload={openUploadForm} user={user} openFollow={openFollow}/>

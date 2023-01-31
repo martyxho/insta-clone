@@ -271,10 +271,13 @@ async function addComment(postID, text) {
   try {
     const docRef = doc(db, 'posts', postID);
     const colRef = collection(db, 'posts', postID, 'comments');
-    await addDoc(colRef, {
+    const cmtRef = await addDoc(colRef, {
       uid: getAuth().currentUser.uid,
       text: text,
       timestamp: serverTimestamp()
+    });
+    await updateDoc(cmtRef, {
+      cmtID: cmtRef.id
     });
     await updateDoc(docRef, {
       commentCount: increment(1)

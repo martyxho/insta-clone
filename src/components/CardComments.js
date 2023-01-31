@@ -14,7 +14,7 @@ function CardComments({ postID, comments }) {
       </Link>
       <div className="cmts-container">
         {comments && 
-          comments.map(e => <CardComment uid={e.uid} text={e.text} />)
+          comments.map(e => <CardComment key={e.cmtID} uid={e.uid} text={e.text} />)
         }
       </div>
     </div>

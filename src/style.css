@@ -1914,18 +1914,22 @@ p.plus-icon {
 
   .card {
     display: flex;
-    width: 340px;
-    height: 590px;
-    margin: 0 0 4em;
+    width: 95vw;
+    height: calc(95vw + 256px);
+    margin: 0 0 10px;
     justify-content: center;
     border: var(--primary-border);
     position: relative;
-    border-radius: 16px;
+    border-radius: 0px;
+  }
+
+  .card-container {
+    border-radius: 0px;
   }
 
   .main-img-div {
-    width: 340px;
-    height: 340px;
+    width: 95vw;
+    height: 95vw;
   }
 
   .profile-imgContainer {

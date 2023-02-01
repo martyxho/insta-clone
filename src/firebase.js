@@ -33,6 +33,7 @@ import {
   ref, 
   uploadBytes,
   getDownloadURL,
+  deleteObject,
 } from "firebase/storage";
 
 // Your web app's Firebase configuration
@@ -192,7 +193,8 @@ async function uploadPost(file, text) {
     });
 
     // Upload the image to Cloud Storage.
-    const [fileSnapshot, imageUrl] = await uploadImgToCloud(file);
+    const filePath = `${getAuth().currentUser.uid}/${file.name}`;
+    const [fileSnapshot, imageUrl] = await uploadImgToCloud(file, filePath);
 
     // Update firestore doc with the image's URL.
     await updateDoc(postRef,{
@@ -211,10 +213,9 @@ async function uploadPost(file, text) {
   }
 } 
 
-async function uploadImgToCloud(file) {
+async function uploadImgToCloud(file, path) {
   //upload file to cloud storage
-  const filePath = `${getAuth().currentUser.uid}/${file.name}`;
-  const imageRef = ref(storage, filePath);
+  const imageRef = ref(storage, path);
   const fileSnapshot = await uploadBytes(imageRef, file);
 
   //generate public image url
@@ -232,24 +233,38 @@ async function updateProfile(name, bio) {
   });
 }
 
-async function updateProfileBanner(bannerFile) {
+async function updateProfileBanner(cUser, bannerFile) {
+
+  //delete current banner img from storage if not default
+  if (cUser.bannerStorageUri) {
+    await deleteObject(ref(storage, cUser.bannerStorageUri));
+  }
+
   //upload image to Cloud Storage
-  const [bannerSnapshot, bannerUrl] = await uploadImgToCloud(bannerFile);
+  const path = `${cUser.uid}/banner/${bannerFile.name}`
+  const [bannerSnapshot, bannerUrl] = await uploadImgToCloud(bannerFile, path);
 
   //update user doc
-  const userRef = doc(db, 'users', getAuth().currentUser.uid);
+  const userRef = doc(db, 'users', cUser.uid);
   await updateDoc(userRef, {
     bannerURL: bannerUrl,
     bannerStorageUri: bannerSnapshot.metadata.fullPath,
   });
 }
 
-async function updateProfilePic(picFile) {
+async function updateProfilePic(cUser, picFile) {
+
+  //delete current profile pic if not default
+  if (cUser.profilePicStorageUri) {
+    await deleteObject(ref(storage, cUser.profilePicStorageUri));
+  }
+
   //upload image to Cloud Storage
-  const [picSnapshot, picUrl] = await uploadImgToCloud(picFile);
+  const path = `${cUser.uid}/profile/${picFile.name}`
+  const [picSnapshot, picUrl] = await uploadImgToCloud(picFile, path);
 
   //update user doc
-  const userRef = doc(db, 'users', getAuth().currentUser.uid);
+  const userRef = doc(db, 'users', cUser.uid);
   await updateDoc(userRef, {
     profilePicUrl: picUrl,
     profilePicStorageUri: picSnapshot.metadata.fullPath,
@@ -345,13 +360,14 @@ async function getPostsFromIDArr(arr) {
   return posts;
 }
 
-async function deletePost(postID) {
-  const user = await getCurrentUserProfile();
+async function deletePost(cUser, postID) {
+  const post = await getPost(postID);
   await deleteDoc(doc(db, 'posts', postID));
-  const userRef = doc(db, 'users', user.uid);
+  const userRef = doc(db, 'users', cUser.uid);
   await updateDoc(userRef, {
     posts: arrayRemove(postID)
   });
+  await deleteObject(ref(storage, post.storageUri));
 }
 
 async function getUserPostsArr(userID, lim=false) {

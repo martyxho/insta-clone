@@ -5,7 +5,7 @@ function BannerInput({ user, refresh }) {
   async function handleBanner(e) {
     const bannerImg = e.target.files[0];
     if (bannerImg) {
-      await updateProfileBanner(bannerImg);
+      await updateProfileBanner(user, bannerImg);
       refresh();
     }
   }

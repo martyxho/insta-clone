@@ -14,7 +14,7 @@ function PostMenu ({ postID, uid, close, cUser }) {
 
   async function handleDelete() {
     close();
-    await deletePost(postID, uid);
+    await deletePost(cUser, postID);
     navigate('/profile/' + uid);
   }
 

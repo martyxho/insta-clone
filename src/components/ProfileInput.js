@@ -5,7 +5,7 @@ function ProfileInput({ user, refresh }) {
   async function handleInput(e) {
     const img = e.target.files[0];
     if (img) {
-      await updateProfilePic(img);
+      await updateProfilePic(user, img);
       refresh();
     }
   }

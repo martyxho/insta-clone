@@ -1,32 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getCurrentUser, updateLikes } from "../firebase";
+import { updateLikes } from "../firebase";
 
-function PostButtons ({ postID, likes, refresh, updateLikesCount }) {
+function PostButtons ({ cUser, postID, likes, refresh, updateLikesCount }) {
 
   const path = `/post/${postID}`;
   const [liked, setLiked] = useState(false);
-  const [user, setUser] = useState(getCurrentUser());
   
   useEffect(() => {
-    if (user) {
-      if (likes.includes(user.uid)) {
+    if (cUser) {
+      if (likes.includes(cUser.uid)) {
         setLiked(true);
       } else {
         setLiked(false);
       }
-    } 
-  },[likes, user]);
+    } else {
+      setLiked(false);
+    }
+  },[likes, cUser]);
 
   async function handleLike() {
-    if (user) {
-      if (likes.includes(user.uid)) {
-        const newLikes = likes.filter(e => e !== user.uid);
+    if (cUser) {
+      if (likes.includes(cUser.uid)) {
+        const newLikes = likes.filter(e => e !== cUser.uid);
         updateLikesCount(newLikes.length);
         setLiked(false);
         updateLikes(postID, newLikes);
       } else {
-        const newLikes = [...likes, user.uid];
+        const newLikes = [...likes, cUser.uid];
         updateLikesCount(newLikes.length);
         setLiked(true);
         updateLikes(postID, newLikes);

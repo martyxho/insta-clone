@@ -57,7 +57,7 @@ function PostSidebar({ post, refresh, cUser }) {
       <PostComments comments={comments}/>
       <div className="post-sidebar-footer">
         <div className="post-btns-container">
-          <PostButtons postID={postID} likes={likes} updateLikesCount={updateLikesCount} refresh={refresh} />
+          <PostButtons cUser={cUser} postID={postID} likes={likes} updateLikesCount={updateLikesCount} refresh={refresh} />
           <PostMenuOpen post={post} cUser={cUser} />
         </div>
         <div className="post-sidebar-infoContainer">

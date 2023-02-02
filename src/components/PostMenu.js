@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { deletePost } from "../firebase";
 
-function PostMenu ({ postID, uid, close, cUser }) {
-
+function PostMenu ({ post, close, cUser }) {
+  const {postID, uid} = post;
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -14,8 +14,8 @@ function PostMenu ({ postID, uid, close, cUser }) {
 
   async function handleDelete() {
     close();
-    await deletePost(cUser, postID);
-    navigate('/profile/' + uid);
+    await deletePost(cUser, post);
+    navigate('/profile/' + cUser.uid);
   }
 
   function copyLink() {

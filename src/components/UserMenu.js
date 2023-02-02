@@ -1,13 +1,22 @@
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signOutUser, handleLogin } from "../firebase";
 
 function UserMenu ({ user, close }) {
+  const navigate = useNavigate();
+
   useEffect(() => {
     window.addEventListener('click', close);
 
     return () => window.removeEventListener('click', close);
   });
+
+  async function loginClick() {
+    const login = await handleLogin();
+    if (!login) {
+      navigate('/sign-up');
+    }
+  }
 
   return (
     <div className="user-menu">
@@ -23,7 +32,7 @@ function UserMenu ({ user, close }) {
       }
       {!user &&
         <div className="user-menu-inner">
-          <div className="user-menu-option" onClick={handleLogin}>
+          <div className="user-menu-option" onClick={loginClick}>
             <p>Login</p>
           </div>
         </div>

@@ -92,8 +92,9 @@ async function handleLogin() {
   await signIn();
   if (await isNewUser()) {
     signOutUser();
-    window.location.reload();
+    return false;
   }
+  return true;
 }
 
 async function signUp(name) {
@@ -360,8 +361,8 @@ async function getPostsFromIDArr(arr) {
   return posts;
 }
 
-async function deletePost(cUser, postID) {
-  const post = await getPost(postID);
+async function deletePost(cUser, post) {
+  const {postID} = post;
   await deleteDoc(doc(db, 'posts', postID));
   const userRef = doc(db, 'users', cUser.uid);
   await updateDoc(userRef, {

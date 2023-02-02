@@ -1,8 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { handleLogin } from "../firebase";
 import SidebarNav from "./SidebarNav";
 
 function Sidebar ({ openUpload, openFollow, user }) {
+  const navigate = useNavigate();
+  
+  async function loginClick() {
+    const login = await handleLogin();
+    if (!login) {
+      navigate('/sign-up');
+    }
+  }
 
   return (
     <div className="home-sidebar">
@@ -10,7 +18,7 @@ function Sidebar ({ openUpload, openFollow, user }) {
         {!user &&
           <div className="home-sidebar-loginBtns">
             <Link to='/sign-up'><button className="home-login-signUp" >Sign Up</button></Link>
-            <button className="home-login-login" onClick={handleLogin}>Login</button>
+            <button className="home-login-login" onClick={loginClick}>Login</button>
           </div>
         }
         {user &&

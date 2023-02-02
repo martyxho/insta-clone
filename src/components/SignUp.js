@@ -18,9 +18,11 @@ function SignUp ({refresh}) {
     refresh();
   }
 
-  async function login() {
-    await handleLogin();
-    navigate('/');
+  async function loginClick() {
+    const login = await handleLogin();
+    if (login) {
+      navigate('/');
+    } 
   }
 
   return (
@@ -48,7 +50,7 @@ function SignUp ({refresh}) {
             <button type="submit" className="signUp-signUpBtn">Sign Up With Google</button>
           </form>
           <p className="signUp-or">Already signed up?</p>
-          <button className="signUp-loginBtn" type="button" onClick={login} >Login</button>
+          <button className="signUp-loginBtn" type="button" onClick={loginClick} >Login</button>
         </div>
       </div>
     </div>

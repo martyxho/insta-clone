@@ -58,7 +58,7 @@ function PostSidebar({ post, refresh, cUser }) {
       <div className="post-sidebar-footer">
         <div className="post-btns-container">
           <PostButtons postID={postID} likes={likes} updateLikesCount={updateLikesCount} refresh={refresh} />
-          <PostMenuOpen postID={postID} uid={uid} cUser={cUser} />
+          <PostMenuOpen post={post} cUser={cUser} />
         </div>
         <div className="post-sidebar-infoContainer">
           <Likes count={likesCount} className={'post-sidebar-likes'}/>

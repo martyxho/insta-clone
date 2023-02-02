@@ -98,9 +98,11 @@ async function handleLogin() {
 }
 
 async function signUp(name) {
-  await signIn();
-  if (await isNewUser()) {
-    await saveUser(name);
+  if (await checkUsernames(name)) {
+    await signIn();
+    if (await isNewUser()) {
+      await saveUser(name);
+    }
   }
 }
 
@@ -225,13 +227,45 @@ async function uploadImgToCloud(file, path) {
   return [fileSnapshot, imageUrl];
 }
 
-async function updateProfile(name, bio) {
-  //update user doc
-  const userRef = doc(db, 'users', getAuth().currentUser.uid);
-  await updateDoc(userRef, {
-    name: name,
-    bio: bio,
+async function updateProfile(name, bio, oldName) {
+  if (await checkUsernames(name)) {
+    //update user doc
+    const userRef = doc(db, 'users', getAuth().currentUser.uid);
+    await updateDoc(userRef, {
+      name: name,
+      bio: bio,
+    });
+
+    updateUsernames(name, oldName);
+  }
+}
+
+async function getUsernames() {
+  const docRef = doc(db, 'data', 'data');
+  const data = (await getDoc(docRef)).data();
+  const usernames = data.usernames;
+  return usernames;
+}
+
+async function checkUsernames(name) {
+  const usernames = await getUsernames();
+  if (usernames.includes(name)) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+async function updateUsernames(newName, oldName = null) {
+  const docRef = doc(db, 'data', 'data');
+  await updateDoc(docRef, {
+    usernames: arrayUnion(newName)
   });
+  if (oldName) {
+    await updateDoc(docRef, {
+      usernames: arrayRemove(oldName)
+    });
+  }
 }
 
 async function updateProfileBanner(cUser, bannerFile) {
@@ -517,4 +551,6 @@ export {
   unfollowUser,
   updateProfile, 
   updateProfileBanner, 
-  updateProfilePic };
+  updateProfilePic,
+  getUsernames,
+};

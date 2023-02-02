@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { updateProfile} from "../firebase";
+import { updateProfile, getUsernames} from "../firebase";
 import BannerInput from "./BannerInput";
 import ProfileInput from "./ProfileInput";
 
@@ -8,16 +8,23 @@ function Settings({ user, refresh }) {
 
   const [name, setName] = useState('');
   const [bio, setBio] = useState('');
+  const [usernames, setUsernames] = useState([]);
+  const [helper, setHelper] = useState(false);
 
   useEffect(() => {
+    async function setState() {
+      setUsernames(await getUsernames());
+    }
     if (user) {
       setName(user.name);
       setBio(user.bio);
     }
+    setState();
   }, [user]);
 
   function handleName(e) {
     setName(e.target.value);
+    setHelper(false);
   }
 
   function handleBio(e) {
@@ -26,7 +33,11 @@ function Settings({ user, refresh }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    updateProfile(name, bio);
+    if (usernames.includes(name)) {
+      setHelper(true);
+    } else {
+      updateProfile(name, bio, user.name);
+    }
   }
 
   return (
@@ -44,11 +55,18 @@ function Settings({ user, refresh }) {
           </div>
           <div className="settings-textInputs">
             <form className="settings-textForm">
-              <div className="settings-inputContainer">
+              <div className="settings-inputContainer settings-nameContainer">
                 <p>Display Name:</p>
                 <div className="settings-input">
                   <input autoComplete="off" name="displayName" className="settings-inputBoxDisplay" maxLength={25} minLength={3} type='text' value={name} onChange={handleName} />
                 </div>
+                {helper && 
+                  <div className="settings-helperDiv">
+                    <p className="settings-helper">
+                      Username is taken.
+                    </p>
+                  </div>
+                }
               </div>
               <div className="settings-inputContainer">
                 <p>Bio:</p>

@@ -595,7 +595,7 @@ p.plus-icon {
   margin-left: 8px;
 }
 
-.signUp-helperDiv {
+.signUp-helperDiv, .settings-helperDiv {
   display: flex;
   width: 240px;
   justify-content: flex-start;
@@ -606,6 +606,19 @@ p.plus-icon {
   margin-left: 16px;
   color: var(--secondary-font-color);
 }
+
+.red {
+  color: red;
+}
+
+.settings-helper {
+  font-size: 11px;
+  margin-top: 3px;
+  color: red;
+  margin-left: 24px;
+}
+
+
 
 .signUp-signUpBtn {
   padding: 0 32px;
@@ -1644,14 +1657,14 @@ p.plus-icon {
   height: 100%;
 }
 
+.settings-textForm {
+  gap: 2px;
+}
+
 .settings-textInputs {
   justify-content: center;
   color: var(--primary-font-color);
   margin-top: 32px;
-}
-
-.settings-textForm {
-  gap: 16px;
 }
 
 .settings-inputContainer {
@@ -1660,6 +1673,10 @@ p.plus-icon {
   flex-direction: column;
   align-items: center;
   text-align: center;
+}
+
+.settings-nameContainer {
+  height: 66px;
 }
 
 .settings-inputContainer>p {
@@ -1678,7 +1695,7 @@ p.plus-icon {
   align-items: center;
   border: var(--secondary-border);
   border-radius: 16px;
-  height: 32px;
+  height: 34px;
 }
 
 .settings-input>.settings-inputBoxDisplay {

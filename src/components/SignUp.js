@@ -1,21 +1,35 @@
-import React, { useState } from "react";
-import { signUp, handleLogin } from "../firebase";
+import React, { useState, useEffect } from "react";
+import { signUp, handleLogin, getUsernames } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import logo from '../assets/images/instagram-logo.png';
 
 function SignUp ({refresh}) {
   const navigate = useNavigate();
   const [value, setValue] = useState('');
+  const [usernames, setUsernames] = useState([]);
+  const [helper, setHelper] = useState(false);
+
+  useEffect(() => {
+    async function setState() {
+      setUsernames(await getUsernames());
+    }
+    setState();
+  });
 
   function handleChange(e) {
     setValue(e.target.value);
+    setHelper(false);
   }
 
   async function handleSignUp (e) {
     e.preventDefault();
-    await signUp(value);
-    navigate('/');
-    refresh();
+    if (usernames.includes(value)) {
+      setHelper(true);
+    } else {
+      await signUp(value);
+      navigate('/');
+      refresh();
+    }
   }
 
   async function loginClick() {
@@ -43,9 +57,16 @@ function SignUp ({refresh}) {
               <input required className="signUp-inputBox" maxLength={15} minLength={3} type='text' placeholder="username" value={value} onChange={handleChange} />
             </div>
             <div className="signUp-helperDiv">
-              <p className="signUp-helper">
-                Name must be 3-15 characters.
-              </p>
+              {helper && 
+                <p className="signUp-helper red">
+                  Username is taken.
+                </p>
+              }
+              {!helper &&
+                <p className="signUp-helper">
+                  Name must be 3-15 characters.
+                </p> 
+              }
             </div>
             <button type="submit" className="signUp-signUpBtn">Sign Up With Google</button>
           </form>

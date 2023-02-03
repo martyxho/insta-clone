@@ -102,6 +102,7 @@ async function signUp(name) {
     await signIn();
     if (await isNewUser()) {
       await saveUser(name);
+      await updateUsernames(name);
     }
   }
 }
@@ -258,6 +259,7 @@ async function checkUsernames(name) {
 
 async function updateUsernames(newName, oldName = null) {
   const docRef = doc(db, 'data', 'data');
+  console.log(newName);
   await updateDoc(docRef, {
     usernames: arrayUnion(newName)
   });

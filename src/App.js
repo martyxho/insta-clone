@@ -50,7 +50,7 @@ function App () {
 
   return (
     <div className="app">
-      <RouteSwitch posts={posts} refresh={refresh} user={user} />
+      <RouteSwitch posts={posts} refresh={refresh} user={user} updateUser={updateUser}/>
     </div>
   )
 }

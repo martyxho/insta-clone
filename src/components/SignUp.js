@@ -3,7 +3,7 @@ import { signUp, handleLogin, getUsernames } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import logo from '../assets/images/instagram-logo.png';
 
-function SignUp ({refresh}) {
+function SignUp ({updateUser}) {
   const navigate = useNavigate();
   const [value, setValue] = useState('');
   const [usernames, setUsernames] = useState([]);
@@ -27,8 +27,8 @@ function SignUp ({refresh}) {
       setHelper(true);
     } else {
       await signUp(value);
+      await updateUser(true);
       navigate('/');
-      refresh();
     }
   }
 

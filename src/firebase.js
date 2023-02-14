@@ -38,12 +38,12 @@ import {
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBWcDBOnbi6pY81oE2LGeiOVK6GxR9vV7I",
-  authDomain: "insta-clone-33a5b.firebaseapp.com",
-  projectId: "insta-clone-33a5b",
-  storageBucket: "insta-clone-33a5b.appspot.com",
-  messagingSenderId: "1031313346003",
-  appId: "1:1031313346003:web:b1a33ed6ce80a29c81b326"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID
 };
 
 function getProfilePicUrl() {
@@ -529,7 +529,7 @@ async function unfollowUser(uid) {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const storage = getStorage(app);
-// initFirebaseAuth();
+//initFirebaseAuth();
 
 export { 
   handleLogin, 

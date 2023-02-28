@@ -5,6 +5,7 @@ import { updateLikes } from "../firebase";
 function PostButtons ({ cUser, postID, likes, refresh, updateLikesCount }) {
 
   const path = `/post/${postID}`;
+  const [likesCopy, setLikesCopy] = useState(likes);
   const [liked, setLiked] = useState(false);
   
   useEffect(() => {
@@ -17,22 +18,23 @@ function PostButtons ({ cUser, postID, likes, refresh, updateLikesCount }) {
     } else {
       setLiked(false);
     }
-  },[likes, cUser]);
+  }, [likes, cUser]);
 
   async function handleLike() {
     if (cUser) {
-      if (likes.includes(cUser.uid)) {
-        const newLikes = likes.filter(e => e !== cUser.uid);
+      if (likesCopy.includes(cUser.uid)) {
+        const newLikes = likesCopy.filter(e => e !== cUser.uid);
+        setLikesCopy(newLikes);
         updateLikesCount(newLikes.length);
         setLiked(false);
         updateLikes(postID, newLikes);
       } else {
-        const newLikes = [...likes, cUser.uid];
+        const newLikes = [...likesCopy, cUser.uid];
+        setLikesCopy(newLikes);
         updateLikesCount(newLikes.length);
         setLiked(true);
         updateLikes(postID, newLikes);
       }
-      refresh();
     }
   }
 

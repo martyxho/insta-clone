@@ -2,7 +2,7 @@
 
 Clone of Instagram build with React, Javascript, CSS.
 
-Has full functionality for user accounts, creating posts, liking, commenting and following. 
+Has full functionality for user accounts, creating and deleting posts, liking, commenting and following. 
 
 Has a rudimentary algorithm for showing personalized feed with a mix of posts from followed users and most liked posts in the database.
 

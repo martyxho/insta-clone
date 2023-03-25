@@ -17,5 +17,5 @@ Includes routes to:
   
 Built from scratch using firebase and react docs.
 
-No tutorial followed.
+No tutorial.
   

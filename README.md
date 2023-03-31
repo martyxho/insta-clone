@@ -9,13 +9,13 @@ Has a rudimentary algorithm for showing personalized feed with a mix of posts fr
 Uses react router to enable client side routing.
 
 Includes routes to:
-  home feed
-  individual posts
-  user profile pages
-  sign up page
+  home feed,
+  individual posts,
+  user profile pages,
+  sign up page,
   edit profile page
   
-Built from scratch using firebase and react docs.
+No tutorial. Built from scratch using firebase and react docs.
 
-No tutorial.
+
   

@@ -1,6 +1,6 @@
 # insta-clone
 
-Clone of Instagram built with React, Javascript, CSS.
+Clone of Instagram built with React, Javascript, CSS, Firebase.
 
 Has full functionality for user accounts, creating and deleting posts, liking, commenting and following. 
 

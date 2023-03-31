@@ -13,7 +13,7 @@ Includes routes to:
   individual posts,
   user profile pages,
   sign up page,
-  edit profile page
+  edit profile page.
   
 No tutorial. Built from scratch using firebase and react docs.
 
